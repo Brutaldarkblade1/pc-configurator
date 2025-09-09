@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <title>PC konfigurátor - test validace</title>
+</head>
+<body>
+  <h1>Test: výběr a validace</h1>
+
+  <div>
+    <label>CPU:
+      <select id="cpu">
+        <option value="">-- vyber CPU --</option>
+      </select>
+    </label>
+  </div>
+
+  <div>
+    <label>Deska (MB):
+      <select id="mb">
+        <option value="">-- vyber desku --</option>
+      </select>
+    </label>
+  </div>
+
+  <div>
+    <label>RAM:
+      <select id="ram">
+        <option value="">-- vyber RAM --</option>
+      </select>
+    </label>
+  </div>
+
+  <br>
+  <button id="check">Zkontrolovat kompatibilitu</button>
+
+  <pre id="out" style="background:#f6f6f6; padding:10px; margin-top:15px;"></pre>
+
+  <script>
+    const API = "http://127.0.0.1:8001";
+
+    async function load(category, selectId) {
+      const res = await fetch(`${API}/products?category=${category}`);
+      const data = await res.json();
+      const sel = document.getElementById(selectId);
+      data.forEach(p => {
+        const opt = document.createElement("option");
+        opt.value = p.id;
+        opt.textContent = p.name;
+        sel.appendChild(opt);
+      });
+    }
+
+    // načti data do dropdownů
+    load("cpu", "cpu");
+    load("mb", "mb");
+    load("ram", "ram");
+
+    // klik na Zkontrolovat
+    document.getElementById("check").onclick = async () => {
+      const cpu_id = Number(document.getElementById("cpu").value) || null;
+      const mb_id  = Number(document.getElementById("mb").value)  || null;
+      const ram_id = Number(document.getElementById("ram").value) || null;
+
+      const res = await fetch(`${API}/build/validate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cpu_id, mb_id, ram_id })
+      });
+      const data = await res.json();
+
+      const out = document.getElementById("out");
+      if (!data.findings.length) {
+        out.textContent = "Vše v pořádku ✅";
+      } else {
+        out.textContent = data.findings.map(f => `• ${f.msg}`).join("\n");
+      }
+    };
+  </script>
+</body>
+</html>
