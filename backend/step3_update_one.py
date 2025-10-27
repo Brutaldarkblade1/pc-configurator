@@ -1,21 +1,17 @@
-#!/usr/bin/env python3
-# Krok 2: stáhne jednu URL (Chrome fingerprint přes curl_cffi) a vytáhne cenu
-# Použití:
-#   python step2_probe_price.py --url "https://..." --selector ".price-box__primary-price__value"
-#   python step2_probe_price.py --url "https://..." --debug
-
-import argparse, re, sys, time, random, decimal
+import argparse, re, sys, time, random, decimal, math
 from typing import List, Optional
+import psycopg2
 from bs4 import BeautifulSoup
 from curl_cffi import requests as crequests
 
-# --- Pomocné: normalizace textu (řeší NBSP a spol.) -------------------------
+DSN_DEFAULT = "dbname=pc_configurator user=postgres password=autodoprava host=localhost port=5432"
+
+# ---------- text → kandidáti cen ---------------------------------------------
 def normalize_spaces(s: str) -> str:
     if not s:
         return ""
     return s.replace("\u00A0", " ").replace("\u202F", " ").replace("\u2009", " ")
 
-# --- Extrakce kandidátů cen ---------------------------------------------------
 PRICE_PATTERN = re.compile(
     r"""
     (?:
@@ -31,8 +27,7 @@ def find_price_candidates(text: str) -> List[str]:
     if not text:
         return []
     t = normalize_spaces(text)
-    # Zahodíme české ",-" (např. "2 590,-") a měny
-    t = re.sub(r",\s*-\b", "", t)
+    t = re.sub(r",\s*-\b", "", t)  # "2 590,-" -> "2 590"
     t = re.sub(r"\b(Kč|CZK|EUR|€|\$)\b", "", t, flags=re.IGNORECASE)
     return PRICE_PATTERN.findall(t)
 
@@ -42,8 +37,6 @@ def normalize_candidate(s: str) -> Optional[decimal.Decimal]:
     raw = normalize_spaces(s).strip()
     raw = re.sub(r",\s*-\b", "", raw)
 
-    # Pozice poslední tečky/čárky – bereme ji jako desetinný oddělovač,
-    # ostatní tečky/mezery/apos jsou tisícovky a smažeme je.
     last_dot = raw.rfind(".")
     last_comma = raw.rfind(",")
     dec_pos = max(last_dot, last_comma)
@@ -51,29 +44,28 @@ def normalize_candidate(s: str) -> Optional[decimal.Decimal]:
     if dec_pos != -1 and len(raw) - dec_pos - 1 in (1, 2):
         int_part = re.sub(r"[ \.\u00A0\u202F\u2009']", "", raw[:dec_pos])
         dec_part = re.sub(r"[^\d]", "", raw[dec_pos+1:])
-        return decimal.Decimal(f"{int_part}.{dec_part}") if int_part else None
+        if not int_part:
+            return None
+        return decimal.Decimal(f"{int_part}.{dec_part}")
     else:
         int_only = re.sub(r"[ \.\u00A0\u202F\u2009',]", "", raw)
-        return decimal.Decimal(int_only) if int_only else None
+        if not int_only:
+            return None
+        return decimal.Decimal(int_only)
 
-def pick_best_price_from_text(text: str, debug=False) -> Optional[decimal.Decimal]:
+def pick_best_price_from_text(text: str) -> Optional[decimal.Decimal]:
     tokens = find_price_candidates(text)
     values: List[decimal.Decimal] = []
     for tok in tokens:
         val = normalize_candidate(tok)
         if val is not None:
             values.append(val)
-
-    if debug:
-        print("DEBUG candidates:", tokens, file=sys.stderr)
-        print("DEBUG normalized :", [str(v) for v in values], file=sys.stderr)
-
     if not values:
         return None
-    big = [v for v in values if v >= 100]  # preferuj „reálné“ ceny
+    big = [v for v in values if v >= 100]  # preferuj reálné ceny
     return max(big) if big else max(values)
 
-# --- HTML fetch přes curl_cffi (Chrome fingerprint) --------------------------
+# ---------- fetch HTML (curl_cffi s Chrome fingerprintem) ---------------------
 def get_html(url: str, referer: Optional[str] = None, retries: int = 3):
     sess = crequests.Session(impersonate="chrome")
     headers = {
@@ -103,34 +95,30 @@ def get_html(url: str, referer: Optional[str] = None, retries: int = 3):
     print(f"Nezískal jsem HTML (poslední stav: {getattr(last, 'status_code', last)})", file=sys.stderr)
     return None
 
-# --- Extrakce ceny z HTML -----------------------------------------------------
-def extract_price(html: str, selector: Optional[str], debug=False) -> Optional[decimal.Decimal]:
+# ---------- extrakce ceny z HTML ---------------------------------------------
+def extract_price(html: str, selector: Optional[str]) -> Optional[decimal.Decimal]:
     soup = BeautifulSoup(html, "lxml")
 
-    # 1) pokud dáš selektor, použijeme ho jako první
     if selector:
         el = soup.select_one(selector)
         if el:
-            price = pick_best_price_from_text(el.get_text(" ", strip=True), debug=debug)
+            price = pick_best_price_from_text(el.get_text(" ", strip=True))
             if price is not None:
                 return price
 
-    # 2) meta (og/product)
     meta = soup.find("meta", {"property": "product:price:amount"}) \
         or soup.find("meta", {"property": "og:price:amount"})
     if meta and meta.get("content"):
-        price = pick_best_price_from_text(meta["content"], debug=debug)
+        price = pick_best_price_from_text(meta["content"])
         if price is not None:
             return price
 
-    # 3) schema.org itemprop
     itemprop = soup.find(attrs={"itemprop": "price"})
     if itemprop:
-        price = pick_best_price_from_text(itemprop.get("content") or itemprop.get_text(" ", strip=True), debug=debug)
+        price = pick_best_price_from_text(itemprop.get("content") or itemprop.get_text(" ", strip=True))
         if price is not None:
             return price
 
-    # 4) fallback: libovolný element s "price" v class/id
     texts = []
     for el in soup.find_all(attrs={"class": re.compile("price", re.I)}):
         texts.append(el.get_text(" ", strip=True))
@@ -139,35 +127,87 @@ def extract_price(html: str, selector: Optional[str], debug=False) -> Optional[d
 
     best = None
     for t in texts:
-        v = pick_best_price_from_text(t, debug=debug)
+        v = pick_best_price_from_text(t)
         if v is not None:
             best = v if best is None else max(best, v)
     return best
 
-# --- CLI ----------------------------------------------------------------------
+# ---------- CLI & DB update ---------------------------------------------------
 def main():
-    ap = argparse.ArgumentParser(description="Vytáhne cenu z jedné URL (CZ formáty, Chrome fingerprint)")
-    ap.add_argument("--url", required=True)
+    ap = argparse.ArgumentParser(description="Update products.price (INT Kč) pro JEDNU URL")
+    ap.add_argument("--url", required=True, help="URL existující v products.url")
     ap.add_argument("--selector", help="CSS selektor ceny (např. .price-box__primary-price__value)")
     ap.add_argument("--referer", help="Volitelná hlavička Referer (např. https://www.domena.cz/)")
-    ap.add_argument("--debug", action="store_true", help="Vypíše kandidáty a normalizované hodnoty")
+    ap.add_argument("--dsn", default=DSN_DEFAULT, help="PostgreSQL DSN")
+    ap.add_argument("--dry-run", action="store_true", help="Jen vypíše, nezapíše do DB")
     args = ap.parse_args()
 
-    html = get_html(args.url, referer=args.referer)
-    if not html:
-        print("Cenu se nepodařilo zjistit (nezískal jsem HTML).", file=sys.stderr)
+    # 0) najdi řádek v DB podle URL
+    try:
+        conn = psycopg2.connect(args.dsn)
+    except Exception as e:
+        print("❌ Nelze se připojit do DB. Zkontroluj --dsn.", file=sys.stderr)
+        print(e, file=sys.stderr)
         sys.exit(1)
 
-    price = extract_price(html, args.selector, debug=args.debug)
-    if price is None:
-        print("Cenu se nepodařilo najít.", file=sys.stderr)
-        sys.exit(2)
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT id, price
+                FROM products
+                WHERE url = %s
+                LIMIT 1
+            """, (args.url,))
+            row = cur.fetchone()
 
-    # --- hezké vytištění bez vědecké notace a bez oříznutí celých čísel ---
-    val = format(price, "f")  # např. "10690" nebo "10690.50"
-    if "." in val:            # ořezávej nuly jen u desetinných čísel
-        val = val.rstrip("0").rstrip(".")
-    print(f"Nalezená cena: {val}")
+        if not row:
+            print("❌ V tabulce products neexistuje řádek s danou URL.")
+            conn.close()
+            sys.exit(2)
+
+        prod_id, old_price = row
+        print(f"Načteno: id={prod_id}, původní price={old_price}")
+
+        # 1) stáhni HTML a vytáhni cenu
+        html = get_html(args.url, referer=args.referer)
+        if not html:
+            print("❌ Cenu se nepodařilo zjistit (nezískal jsem HTML).", file=sys.stderr)
+            conn.close()
+            sys.exit(3)
+
+        dec_price = extract_price(html, args.selector)
+        if dec_price is None:
+            print("❌ Cenu se nepodařilo najít v HTML.", file=sys.stderr)
+            conn.close()
+            sys.exit(4)
+
+        # 2) převod na INTEGER Kč (zaokrouhlení na nejbližší celé)
+        # např. 10_690.00 -> 10690, 10_690.49 -> 10690, 10_690.50 -> 10691
+        new_price_int = int(decimal.Decimal(dec_price).to_integral_value(rounding=decimal.ROUND_HALF_UP))
+
+        print(f"Zjištěná cena (Kč): {new_price_int}")
+
+        # 3) porovnej a případně zapiš
+        if old_price is not None and int(old_price) == new_price_int:
+            print("🔹 Cena se nezměnila → žádný update.")
+            conn.close()
+            sys.exit(0)
+
+        if args.dry_run:
+            print("🧪 DRY-RUN: nezapisuji do DB.")
+            conn.close()
+            sys.exit(0)
+
+        with conn.cursor() as cur:
+            cur.execute(
+                "UPDATE products SET price = %s WHERE id = %s",
+                (new_price_int, prod_id)
+            )
+        conn.commit()
+        print("✅ Zapsáno do DB.")
+
+    finally:
+        conn.close()
 
 if __name__ == "__main__":
     main()
