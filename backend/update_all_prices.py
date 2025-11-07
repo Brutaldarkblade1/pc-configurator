@@ -12,7 +12,7 @@ import psycopg2
 from bs4 import BeautifulSoup
 from curl_cffi import requests as crequests
 
-DSN_DEFAULT = "dbname=pc_configurator user=postgres password=TVE_HESLO host=localhost port=5432"
+DSN_DEFAULT = "dbname=pc_configurator user=postgres password=autodoprava host=localhost port=5432"
 
 # Doména -> CSS selektor ceny (přidej si další dle potřeby)
 DOMAIN_SELECTORS = {
