@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Produkty</title>
+</head>
+<body>
+  <h1>Seznam produktů</h1>
+
+  <button id="load">Načíst produkty</button>
+
+  <ul id="products"></ul>
+
+  <script>
+    const button = document.getElementById('load');
+    const list = document.getElementById('products');
+
+    button.addEventListener('click', async () => {
+      list.innerHTML = 'Načítám...';
+
+      try {
+        const res = await fetch('http://localhost:8000/products?limit=10');
+        const data = await res.json();
+
+        list.innerHTML = '';
+
+        data.items.forEach(p => {
+          const li = document.createElement('li');
+
+          const imgSrc = p.image_url || 'https://via.placeholder.com/150?text=Bez+obrazku';
+
+          li.innerHTML = `
+            <div style="margin-bottom: 16px;">
+              <a href="product-detail.html?id=${p.id}">
+                <img src="${imgSrc}" alt="${p.name}" width="150" height="150">
+                <br>
+                <strong>${p.name}</strong>
+              </a>
+              <br> Kategorie: ${p.category}
+              <br> Cena: ${p.price ?? 'neznámá'} Kč
+            </div>
+          `;
+          list.appendChild(li);
+        });
+      } catch (err) {
+        console.error(err);
+        list.innerHTML = 'Chyba při načítání dat.';
+      }
+    });
+  </script>
+</body>
+</html>
