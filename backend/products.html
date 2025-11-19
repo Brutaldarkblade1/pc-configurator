@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Produkty</title>
+</head>
+<body>
+  <h1>Seznam produktů</h1>
+
+  <button id="load">Načíst produkty</button>
+
+  <ul id="products"></ul>
+
+  <script>
+    const button = document.getElementById('load');
+    const list = document.getElementById('products');
+
+    button.addEventListener('click', async () => {
+      list.innerHTML = 'Načítám...';
+
+      try {
+        const res = await fetch('http://localhost:8000/products?limit=20');
+        const data = await res.json();
+
+        list.innerHTML = '';
+
+        data.items.forEach(p => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <a href="product-detail.html?id=${p.id}">
+              <strong>${p.name}</strong>
+            </a>
+            <br>Kategorie: ${p.category}
+            <br>Cena: ${p.price ?? 'neznámá'} Kč
+          `;
+          list.appendChild(li);
+        });
+      } catch (err) {
+        console.error(err);
+        list.innerHTML = 'Chyba při načítání dat.';
+      }
+    });
+  </script>
+
+</body>
+</html>

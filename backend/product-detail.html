@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <title>Detail produktu</title>
+</head>
+<body>
+  <h1>Detail produktu</h1>
+
+  <div id="content">Načítám…</div>
+
+  <br>
+  <a href="products.html">← Zpět na seznam</a>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    const content = document.getElementById("content");
+
+    async function loadProduct() {
+      try {
+        const res = await fetch(`http://localhost:8000/products/${id}`);
+        const p = await res.json();
+
+        content.innerHTML = `
+          <h2>${p.name}</h2>
+          <p><strong>Cena:</strong> ${p.price ?? "neznámá"} Kč</p>
+          <p><strong>Kategorie:</strong> ${p.category}</p>
+          <p><strong>Značka:</strong> ${p.brand ?? "-"}</p>
+          <p><strong>Popis:</strong><br>${p.description ?? "Bez popisu"}</p>
+          <p><a href="${p.url}" target="_blank">Otevřít na e-shopu</a></p>
+        `;
+      } catch (err) {
+        content.innerHTML = "Chyba při načítání produktu.";
+      }
+    }
+
+    loadProduct();
+  </script>
+</body>
+</html>
