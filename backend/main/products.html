@@ -1,52 +1,60 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <title>Produkty</title>
+    <meta charset="UTF-8">
+    <title>Detail produktu</title>
 </head>
 <body>
-  <h1>Seznam produktů</h1>
+<a href="products.html">← Zpět na produkty</a>
 
-  <button id="load">Načíst produkty</button>
+<h1 id="title">Načítám...</h1>
 
-  <ul id="products"></ul>
+<div id="error" style="color: red;"></div>
+<div id="product"></div>
 
-  <script>
-    const button = document.getElementById('load');
-    const list = document.getElementById('products');
+<script>
+    function getIdFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("id");
+    }
 
-    button.addEventListener('click', async () => {
-      list.innerHTML = 'Načítám...';
+    async function loadProduct() {
+        const id = getIdFromUrl();
+        const error = document.getElementById("error");
+        const container = document.getElementById("product");
+        const title = document.getElementById("title");
 
-      try {
-        const res = await fetch('http://localhost:8000/products?limit=10');
-        const data = await res.json();
+        try {
+            const res = await fetch("http://localhost:8000/products");
 
-        list.innerHTML = '';
+            if (!res.ok) {
+                throw new Error("Server vrátil chybu: " + res.status);
+            }
 
-        data.items.forEach(p => {
-          const li = document.createElement('li');
+            const data = await res.json();
+            const p = data.find(item => item.id == id);
 
-          const imgSrc = p.image_url || 'https://via.placeholder.com/150?text=Bez+obrazku';
+            if (!p) {
+                title.textContent = "Produkt nenalezen";
+                return;
+            }
 
-          li.innerHTML = `
-            <div style="margin-bottom: 16px;">
-              <a href="product-detail.html?id=${p.id}">
-                <img src="${imgSrc}" alt="${p.name}" width="150" height="150">
-                <br>
-                <strong>${p.name}</strong>
-              </a>
-              <br> Kategorie: ${p.category}
-              <br> Cena: ${p.price ?? 'neznámá'} Kč
-            </div>
-          `;
-          list.appendChild(li);
-        });
-      } catch (err) {
-        console.error(err);
-        list.innerHTML = 'Chyba při načítání dat.';
-      }
-    });
-  </script>
+            title.textContent = p.name;
+
+            container.innerHTML = `
+                <p><strong>Cena:</strong> ${p.price ?? "?"} Kč</p>
+                <p><strong>Kategorie:</strong> ${p.category}</p>
+                <p><strong>Brand:</strong> ${p.brand ?? "—"}</p>
+                <p><strong>Popis:</strong> ${p.description ?? "—"}</p>
+                <p><strong>URL:</strong> <a href="${p.url}" target="_blank">${p.url}</a></p>
+            `;
+        } catch (e) {
+            console.error(e);
+            error.textContent = "Chyba při načítání detailu produktu.";
+        }
+    }
+
+    loadProduct();
+</script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+# models.py
 from sqlalchemy import Column, Integer, String, Text, DateTime
 from database import Base
 
@@ -15,4 +16,4 @@ class Product(Base):
     description = Column(Text)
     old_price = Column(Integer)
     updated_at = Column(DateTime(timezone=True))
-    image_url = Column(String(500))
+    image_url = Column(String(500))  # klidně tu může zůstat, jen ji nepošleme ven
