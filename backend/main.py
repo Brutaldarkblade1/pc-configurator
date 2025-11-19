@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:backend/main/main.py
 # main.py
 from fastapi import FastAPI, Depends
@@ -13,12 +14,15 @@ app = FastAPI()
 # vytvoření tabulek (pokud nejsou)
 Base.metadata.create_all(bind=engine)
 =======
+=======
+>>>>>>> parent of 29641c5 (napojeni backend a test obrazku)
 from pydantic import BaseModel
 from typing import Optional
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, Literal
+<<<<<<< HEAD
 >>>>>>> parent of 29641c5 (napojeni backend a test obrazku):backend/main.py
 
 # CORS – aby frontend na http://localhost:5173 (Vite) nebo 3000 (CRA) měl přístup
@@ -32,11 +36,24 @@ origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+=======
+
+app = FastAPI(title="PC Configurator API")
+
+# CORS: povolíme volání z frontendů (později použijeme Vite/Live Server)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5500", "http://localhost:5500",  # Live Server
+        "http://127.0.0.1:5173", "http://localhost:5173",  # Vite/React
+    ],
+>>>>>>> parent of 29641c5 (napojeni backend a test obrazku)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+<<<<<<< HEAD
 <<<<<<< HEAD:backend/main/main.py
 
 @app.get("/products", response_model=list[ProductOut])
@@ -49,6 +66,8 @@ def get_products(db: Session = Depends(get_db)):
     )
     return products
 =======
+=======
+>>>>>>> parent of 29641c5 (napojeni backend a test obrazku)
 # dočasná testovací data (místo databáze)
 PRODUCTS = [
     {"id": 1, "name": "AMD Ryzen 5 7600", "category": "cpu", "specs": {"socket": "AM5"}},
@@ -107,4 +126,7 @@ def validate_build(build: Build):
 
     return {"findings": findings}
 
+<<<<<<< HEAD
 >>>>>>> parent of 29641c5 (napojeni backend a test obrazku):backend/main.py
+=======
+>>>>>>> parent of 29641c5 (napojeni backend a test obrazku)
