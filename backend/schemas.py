@@ -1,8 +1,6 @@
-from datetime import datetime
+# schemas.py
 from typing import Optional, List
-
 from pydantic import BaseModel
-
 
 class ProductOut(BaseModel):
     id: int
@@ -10,14 +8,13 @@ class ProductOut(BaseModel):
     category: str
     brand: Optional[str] = None
     price: Optional[int] = None
+    old_price: Optional[int] = None      # ← přidáno
     source: Optional[str] = None
     url: Optional[str] = None
     description: Optional[str] = None
-    old_price: Optional[int] = None
-    updated_at: Optional[datetime] = None
 
     class Config:
-        orm_mode = True  # důležité pro převod z SQLAlchemy modelu
+        orm_mode = True
 
 
 class ProductListResponse(BaseModel):

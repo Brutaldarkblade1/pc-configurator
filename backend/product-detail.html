@@ -1,42 +1,229 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <title>Detail produktu</title>
+    <meta charset="UTF-8">
+    <title>Detail produktu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        #error {
+            color: red;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        #product-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        #product-image {
+            max-width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        #product-info h1 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: #007b00;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .price.unavailable {
+            color: #b00020;
+        }
+
+        .status {
+            color: #b00020;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .meta {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 4px;
+        }
+
+        .description {
+            margin-top: 15px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+    </style>
 </head>
 <body>
-  <h1>Detail produktu</h1>
 
-  <div id="content">Načítám…</div>
+<a href="products.html">← Zpět na produkty</a>
 
-  <br>
-  <a href="products.html">← Zpět na seznam</a>
+<div id="error"></div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
+<div id="product-container" style="display: none;">
+    <div id="img-holder"></div>
+    <div id="product-info">
+        <h1 id="product-name">Načítám...</h1>
+        <div id="product-status" class="status"></div>
+        <div id="product-price" class="price"></div>
+        <div id="product-category" class="meta"></div>
+        <div id="product-brand" class="meta"></div>
+        <div id="product-source" class="meta"></div>
+        <div id="product-link" class="meta"></div>
+        <div id="product-description" class="description"></div>
+    </div>
+</div>
 
-    const content = document.getElementById("content");
+<script>
+    const API_BASE = "http://127.0.0.1:8000";
+
+    function getIdFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("id");
+    }
 
     async function loadProduct() {
-      try {
-        const res = await fetch(`http://localhost:8000/products/${id}`);
-        const p = await res.json();
+        const id = getIdFromUrl();
+        const errorDiv = document.getElementById("error");
+        const container = document.getElementById("product-container");
+        const imgHolder = document.getElementById("img-holder");
 
-        content.innerHTML = `
-          <h2>${p.name}</h2>
-          <p><strong>Cena:</strong> ${p.price ?? "neznámá"} Kč</p>
-          <p><strong>Kategorie:</strong> ${p.category}</p>
-          <p><strong>Značka:</strong> ${p.brand ?? "-"}</p>
-          <p><strong>Popis:</strong><br>${p.description ?? "Bez popisu"}</p>
-          <p><a href="${p.url}" target="_blank">Otevřít na e-shopu</a></p>
-        `;
-      } catch (err) {
-        content.innerHTML = "Chyba při načítání produktu.";
-      }
+        if (!id) {
+            errorDiv.textContent = "Chybí ID produktu v URL.";
+            return;
+        }
+
+        try {
+            const res = await fetch(`${API_BASE}/products/${id}`);
+            if (!res.ok) {
+                throw new Error(`Chyba API: ${res.status} ${res.statusText}`);
+            }
+
+            const product = await res.json();
+
+            container.style.display = "grid";
+
+            // Obrázek + fallback
+            const img = document.createElement("img");
+            img.id = "product-image";
+
+            let triedPng = false;
+            let triedJpeg = false;
+            img.src = `${API_BASE}/img/${product.id}.jpg`;
+
+            img.onerror = function () {
+                if (!triedPng) {
+                    triedPng = true;
+                    this.src = `${API_BASE}/img/${product.id}.png`;
+                    return;
+                }
+                if (!triedJpeg) {
+                    triedJpeg = true;
+                    this.src = `${API_BASE}/img/${product.id}.jpeg`;
+                    return;
+                }
+
+                this.remove();
+                const fallback = document.createElement("div");
+                fallback.textContent = "Produkt již není dostupný";
+                fallback.style.padding = "40px 0";
+                fallback.style.textAlign = "center";
+                fallback.style.color = "#444";
+                imgHolder.appendChild(fallback);
+            };
+
+            imgHolder.appendChild(img);
+
+            // Titulek
+            document.getElementById("product-name").textContent = product.name ?? "Neznámý produkt";
+
+            // Status + cena
+            const statusEl = document.getElementById("product-status");
+            const priceEl = document.getElementById("product-price");
+
+            let priceText = "";
+
+            if (product.price === 1) {
+                statusEl.textContent = "Produkt již není dostupný";
+                priceEl.classList.add("unavailable");
+
+                if (product.old_price != null) {
+                    priceText = "Poslední známá cena: " + product.old_price + " Kč";
+                } else {
+                    priceText = "";
+                }
+            } else {
+                statusEl.textContent = "";
+                priceEl.classList.remove("unavailable");
+
+                if (product.price == null) {
+                    priceText = "Cena na dotaz";
+                } else {
+                    priceText = product.price + " Kč";
+                }
+            }
+
+            priceEl.textContent = priceText;
+
+            // Kategorie
+            const categoryEl = document.getElementById("product-category");
+            categoryEl.textContent = product.category ? `Kategorie: ${product.category}` : "";
+
+            // Značka
+            const brandEl = document.getElementById("product-brand");
+            brandEl.textContent = product.brand ? `Značka: ${product.brand}` : "";
+
+            // Zdroj
+            const sourceEl = document.getElementById("product-source");
+            sourceEl.textContent = product.source ? `Zdroj: ${product.source}` : "";
+
+            // Odkaz na e-shop
+            const linkEl = document.getElementById("product-link");
+            if (product.url) {
+                linkEl.innerHTML = `Otevřít na e-shopu:
+                    <a href="${product.url}" target="_blank" rel="noopener noreferrer">
+                        ${product.url}
+                    </a>`;
+            } else {
+                linkEl.textContent = "";
+            }
+
+            // Popis
+            const descEl = document.getElementById("product-description");
+            descEl.textContent = product.description ?? "";
+
+        } catch (err) {
+            console.error(err);
+            errorDiv.textContent = "Chyba při načítání detailu produktu. Zkontroluj, jestli běží backend.";
+        }
     }
 
     loadProduct();
-  </script>
+</script>
 </body>
 </html>

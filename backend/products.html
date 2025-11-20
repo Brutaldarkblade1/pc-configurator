@@ -1,46 +1,249 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <title>Produkty</title>
+    <meta charset="UTF-8">
+    <title>Produkty</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #error {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        #products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .product-card img {
+            max-width: 180px;
+            max-height: 180px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .product-price {
+            color: #007b00;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .product-price.unavailable {
+            color: #b00020;
+        }
+
+        .product-category {
+            font-size: 12px;
+            color: #666;
+        }
+
+        #pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        #pagination button {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background: white;
+            cursor: pointer;
+        }
+
+        #pagination button:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        #pageInfo {
+            font-size: 14px;
+            color: #444;
+        }
+    </style>
 </head>
 <body>
-  <h1>Seznam produktů</h1>
+<h1>Produkty</h1>
 
-  <button id="load">Načíst produkty</button>
+<div id="error"></div>
+<div id="products">Načítám produkty...</div>
 
-  <ul id="products"></ul>
+<div id="pagination">
+    <button id="prevBtn">Předchozí</button>
+    <span id="pageInfo"></span>
+    <button id="nextBtn">Další</button>
+</div>
 
-  <script>
-    const button = document.getElementById('load');
-    const list = document.getElementById('products');
+<script>
+    const API_BASE = "http://127.0.0.1:8000";
+    const PAGE_SIZE = 15;
 
-    button.addEventListener('click', async () => {
-      list.innerHTML = 'Načítám...';
+    let currentPage = 1;
+    let totalItems = 0;
 
-      try {
-        const res = await fetch('http://localhost:8000/products?limit=20');
-        const data = await res.json();
+    async function loadProducts(page = 1) {
+        const errorDiv = document.getElementById("error");
+        const container = document.getElementById("products");
 
-        list.innerHTML = '';
+        errorDiv.textContent = "";
+        container.textContent = "Načítám produkty...";
 
-        data.items.forEach(p => {
-          const li = document.createElement('li');
-          li.innerHTML = `
-            <a href="product-detail.html?id=${p.id}">
-              <strong>${p.name}</strong>
-            </a>
-            <br>Kategorie: ${p.category}
-            <br>Cena: ${p.price ?? 'neznámá'} Kč
-          `;
-          list.appendChild(li);
-        });
-      } catch (err) {
-        console.error(err);
-        list.innerHTML = 'Chyba při načítání dat.';
-      }
+        const offset = (page - 1) * PAGE_SIZE;
+
+        try {
+            const res = await fetch(`${API_BASE}/products?limit=${PAGE_SIZE}&offset=${offset}`);
+            if (!res.ok) {
+                throw new Error(`Chyba API: ${res.status} ${res.statusText}`);
+            }
+
+            const data = await res.json();
+            const products = data.items ?? [];
+            totalItems = data.total ?? 0;
+
+            container.innerHTML = "";
+
+            products.forEach(product => {
+                const card = document.createElement("div");
+                card.className = "product-card";
+
+                // Obrázek + fallback
+                const img = document.createElement("img");
+                let triedPng = false;
+                let triedJpeg = false;
+
+                img.src = `${API_BASE}/img/${product.id}.jpg`;
+
+                img.onerror = function () {
+                    if (!triedPng) {
+                        triedPng = true;
+                        this.src = `${API_BASE}/img/${product.id}.png`;
+                        return;
+                    }
+                    if (!triedJpeg) {
+                        triedJpeg = true;
+                        this.src = `${API_BASE}/img/${product.id}.jpeg`;
+                        return;
+                    }
+
+                    this.remove();
+                    const fallback = document.createElement("div");
+                    fallback.textContent = "Produkt již není dostupný";
+                    fallback.style.color = "#555";
+                    fallback.style.fontSize = "12px";
+                    fallback.style.padding = "20px 0";
+                    card.insertBefore(fallback, card.firstChild);
+                };
+
+                const nameEl = document.createElement("div");
+                nameEl.className = "product-name";
+                nameEl.textContent = product.name;
+
+                const priceEl = document.createElement("div");
+                priceEl.className = "product-price";
+
+                if (product.price === 1) {
+                    priceEl.classList.add("unavailable");
+                    if (product.old_price != null) {
+                        priceEl.textContent = "Produkt již není dostupný (poslední známá cena: " +
+                            product.old_price + " Kč)";
+                    } else {
+                        priceEl.textContent = "Produkt již není dostupný";
+                    }
+                } else if (product.price == null) {
+                    priceEl.textContent = "Cena na dotaz";
+                } else {
+                    priceEl.textContent = product.price + " Kč";
+                }
+
+                const categoryEl = document.createElement("div");
+                categoryEl.className = "product-category";
+                categoryEl.textContent = product.category ?? "";
+
+                card.addEventListener("click", () => {
+                    window.location.href = `product-detail.html?id=${product.id}`;
+                });
+
+                card.appendChild(img);
+                card.appendChild(nameEl);
+                card.appendChild(priceEl);
+                card.appendChild(categoryEl);
+
+                container.appendChild(card);
+            });
+
+            updatePagination(page);
+
+        } catch (err) {
+            console.error(err);
+            container.textContent = "";
+            errorDiv.textContent = "Chyba při načítání produktů. Zkontroluj, jestli běží backend.";
+        }
+    }
+
+    function updatePagination(page) {
+        currentPage = page;
+
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const pageInfo = document.getElementById("pageInfo");
+
+        const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
+
+        pageInfo.textContent = `Stránka ${currentPage} / ${totalPages}`;
+
+        prevBtn.disabled = currentPage <= 1;
+        nextBtn.disabled = currentPage >= totalPages;
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+        if (currentPage > 1) loadProducts(currentPage - 1);
     });
-  </script>
 
+    document.getElementById("nextBtn").addEventListener("click", () => {
+        const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
+        if (currentPage < totalPages) loadProducts(currentPage + 1);
+    });
+
+    loadProducts(1);
+</script>
 </body>
 </html>
