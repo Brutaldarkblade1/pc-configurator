@@ -23,6 +23,21 @@
             margin-bottom: 10px;
         }
 
+        /* Layout hlavní + sidebar */
+        .layout {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        main {
+            flex: 1 1 auto;
+        }
+
+        aside {
+            flex: 0 0 260px;
+        }
+
         #product-container {
             background: white;
             border-radius: 8px;
@@ -77,34 +92,223 @@
             font-size: 14px;
             line-height: 1.4;
         }
+
+        #add-to-build {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 20px;
+            border: none;
+            background: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+
+        #add-to-build:hover {
+            background: #218838;
+        }
+
+        /* Sidebar – sestava */
+        #build-sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #build-sidebar h2 {
+            font-size: 16px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        #build-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+            font-size: 13px;
+        }
+
+        #build-list li {
+            padding: 6px 4px;
+            border-bottom: 1px solid #eee;
+        }
+
+        #build-empty {
+            font-size: 13px;
+            color: #777;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            aside {
+                flex: 1 1 auto;
+                width: 100%;
+                order: 2;
+            }
+
+            #product-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
 
 <a href="products.html">← Zpět na produkty</a>
 
-<div id="error"></div>
+<div class="layout">
+    <main>
+        <div id="error"></div>
 
-<div id="product-container" style="display: none;">
-    <div id="img-holder"></div>
-    <div id="product-info">
-        <h1 id="product-name">Načítám...</h1>
-        <div id="product-status" class="status"></div>
-        <div id="product-price" class="price"></div>
-        <div id="product-category" class="meta"></div>
-        <div id="product-brand" class="meta"></div>
-        <div id="product-source" class="meta"></div>
-        <div id="product-link" class="meta"></div>
-        <div id="product-description" class="description"></div>
-    </div>
+        <div id="product-container" style="display: none;">
+            <div id="img-holder"></div>
+            <div id="product-info">
+                <h1 id="product-name">Načítám...</h1>
+
+                <button id="add-to-build">Přidat do sestavy</button>
+
+                <div id="product-status" class="status"></div>
+                <div id="product-price" class="price"></div>
+                <div id="product-category" class="meta"></div>
+                <div id="product-brand" class="meta"></div>
+                <div id="product-source" class="meta"></div>
+                <div id="product-link" class="meta"></div>
+                <div id="product-description" class="description"></div>
+            </div>
+        </div>
+    </main>
+
+    <aside id="build-sidebar">
+        <h2>Tvoje sestava</h2>
+        <p id="build-empty">Zatím nic vybráno.</p>
+        <ul id="build-list"></ul>
+    </aside>
 </div>
 
 <script>
     const API_BASE = "http://127.0.0.1:8000";
+    const BUILD_KEY = "pc_build_v2";
+
+    const CATEGORY_LABELS = {
+        cpu: "Procesory",
+        mb: "Základní desky",
+        gpu: "Grafické karty",
+        ram: "Operační paměť",
+        psu: "Zdroj",
+        case: "Skříně",
+        ssd: "SSD disky",
+        hdd: "HDD disky",
+        cooler: "Chlazení",
+        monitor: "Monitory"
+    };
+
+    const CATEGORY_ORDER = [
+        "cpu",
+        "mb",
+        "ram",
+        "gpu",
+        "ssd",
+        "hdd",
+        "psu",
+        "case",
+        "cooler",
+        "monitor"
+    ];
+
+    function getCategoryLabel(cat) {
+        if (!cat) return "Neznámá kategorie";
+        const key = String(cat).toLowerCase();
+        if (CATEGORY_LABELS[key]) return CATEGORY_LABELS[key];
+        return key.charAt(0).toUpperCase() + key.slice(1);
+    }
+
+    function sortCategories(cats) {
+        return cats.slice().sort((a, b) => {
+            const ak = String(a).toLowerCase();
+            const bk = String(b).toLowerCase();
+            const ai = CATEGORY_ORDER.indexOf(ak);
+            const bi = CATEGORY_ORDER.indexOf(bk);
+
+            if (ai !== -1 && bi !== -1) return ai - bi;
+            if (ai !== -1) return -1;
+            if (bi !== -1) return 1;
+
+            return getCategoryLabel(ak).localeCompare(getCategoryLabel(bk), "cs");
+        });
+    }
 
     function getIdFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return params.get("id");
+    }
+
+    function loadBuildItems() {
+        try {
+            const raw = localStorage.getItem(BUILD_KEY);
+            if (!raw) return {};
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+                return parsed;
+            }
+            return {};
+        } catch (e) {
+            console.error("Chyba při čtení sestavy:", e);
+            return {};
+        }
+    }
+
+    function saveBuildItems(itemsObj) {
+        localStorage.setItem(BUILD_KEY, JSON.stringify(itemsObj));
+    }
+
+    function renderBuildSidebar() {
+        const listEl = document.getElementById("build-list");
+        const emptyEl = document.getElementById("build-empty");
+        if (!listEl || !emptyEl) return;
+
+        const items = loadBuildItems();
+        const cats = Object.keys(items);
+
+        listEl.innerHTML = "";
+
+        if (cats.length === 0) {
+            emptyEl.style.display = "block";
+            return;
+        }
+
+        emptyEl.style.display = "none";
+
+        const sortedCats = sortCategories(cats);
+
+        sortedCats.forEach(cat => {
+            const item = items[cat];
+            if (!item) return;
+
+            const li = document.createElement("li");
+            const label = getCategoryLabel(cat);
+            const name = item.name || "Neznámý produkt";
+            li.textContent = label + " – " + name;
+            listEl.appendChild(li);
+        });
+    }
+
+    function addProductToBuild(product) {
+        const catKey = product.category ? String(product.category).toLowerCase() : "other";
+        const items = loadBuildItems();
+        items[catKey] = {
+            id: product.id,
+            name: product.name,
+            category: catKey
+        };
+        saveBuildItems(items);
+        renderBuildSidebar();
     }
 
     async function loadProduct() {
@@ -119,32 +323,31 @@
         }
 
         try {
-            const res = await fetch(`${API_BASE}/products/${id}`);
+            const res = await fetch(API_BASE + "/products/" + id);
             if (!res.ok) {
-                throw new Error(`Chyba API: ${res.status} ${res.statusText}`);
+                throw new Error("Chyba API: " + res.status + " " + res.statusText);
             }
 
             const product = await res.json();
 
             container.style.display = "grid";
 
-            // Obrázek + fallback
             const img = document.createElement("img");
             img.id = "product-image";
 
             let triedPng = false;
             let triedJpeg = false;
-            img.src = `${API_BASE}/img/${product.id}.jpg`;
+            img.src = API_BASE + "/img/" + product.id + ".jpg";
 
             img.onerror = function () {
                 if (!triedPng) {
                     triedPng = true;
-                    this.src = `${API_BASE}/img/${product.id}.png`;
+                    this.src = API_BASE + "/img/" + product.id + ".png";
                     return;
                 }
                 if (!triedJpeg) {
                     triedJpeg = true;
-                    this.src = `${API_BASE}/img/${product.id}.jpeg`;
+                    this.src = API_BASE + "/img/" + product.id + ".jpeg";
                     return;
                 }
 
@@ -159,10 +362,9 @@
 
             imgHolder.appendChild(img);
 
-            // Titulek
-            document.getElementById("product-name").textContent = product.name ?? "Neznámý produkt";
+            document.getElementById("product-name").textContent =
+                product.name || "Neznámý produkt";
 
-            // Status + cena
             const statusEl = document.getElementById("product-status");
             const priceEl = document.getElementById("product-price");
 
@@ -190,39 +392,44 @@
 
             priceEl.textContent = priceText;
 
-            // Kategorie
             const categoryEl = document.getElementById("product-category");
-            categoryEl.textContent = product.category ? `Kategorie: ${product.category}` : "";
+            categoryEl.textContent = product.category
+                ? "Kategorie: " + getCategoryLabel(product.category)
+                : "";
 
-            // Značka
             const brandEl = document.getElementById("product-brand");
-            brandEl.textContent = product.brand ? `Značka: ${product.brand}` : "";
+            brandEl.textContent = product.brand ? "Značka: " + product.brand : "";
 
-            // Zdroj
             const sourceEl = document.getElementById("product-source");
-            sourceEl.textContent = product.source ? `Zdroj: ${product.source}` : "";
+            sourceEl.textContent = product.source ? "Zdroj: " + product.source : "";
 
-            // Odkaz na e-shop
             const linkEl = document.getElementById("product-link");
             if (product.url) {
-                linkEl.innerHTML = `Otevřít na e-shopu:
-                    <a href="${product.url}" target="_blank" rel="noopener noreferrer">
-                        ${product.url}
-                    </a>`;
+                linkEl.innerHTML =
+                    'Otevřít na e-shopu: <a href="' +
+                    product.url +
+                    '" target="_blank" rel="noopener noreferrer">' +
+                    product.url +
+                    "</a>";
             } else {
                 linkEl.textContent = "";
             }
 
-            // Popis
             const descEl = document.getElementById("product-description");
-            descEl.textContent = product.description ?? "";
+            descEl.textContent = product.description || "";
 
+            const addBtn = document.getElementById("add-to-build");
+            addBtn.addEventListener("click", () => {
+                addProductToBuild(product);
+            });
         } catch (err) {
             console.error(err);
-            errorDiv.textContent = "Chyba při načítání detailu produktu. Zkontroluj, jestli běží backend.";
+            errorDiv.textContent =
+                "Chyba při načítání detailu produktu. Zkontroluj, jestli běží backend.";
         }
     }
 
+    renderBuildSidebar();
     loadProduct();
 </script>
 </body>
