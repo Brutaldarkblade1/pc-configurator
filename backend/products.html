@@ -13,7 +13,7 @@
         }
 
         h1 {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-align: center;
         }
 
@@ -21,6 +21,32 @@
             color: red;
             margin-bottom: 10px;
             text-align: center;
+        }
+
+        /* Top bar: search + sort */
+        .top-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        #searchBox {
+            padding: 8px 14px;
+            width: 260px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        #sortSelect {
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
         }
 
         /* Layout: hlavní obsah + sidebar */
@@ -167,6 +193,10 @@
         #build-list li {
             padding: 6px 4px;
             border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
         }
 
         #build-empty {
@@ -175,7 +205,20 @@
             text-align: center;
         }
 
-        /* Responzivita – na mobilu sidebar pod obsahem */
+        .build-remove-btn {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            color: #b00020;
+        }
+
+        .build-remove-btn:hover {
+            font-weight: bold;
+        }
+
+        /* Mobil */
         @media (max-width: 768px) {
             .layout {
                 flex-direction: column;
@@ -184,17 +227,27 @@
             aside {
                 flex: 1 1 auto;
                 width: 100%;
-                order: 2; /* sestava pod produkty, když chceš nahoru, dej -1 */
+                order: 2;
             }
         }
     </style>
 </head>
 <body>
+
 <h1>Produkty</h1>
+
+<div class="top-bar">
+    <input id="searchBox" type="text" placeholder="Hledat produkt..." />
+    <select id="sortSelect">
+        <option value="none">Řazení: výchozí</option>
+        <option value="price_asc">Cena od nejlevnější</option>
+        <option value="price_desc">Cena od nejdražší</option>
+    </select>
+</div>
 
 <div class="layout">
     <main>
-        <!-- KATEGORIE – doplní se dynamicky z DB -->
+
         <div id="categoryBar"></div>
 
         <div id="error"></div>
@@ -205,6 +258,7 @@
             <span id="pageInfo"></span>
             <button id="nextBtn">Další</button>
         </div>
+
     </main>
 
     <aside id="build-sidebar">
@@ -218,7 +272,9 @@
     const API_BASE = "http://127.0.0.1:8000";
     const PAGE_SIZE = 15;
 
-    // mapování kódů kategorií na hezké názvy
+    const VIEW_STATE_KEY = "products_view_state_v1";
+    const BUILD_KEY = "pc_build_v2";
+
     const CATEGORY_LABELS = {
         cpu: "Procesory",
         mb: "Základní desky",
@@ -228,36 +284,62 @@
         case: "Skříně",
         ssd: "SSD disky",
         hdd: "HDD disky",
+        storage: "Storage",
         cooler: "Chlazení",
         monitor: "Monitory"
     };
 
-    // pořadí kategorií v sestavě / liště
     const CATEGORY_ORDER = [
-        "cpu",
-        "mb",
-        "ram",
-        "gpu",
-        "ssd",
-        "hdd",
-        "psu",
-        "case",
-        "cooler",
-        "monitor"
+        "cpu","mb","ram","gpu","ssd","hdd","storage","psu","case","cooler","monitor"
     ];
+
+    // ====== VIEW STATE (pro návrat "zpět") ======
+    function loadViewState() {
+        try {
+            const raw = localStorage.getItem(VIEW_STATE_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch {
+            return null;
+        }
+    }
+
+    function saveViewState() {
+        const state = {
+            selectedCategory,
+            searchQuery,
+            sortMode,
+            currentPage,
+            scrollY: window.scrollY || 0
+        };
+        localStorage.setItem(VIEW_STATE_KEY, JSON.stringify(state));
+    }
+
+    // ====== Multi kategorie (víc kusů) ======
+    function isMultiCategory(catKey) {
+        const key = String(catKey || "").toLowerCase();
+
+        if (["ssd", "hdd", "storage", "ram"].includes(key)) return true;
+        if (key.includes("ssd")) return true;
+        if (key.includes("hdd")) return true;
+        if (key.includes("disk")) return true;
+        if (key.includes("ulož") || key.includes("uloz")) return true;
+        if (key.includes("storage")) return true;
+        if (key.includes("ram")) return true;
+        if (key.includes("paměť") || key.includes("pamet")) return true;
+
+        return false;
+    }
 
     function getCategoryLabel(cat) {
         if (!cat) return "Neznámá kategorie";
         const key = String(cat).toLowerCase();
-        if (CATEGORY_LABELS[key]) return CATEGORY_LABELS[key];
-        // default: první písmeno velké
-        return key.charAt(0).toUpperCase() + key.slice(1);
+        return CATEGORY_LABELS[key] || key.charAt(0).toUpperCase() + key.slice(1);
     }
 
     function sortCategories(cats) {
         return cats.slice().sort((a, b) => {
-            const ak = String(a).toLowerCase();
-            const bk = String(b).toLowerCase();
+            const ak = a.toLowerCase();
+            const bk = b.toLowerCase();
             const ai = CATEGORY_ORDER.indexOf(ak);
             const bi = CATEGORY_ORDER.indexOf(bk);
 
@@ -265,95 +347,323 @@
             if (ai !== -1) return -1;
             if (bi !== -1) return 1;
 
-            return getCategoryLabel(ak).localeCompare(getCategoryLabel(bk), "cs");
+            return ak.localeCompare(bk, "cs");
         });
     }
 
-    // ====== Sestava – 1 produkt na kategorii ======
-    const BUILD_KEY = "pc_build_v2";
-
+    // ====== BUILD – pole položek ======
     function loadBuildItems() {
         try {
             const raw = localStorage.getItem(BUILD_KEY);
-            if (!raw) return {};
+            if (!raw) return [];
             const parsed = JSON.parse(raw);
-            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
-                return parsed;
+
+            if (Array.isArray(parsed)) return parsed;
+
+            if (parsed && typeof parsed === "object") {
+                const arr = [];
+                for (const [cat, value] of Object.entries(parsed)) {
+                    if (Array.isArray(value)) {
+                        value.forEach(v => {
+                            if (!v) return;
+                            arr.push({
+                                id: v.id,
+                                name: v.name,
+                                category: v.category || cat
+                            });
+                        });
+                    } else if (value) {
+                        arr.push({
+                            id: value.id,
+                            name: value.name,
+                            category: value.category || cat
+                        });
+                    }
+                }
+                return arr;
             }
-            return {};
-        } catch (e) {
-            console.error("Chyba při čtení sestavy:", e);
-            return {};
+
+            return [];
+        } catch {
+            return [];
         }
     }
 
-    function saveBuildItems(itemsObj) {
-        localStorage.setItem(BUILD_KEY, JSON.stringify(itemsObj));
+    function saveBuildItems(itemsArr) {
+        localStorage.setItem(BUILD_KEY, JSON.stringify(itemsArr));
     }
 
     function renderBuildSidebar() {
-        const listEl = document.getElementById("build-list");
-        const emptyEl = document.getElementById("build-empty");
-        if (!listEl || !emptyEl) return;
-
+        const list = document.getElementById("build-list");
+        const empty = document.getElementById("build-empty");
         const items = loadBuildItems();
-        const cats = Object.keys(items);
 
-        listEl.innerHTML = "";
+        list.innerHTML = "";
 
-        if (cats.length === 0) {
-            emptyEl.style.display = "block";
+        if (items.length === 0) {
+            empty.style.display = "block";
             return;
         }
+        empty.style.display = "none";
 
-        emptyEl.style.display = "none";
+        const sorted = items.slice().sort((a, b) => {
+            const ak = String(a.category || "other").toLowerCase();
+            const bk = String(b.category || "other").toLowerCase();
+            const ai = CATEGORY_ORDER.indexOf(ak);
+            const bi = CATEGORY_ORDER.indexOf(bk);
 
-        const sortedCats = sortCategories(cats);
+            if (ai !== -1 && bi !== -1 && ai !== bi) return ai - bi;
+            if (ai !== -1 && bi === -1) return -1;
+            if (ai === -1 && bi !== -1) return 1;
 
-        sortedCats.forEach(cat => {
-            const item = items[cat];
-            if (!item) return;
+            const labelA = getCategoryLabel(ak);
+            const labelB = getCategoryLabel(bk);
+            if (labelA !== labelB) {
+                return labelA.localeCompare(labelB, "cs");
+            }
 
+            const nameA = (a.name || "").toLowerCase();
+            const nameB = (b.name || "").toLowerCase();
+            return nameA.localeCompare(nameB, "cs");
+        });
+
+        sorted.forEach(item => {
             const li = document.createElement("li");
-            const label = getCategoryLabel(cat);
-            const name = item.name || "Neznámý produkt";
-            li.textContent = label + " – " + name;
-            listEl.appendChild(li);
+
+            const span = document.createElement("span");
+            span.textContent = getCategoryLabel(item.category) + " – " + item.name;
+
+            const remove = document.createElement("button");
+            remove.className = "build-remove-btn";
+            remove.textContent = "×";
+
+            remove.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const now = loadBuildItems();
+                const filtered = now.filter(it => it.id !== item.id);
+                saveBuildItems(filtered);
+                renderBuildSidebar();
+                saveViewState();
+            });
+
+            li.appendChild(span);
+            li.appendChild(remove);
+            list.appendChild(li);
         });
     }
 
     function addProductToBuild(product) {
         const catKey = product.category ? String(product.category).toLowerCase() : "other";
         const items = loadBuildItems();
-        items[catKey] = {
+        const multi = isMultiCategory(catKey);
+
+        const newItem = {
             id: product.id,
             name: product.name,
             category: catKey
         };
-        saveBuildItems(items);
+
+        let updated;
+
+        if (multi) {
+            const exists = items.some(it => it.id === newItem.id);
+            if (exists) {
+                updated = items;
+            } else {
+                updated = [...items, newItem];
+            }
+        } else {
+            updated = items.filter(it => {
+                const itsCat = String(it.category || "other").toLowerCase();
+                return itsCat !== catKey;
+            });
+            updated.push(newItem);
+        }
+
+        saveBuildItems(updated);
         renderBuildSidebar();
+        saveViewState();
     }
 
-    // ====== Produkty z API ======
+    function renderProductCard(product, container) {
+        const card = document.createElement("div");
+        card.className = "product-card";
+
+        const img = document.createElement("img");
+        let triedPng = false, triedJpeg = false;
+
+        img.src = API_BASE + "/img/" + product.id + ".jpg";
+        img.onerror = function () {
+            if (!triedPng) {
+                triedPng = true;
+                this.src = API_BASE + "/img/" + product.id + ".png";
+                return;
+            }
+            if (!triedJpeg) {
+                triedJpeg = true;
+                this.src = API_BASE + "/img/" + product.id + ".jpeg";
+                return;
+            }
+            this.remove();
+        };
+
+        const name = document.createElement("div");
+        name.className = "product-name";
+        name.textContent = product.name || "";
+
+        const price = document.createElement("div");
+        price.className = "product-price";
+        if (product.price === 1) {
+            price.classList.add("unavailable");
+            if (product.old_price != null) {
+                price.textContent = "Produkt již není dostupný (poslední známá cena: " + product.old_price + " Kč)";
+            } else {
+                price.textContent = "Produkt již není dostupný";
+            }
+        } else if (product.price == null) {
+            price.textContent = "Cena na dotaz";
+        } else {
+            price.textContent = product.price + " Kč";
+        }
+
+        const cat = document.createElement("div");
+        cat.className = "product-category";
+        cat.textContent = getCategoryLabel(product.category);
+
+        card.addEventListener("click", () => {
+            saveViewState();
+            window.location.href = "product-detail.html?id=" + product.id;
+        });
+
+        card.append(img, name, price, cat);
+        container.appendChild(card);
+    }
+
+    // ====== ŘAZENÍ PODLE CENY ======
+    function getSortablePrice(p) {
+        if (p.price === null || p.price === undefined || p.price === 1) return null;
+        return p.price;
+    }
+
+    function sortProductsArray(arr) {
+        if (sortMode === "none") return arr;
+
+        const copy = arr.slice();
+
+        copy.sort((a, b) => {
+            const pa = getSortablePrice(a);
+            const pb = getSortablePrice(b);
+
+            if (pa === null && pb === null) return 0;
+            if (pa === null) return 1;
+            if (pb === null) return -1;
+
+            if (sortMode === "price_asc") {
+                return pa - pb;
+            } else if (sortMode === "price_desc") {
+                return pb - pa;
+            }
+            return 0;
+        });
+
+        return copy;
+    }
+
+    // ====== API + LIST ======
     let currentPage = 1;
     let totalItems = 0;
-    let selectedCategory = ""; // prázdné = všechny
+    let selectedCategory = "";
+    let searchQuery = "";
+    let sortMode = "none";
+
+    const savedState = loadViewState();
+    if (savedState) {
+        currentPage = savedState.currentPage || 1;
+        selectedCategory = savedState.selectedCategory || "";
+        searchQuery = savedState.searchQuery || "";
+        sortMode = savedState.sortMode || "none";
+    }
+
+    const searchBox = document.getElementById("searchBox");
+    const sortSelect = document.getElementById("sortSelect");
+
+    searchBox.value = searchQuery;
+    sortSelect.value = sortMode;
 
     async function loadProducts(page = 1) {
-        const errorDiv = document.getElementById("error");
+        const error = document.getElementById("error");
         const container = document.getElementById("products");
 
-        errorDiv.textContent = "";
+        error.textContent = "";
         container.textContent = "Načítám produkty...";
 
+        // Pokud je search nebo sort → stáhni všechny (pro kategorii) a filtruj/řiď se na frontendu
+        if (searchQuery || sortMode !== "none") {
+            try {
+                const limit = 200;
+                let offset = 0;
+                let allItems = [];
+                let total = 0;
+
+                while (true) {
+                    const params = new URLSearchParams();
+                    params.set("limit", limit);
+                    params.set("offset", offset);
+                    if (selectedCategory) params.set("category", selectedCategory);
+
+                    const res = await fetch(API_BASE + "/products?" + params.toString());
+                    if (!res.ok) {
+                        throw new Error("Chyba API: " + res.status + " " + res.statusText);
+                    }
+                    const data = await res.json();
+                    const items = data.items || [];
+                    total = data.total || items.length;
+
+                    allItems = allItems.concat(items);
+
+                    offset += limit;
+                    if (offset >= total) break;
+                    if (offset > 2000) break; // safety
+                }
+
+                const q = searchQuery.toLowerCase();
+                let filtered = allItems;
+                if (q) {
+                    filtered = allItems.filter(p =>
+                        (p.name || "").toLowerCase().includes(q)
+                    );
+                }
+
+                filtered = sortProductsArray(filtered);
+
+                totalItems = filtered.length;
+                container.innerHTML = "";
+
+                if (filtered.length === 0) {
+                    container.textContent = "Nic nenalezeno.";
+                } else {
+                    filtered.forEach(p => renderProductCard(p, container));
+                }
+
+                updatePagination(1);
+                saveViewState();
+                return;
+
+            } catch (e) {
+                console.error(e);
+                container.textContent = "";
+                error.textContent = "Chyba při načítání produktů (vyhledávání/řazení).";
+                return;
+            }
+        }
+
+        // Bez search a bez sort – klasická backend paginace
         const offset = (page - 1) * PAGE_SIZE;
 
         const params = new URLSearchParams();
         params.set("limit", PAGE_SIZE);
         params.set("offset", offset);
-        if (selectedCategory) {
-            params.set("category", selectedCategory);
-        }
+        if (selectedCategory) params.set("category", selectedCategory);
 
         try {
             const res = await fetch(API_BASE + "/products?" + params.toString());
@@ -367,108 +677,49 @@
 
             container.innerHTML = "";
 
-            products.forEach(product => {
-                const card = document.createElement("div");
-                card.className = "product-card";
-
-                // Obrázek + fallback
-                const img = document.createElement("img");
-                let triedPng = false;
-                let triedJpeg = false;
-
-                img.src = API_BASE + "/img/" + product.id + ".jpg";
-
-                img.onerror = function () {
-                    if (!triedPng) {
-                        triedPng = true;
-                        this.src = API_BASE + "/img/" + product.id + ".png";
-                        return;
-                    }
-                    if (!triedJpeg) {
-                        triedJpeg = true;
-                        this.src = API_BASE + "/img/" + product.id + ".jpeg";
-                        return;
-                    }
-
-                    this.remove();
-                    const fallback = document.createElement("div");
-                    fallback.textContent = "Produkt již není dostupný";
-                    fallback.style.color = "#555";
-                    fallback.style.fontSize = "12px";
-                    fallback.style.padding = "20px 0";
-                    card.insertBefore(fallback, card.firstChild);
-                };
-
-                const nameEl = document.createElement("div");
-                nameEl.className = "product-name";
-                nameEl.textContent = product.name || "";
-
-                const priceEl = document.createElement("div");
-                priceEl.className = "product-price";
-
-                if (product.price === 1) {
-                    priceEl.classList.add("unavailable");
-                    if (product.old_price != null) {
-                        priceEl.textContent =
-                            "Produkt již není dostupný (poslední známá cena: " +
-                            product.old_price +
-                            " Kč)";
-                    } else {
-                        priceEl.textContent = "Produkt již není dostupný";
-                    }
-                } else if (product.price == null) {
-                    priceEl.textContent = "Cena na dotaz";
-                } else {
-                    priceEl.textContent = product.price + " Kč";
-                }
-
-                const categoryEl = document.createElement("div");
-                categoryEl.className = "product-category";
-                categoryEl.textContent = getCategoryLabel(product.category);
-
-                card.addEventListener("click", () => {
-                    window.location.href = "product-detail.html?id=" + product.id;
-                });
-
-                card.appendChild(img);
-                card.appendChild(nameEl);
-                card.appendChild(priceEl);
-                card.appendChild(categoryEl);
-
-                container.appendChild(card);
-            });
+            if (products.length === 0) {
+                container.textContent = "Žádné produkty.";
+            } else {
+                products.forEach(p => renderProductCard(p, container));
+            }
 
             updatePagination(page);
-        } catch (err) {
-            console.error(err);
+            saveViewState();
+
+        } catch (e) {
+            console.error(e);
             container.textContent = "";
-            errorDiv.textContent =
-                "Chyba při načítání produktů. Zkontroluj, jestli běží backend.";
+            error.textContent = "Chyba při načítání produktů.";
         }
     }
 
     function updatePagination(page) {
+        const prev = document.getElementById("prevBtn");
+        const next = document.getElementById("nextBtn");
+        const info = document.getElementById("pageInfo");
+
         currentPage = page;
-
-        const prevBtn = document.getElementById("prevBtn");
-        const nextBtn = document.getElementById("nextBtn");
-        const pageInfo = document.getElementById("pageInfo");
-
         const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
 
-        pageInfo.textContent = "Stránka " + currentPage + " / " + totalPages;
+        if (searchQuery || sortMode !== "none") {
+            prev.disabled = true;
+            next.disabled = true;
+            info.textContent = "Výsledky: " + totalItems;
+            return;
+        }
 
-        prevBtn.disabled = currentPage <= 1;
-        nextBtn.disabled = currentPage >= totalPages;
+        prev.disabled = currentPage <= 1;
+        next.disabled = currentPage >= totalPages;
+        info.textContent = "Stránka " + currentPage + " / " + totalPages;
     }
 
-    // ====== Dynamické načtení všech kategorií ======
+    // ====== KATEGORIE ======
     async function initCategories() {
         const bar = document.getElementById("categoryBar");
-        bar.innerHTML = "Načítám kategorie...";
+        bar.textContent = "Načítám kategorie...";
 
         try {
-            const limit = 200; // maximum, co backend dovolí
+            const limit = 200;
             let offset = 0;
             const catsSet = new Set();
             let total = 0;
@@ -494,19 +745,18 @@
 
                 offset += limit;
                 if (offset >= total) break;
-                if (offset > 2000) break; // safety, kdyby něco ulítlo
+                if (offset > 2000) break;
             }
 
             const cats = sortCategories(Array.from(catsSet));
 
             bar.innerHTML = "";
 
-            // tlačítko „Vše“
-            const allBtn = document.createElement("button");
-            allBtn.className = "cat-btn active";
-            allBtn.dataset.category = "";
-            allBtn.textContent = "Vše";
-            bar.appendChild(allBtn);
+            const all = document.createElement("button");
+            all.className = "cat-btn";
+            all.dataset.category = "";
+            all.textContent = "Vše";
+            bar.appendChild(all);
 
             cats.forEach(cat => {
                 const btn = document.createElement("button");
@@ -516,29 +766,79 @@
                 bar.appendChild(btn);
             });
 
-            // posluchače
+            // klikání
             bar.querySelectorAll(".cat-btn").forEach(btn => {
                 btn.addEventListener("click", () => {
-                    bar.querySelectorAll(".cat-btn").forEach(b =>
-                        b.classList.remove("active")
-                    );
+                    bar.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
                     btn.classList.add("active");
 
                     selectedCategory = btn.dataset.category || "";
+                    currentPage = 1;
+                    saveViewState();
                     loadProducts(1);
                 });
             });
+
+            // obnova aktivní kategorie ze stavu
+            const target = [...bar.querySelectorAll(".cat-btn")].find(
+                b => (b.dataset.category || "") === (selectedCategory || "")
+            ) || all;
+
+            if (target) target.classList.add("active");
+
         } catch (e) {
             console.error(e);
-            bar.innerHTML = "Chyba při načítání kategorií.";
+            bar.textContent = "Chyba při načítání kategorií.";
         }
     }
 
-    // ====== Start ======
-    renderBuildSidebar();
-    initCategories().then(() => {
+    // ====== SEARCH LISTENER ======
+    searchBox.addEventListener("input", (e) => {
+        searchQuery = e.target.value.trim();
+        currentPage = 1;
+        saveViewState();
         loadProducts(1);
     });
+
+    // ====== SORT LISTENER ======
+    sortSelect.addEventListener("change", (e) => {
+        sortMode = e.target.value || "none";
+        currentPage = 1;
+        saveViewState();
+        loadProducts(1);
+    });
+
+    // ====== PAGINACE TLAČÍTKA ======
+    document.getElementById("prevBtn").addEventListener("click", () => {
+        if (currentPage > 1 && !searchQuery && sortMode === "none") {
+            loadProducts(currentPage - 1);
+        }
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+        if (!searchQuery && sortMode === "none") {
+            loadProducts(currentPage + 1);
+        }
+    });
+
+    // ====== Ukládání scrollu ======
+    window.addEventListener("scroll", () => {
+        saveViewState();
+    });
+
+    // ====== START ======
+    renderBuildSidebar();
+    initCategories().then(() => {
+        loadProducts(currentPage || 1);
+
+        // obnova pozice scrollu
+        if (savedState && typeof savedState.scrollY === "number") {
+            setTimeout(() => {
+                window.scrollTo(0, savedState.scrollY);
+            }, 0);
+        }
+    });
 </script>
+
 </body>
 </html>

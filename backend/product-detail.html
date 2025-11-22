@@ -134,12 +134,29 @@
         #build-list li {
             padding: 6px 4px;
             border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
         }
 
         #build-empty {
             font-size: 13px;
             color: #777;
             text-align: center;
+        }
+
+        .build-remove-btn {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            color: #b00020;
+        }
+
+        .build-remove-btn:hover {
+            font-weight: bold;
         }
 
         @media (max-width: 768px) {
@@ -205,6 +222,7 @@
         case: "Skříně",
         ssd: "SSD disky",
         hdd: "HDD disky",
+        storage: "Úložiště",
         cooler: "Chlazení",
         monitor: "Monitory"
     };
@@ -216,6 +234,7 @@
         "gpu",
         "ssd",
         "hdd",
+        "storage",
         "psu",
         "case",
         "cooler",
@@ -244,28 +263,72 @@
         });
     }
 
+    // stejná logika jako v products.html – kde může být víc kusů
+    function isMultiCategory(catKey) {
+        const key = String(catKey || "").toLowerCase();
+
+        if (["ssd", "hdd", "storage", "ram"].includes(key)) return true;
+        if (key.includes("ssd")) return true;
+        if (key.includes("hdd")) return true;
+        if (key.includes("disk")) return true;
+        if (key.includes("ulož") || key.includes("uloz")) return true;
+        if (key.includes("storage")) return true;
+        if (key.includes("ram")) return true;
+        if (key.includes("paměť") || key.includes("pamet")) return true;
+
+        return false;
+    }
+
     function getIdFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return params.get("id");
     }
 
+    // NOVÝ formát: pole položek (stejně jako v products.html)
     function loadBuildItems() {
         try {
             const raw = localStorage.getItem(BUILD_KEY);
-            if (!raw) return {};
+            if (!raw) return [];
             const parsed = JSON.parse(raw);
-            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+
+            // už je to pole
+            if (Array.isArray(parsed)) {
                 return parsed;
             }
-            return {};
+
+            // starý formát: objekt { cat: item | [items] } → převod na pole
+            if (parsed && typeof parsed === "object") {
+                const arr = [];
+                for (const [cat, value] of Object.entries(parsed)) {
+                    if (Array.isArray(value)) {
+                        value.forEach(v => {
+                            if (!v) return;
+                            arr.push({
+                                id: v.id,
+                                name: v.name,
+                                category: v.category || cat
+                            });
+                        });
+                    } else if (value) {
+                        arr.push({
+                            id: value.id,
+                            name: value.name,
+                            category: value.category || cat
+                        });
+                    }
+                }
+                return arr;
+            }
+
+            return [];
         } catch (e) {
             console.error("Chyba při čtení sestavy:", e);
-            return {};
+            return [];
         }
     }
 
-    function saveBuildItems(itemsObj) {
-        localStorage.setItem(BUILD_KEY, JSON.stringify(itemsObj));
+    function saveBuildItems(itemsArr) {
+        localStorage.setItem(BUILD_KEY, JSON.stringify(itemsArr));
     }
 
     function renderBuildSidebar() {
@@ -274,27 +337,58 @@
         if (!listEl || !emptyEl) return;
 
         const items = loadBuildItems();
-        const cats = Object.keys(items);
-
         listEl.innerHTML = "";
 
-        if (cats.length === 0) {
+        if (items.length === 0) {
             emptyEl.style.display = "block";
             return;
         }
 
         emptyEl.style.display = "none";
 
-        const sortedCats = sortCategories(cats);
+        const sorted = items.slice().sort((a, b) => {
+            const ak = String(a.category || "other").toLowerCase();
+            const bk = String(b.category || "other").toLowerCase();
+            const ai = CATEGORY_ORDER.indexOf(ak);
+            const bi = CATEGORY_ORDER.indexOf(bk);
 
-        sortedCats.forEach(cat => {
-            const item = items[cat];
-            if (!item) return;
+            if (ai !== -1 && bi !== -1 && ai !== bi) return ai - bi;
+            if (ai !== -1 && bi === -1) return -1;
+            if (ai === -1 && bi !== -1) return 1;
 
+            const labelA = getCategoryLabel(ak);
+            const labelB = getCategoryLabel(bk);
+            if (labelA !== labelB) {
+                return labelA.localeCompare(labelB, "cs");
+            }
+
+            const nameA = (a.name || "").toLowerCase();
+            const nameB = (b.name || "").toLowerCase();
+            return nameA.localeCompare(nameB, "cs");
+        });
+
+        sorted.forEach(item => {
             const li = document.createElement("li");
-            const label = getCategoryLabel(cat);
+
+            const textSpan = document.createElement("span");
+            const label = getCategoryLabel(item.category);
             const name = item.name || "Neznámý produkt";
-            li.textContent = label + " – " + name;
+            textSpan.textContent = label + " – " + name;
+
+            const removeBtn = document.createElement("button");
+            removeBtn.className = "build-remove-btn";
+            removeBtn.textContent = "×";
+
+            removeBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const itemsNow = loadBuildItems();
+                const filtered = itemsNow.filter(it => it.id !== item.id);
+                saveBuildItems(filtered);
+                renderBuildSidebar();
+            });
+
+            li.appendChild(textSpan);
+            li.appendChild(removeBtn);
             listEl.appendChild(li);
         });
     }
@@ -302,12 +396,32 @@
     function addProductToBuild(product) {
         const catKey = product.category ? String(product.category).toLowerCase() : "other";
         const items = loadBuildItems();
-        items[catKey] = {
+        const multi = isMultiCategory(catKey);
+
+        const newItem = {
             id: product.id,
             name: product.name,
             category: catKey
         };
-        saveBuildItems(items);
+
+        let updated;
+
+        if (multi) {
+            const exists = items.some(it => it.id === newItem.id);
+            if (exists) {
+                updated = items;
+            } else {
+                updated = [...items, newItem];
+            }
+        } else {
+            updated = items.filter(it => {
+                const itsCat = String(it.category || "other").toLowerCase();
+                return itsCat !== catKey;
+            });
+            updated.push(newItem);
+        }
+
+        saveBuildItems(updated);
         renderBuildSidebar();
     }
 
