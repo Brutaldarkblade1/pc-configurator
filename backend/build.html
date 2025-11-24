@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Tvoje sestava</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #error {
+            color: red;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        th {
+            background: #fafafa;
+            text-align: left;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .price-cell {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .total-row td {
+            font-weight: bold;
+            border-top: 2px solid #ddd;
+            background: #fafafa;
+        }
+
+        .remove-btn {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #b00020;
+            font-size: 14px;
+        }
+
+        .remove-btn:hover {
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            th:nth-child(3),
+            td:nth-child(3) {
+                display: none; /* schovat URL na mobilu */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<a href="products.html">← Zpět na produkty</a>
+
+<h1>Tvoje sestava</h1>
+
+<div id="error"></div>
+
+<div id="empty">Zatím nemáš v sestavě žádné produkty.</div>
+
+<table id="build-table" style="display:none;">
+    <thead>
+    <tr>
+        <th>Kategorie</th>
+        <th>Produkt</th>
+        <th>Detail</th>
+        <th class="price-cell">Cena</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody id="build-tbody"></tbody>
+    <tfoot>
+    <tr class="total-row">
+        <td colspan="3">Celková cena</td>
+        <td class="price-cell" id="build-total">0 Kč</td>
+        <td></td>
+    </tr>
+    </tfoot>
+</table>
+
+<script>
+    const BUILD_KEY = "pc_build_v2";
+
+    const CATEGORY_LABELS = {
+        cpu: "Procesory",
+        mb: "Základní desky",
+        gpu: "Grafické karty",
+        ram: "Operační paměť",
+        psu: "Zdroj",
+        case: "Skříně",
+        ssd: "SSD disky",
+        hdd: "HDD disky",
+        storage: "Úložiště",
+        cooler: "Chlazení",
+        monitor: "Monitory"
+    };
+
+    const CATEGORY_ORDER = [
+        "cpu",
+        "mb",
+        "ram",
+        "gpu",
+        "ssd",
+        "hdd",
+        "storage",
+        "psu",
+        "case",
+        "cooler",
+        "monitor"
+    ];
+
+    function getCategoryLabel(cat) {
+        if (!cat) return "Neznámá kategorie";
+        const key = String(cat).toLowerCase();
+        return CATEGORY_LABELS[key] || key.charAt(0).toUpperCase() + key.slice(1);
+    }
+
+    function loadBuildItems() {
+        try {
+            const raw = localStorage.getItem(BUILD_KEY);
+            if (!raw) return [];
+            const parsed = JSON.parse(raw);
+
+            if (Array.isArray(parsed)) return parsed;
+
+            if (parsed && typeof parsed === "object") {
+                const arr = [];
+                for (const [cat, value] of Object.entries(parsed)) {
+                    if (Array.isArray(value)) {
+                        value.forEach(v => {
+                            if (!v) return;
+                            arr.push({
+                                id: v.id,
+                                name: v.name,
+                                category: v.category || cat,
+                                price: (typeof v.price === "number" ? v.price : null),
+                                old_price: (typeof v.old_price === "number" ? v.old_price : null)
+                            });
+                        });
+                    } else if (value) {
+                        arr.push({
+                            id: value.id,
+                            name: value.name,
+                            category: value.category || cat,
+                            price: (typeof value.price === "number" ? value.price : null),
+                            old_price: (typeof value.old_price === "number" ? value.old_price : null)
+                        });
+                    }
+                }
+                return arr;
+            }
+
+            return [];
+        } catch (e) {
+            console.error(e);
+            return [];
+        }
+    }
+
+    function saveBuildItems(items) {
+        localStorage.setItem(BUILD_KEY, JSON.stringify(items));
+    }
+
+    function formatItemPriceText(item) {
+        if (!item) return "";
+
+        if (item.price === 1) {
+            if (typeof item.old_price === "number") {
+                return "posl. " + item.old_price.toLocaleString("cs-CZ") + " Kč";
+            }
+            return "nedostupný";
+        }
+
+        if (item.price == null) {
+            if (typeof item.old_price === "number") {
+                return item.old_price.toLocaleString("cs-CZ") + " Kč";
+            }
+            return "";
+        }
+
+        return item.price.toLocaleString("cs-CZ") + " Kč";
+    }
+
+    function getNumericItemPrice(item) {
+        if (!item) return 0;
+        if (item.price === 1) {
+            if (typeof item.old_price === "number") return item.old_price;
+            return 0;
+        }
+        if (typeof item.price === "number") return item.price;
+        if (typeof item.old_price === "number") return item.old_price;
+        return 0;
+    }
+
+    function renderBuild() {
+        const tbody = document.getElementById("build-tbody");
+        const table = document.getElementById("build-table");
+        const empty = document.getElementById("empty");
+        const totalCell = document.getElementById("build-total");
+
+        const items = loadBuildItems();
+        tbody.innerHTML = "";
+
+        if (items.length === 0) {
+            table.style.display = "none";
+            empty.style.display = "block";
+            totalCell.textContent = "0 Kč";
+            return;
+        }
+
+        empty.style.display = "none";
+        table.style.display = "table";
+
+        const sorted = items.slice().sort((a, b) => {
+            const ak = String(a.category || "other").toLowerCase();
+            const bk = String(b.category || "other").toLowerCase();
+            const ai = CATEGORY_ORDER.indexOf(ak);
+            const bi = CATEGORY_ORDER.indexOf(bk);
+
+            if (ai !== -1 && bi !== -1 && ai !== bi) return ai - bi;
+            if (ai !== -1 && bi === -1) return -1;
+            if (ai === -1 && bi !== -1) return 1;
+
+            const labelA = getCategoryLabel(ak);
+            const labelB = getCategoryLabel(bk);
+            if (labelA !== labelB) {
+                return labelA.localeCompare(labelB, "cs");
+            }
+
+            const nameA = (a.name || "").toLowerCase();
+            const nameB = (b.name || "").toLowerCase();
+            return nameA.localeCompare(nameB, "cs");
+        });
+
+        let total = 0;
+
+        sorted.forEach(item => {
+            const tr = document.createElement("tr");
+
+            const catTd = document.createElement("td");
+            catTd.textContent = getCategoryLabel(item.category);
+
+            const nameTd = document.createElement("td");
+            nameTd.textContent = item.name || "Neznámý produkt";
+
+            const linkTd = document.createElement("td");
+            const link = document.createElement("a");
+            link.href = "product-detail.html?id=" + item.id;
+            link.textContent = "Detail";
+            linkTd.appendChild(link);
+
+            const priceTd = document.createElement("td");
+            priceTd.className = "price-cell";
+            priceTd.textContent = formatItemPriceText(item);
+
+            const removeTd = document.createElement("td");
+            const removeBtn = document.createElement("button");
+            removeBtn.className = "remove-btn";
+            removeBtn.textContent = "×";
+            removeBtn.addEventListener("click", () => {
+                const now = loadBuildItems();
+                const filtered = now.filter(it => it.id !== item.id);
+                saveBuildItems(filtered);
+                renderBuild();
+            });
+            removeTd.appendChild(removeBtn);
+
+            tr.appendChild(catTd);
+            tr.appendChild(nameTd);
+            tr.appendChild(linkTd);
+            tr.appendChild(priceTd);
+            tr.appendChild(removeTd);
+
+            tbody.appendChild(tr);
+
+            total += getNumericItemPrice(item);
+        });
+
+        totalCell.textContent = total.toLocaleString("cs-CZ") + " Kč";
+    }
+
+    renderBuild();
+</script>
+
+</body>
+</html>
