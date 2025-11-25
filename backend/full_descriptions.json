@@ -1,0 +1,2372 @@
+[
+  {
+    "id": 1,
+    "category": "cpu",
+    "name": "AMD Ryzen 3 4100",
+    "description": "Procesor 4 jádrový, 8 vláken, 3,8GHz (TDP 65W), Boost 4 GHz, 4MB L3 cache, bez integrovaného grafického čipu, socket AMD AM4, box chladič, AMD Wraith Stealth"
+  },
+  {
+    "id": 2,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 3600",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,6GHz (TDP 65W), Boost 4,2 GHz, 32MB L3 cache, bez integrovaného grafického čipu, socket AMD AM4, Matisse, box chladič"
+  },
+  {
+    "id": 3,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 4500",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,6GHz (TDP 65W), Boost 4,1 GHz, 8MB L3 cache, bez integrovaného grafického čipu, socket AMD AM4, box chladič, AMD Wraith Stealth"
+  },
+  {
+    "id": 4,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 5500",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,6GHz (TDP 65W), Boost 4,2 GHz, 16MB L3 cache, bez integrovaného grafického čipu, socket AMD AM4, Cezanne, box chladič, AMD Wraith Stealth"
+  },
+  {
+    "id": 5,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 5500GT",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,6GHz (TDP 65W), Boost 4,4 GHz, 16MB L3 cache, AMD Radeon Graphics, socket AMD AM4, Cezanne, box chladič"
+  },
+  {
+    "id": 6,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 5600",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,5GHz (TDP 65W), Boost 4,4 GHz, 32MB L3 cache, bez integrovaného grafického čipu, socket AMD AM4, Vermeer, box chladič, AMD Wraith Stealth"
+  },
+  {
+    "id": 7,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 5600G",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,9GHz (TDP 65W), Boost 4,4 GHz, 16MB L3 cache, AMD Radeon Graphics 1900 MHz, socket AMD AM4, Cezanne, box chladič, Wraith Stealth"
+  },
+  {
+    "id": 8,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 5600GT",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,6GHz (TDP 65W), Boost 4,6 GHz, 16MB L3 cache, AMD Radeon Graphics, socket AMD AM4, Cezanne, box chladič"
+  },
+  {
+    "id": 10,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 5600T",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,5GHz (TDP 65W), 32MB L3 cache, Vermeer, box chladič, AMD Wraith Stealth"
+  },
+  {
+    "id": 11,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 5600XT",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,7GHz (TDP 65W), 32MB L3 cache, Vermeer, box chladič, Wraith Stealth"
+  },
+  {
+    "id": 13,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 7600",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,8GHz (TDP 65W), Boost 5,1 GHz, 32MB L3 cache, AMD Radeon Graphics, socket AMD AM5, Raphael, box chladič, Wraith Stealth"
+  },
+  {
+    "id": 15,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 7600X",
+    "description": "Procesor 6 jádrový, 12 vláken, 4,7GHz (TDP 105W), Boost 5,3 GHz, 32MB L3 cache, AMD Radeon Graphics 2200 MHz, socket AMD AM5, Raphael, bez chladiče"
+  },
+  {
+    "id": 17,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 8400F",
+    "description": "Procesor 6 jádrový, 12 vláken, 4,2GHz (TDP 65W), Boost 4,7 GHz, 16MB L3 cache, bez integrovaného grafického čipu, socket AMD AM5, Phoenix, box chladič, Wraith Stealth"
+  },
+  {
+    "id": 18,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 8500G",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,4GHz (TDP 65W), Boost 5 GHz, 16MB L3 cache, AMD Radeon 740M 2200 MHz, socket AMD AM5, Phoenix, box chladič"
+  },
+  {
+    "id": 19,
+    "category": "cpu",
+    "name": "AMD Ryzen 5 9600X",
+    "description": "Procesor 6 jádrový, 12 vláken, 3,9GHz (TDP 65W), Boost 5,4 GHz, 32MB L3 cache, AMD Radeon Graphics, socket AMD AM5, Granite Ridge AM5, bez chladiče"
+  },
+  {
+    "id": 21,
+    "category": "cpu",
+    "name": "AMD Ryzen 7 5700",
+    "description": "Procesor 8 jádrový, 16 vláken, 3,7GHz (TDP 65W), Boost 4,6 GHz, 16MB L3 cache, bez integrovaného grafického čipu 2000 MHz, socket AMD AM4, Cezanne, box chladič"
+  },
+  {
+    "id": 22,
+    "category": "cpu",
+    "name": "AMD Ryzen 7 5700G",
+    "description": "Procesor 8 jádrový, 16 vláken, 3,8GHz (TDP 65W), Boost 4,6 GHz, 16MB L3 cache, AMD Radeon Graphics 2000 MHz, socket AMD AM4, Cezanne, Wraith Stealth"
+  },
+  {
+    "id": 23,
+    "category": "cpu",
+    "name": "AMD Ryzen 7 5700X",
+    "description": "Procesor 8 jádrový, 16 vláken, 3,4GHz (TDP 65W), Boost 4,6 GHz, 32MB L3 cache, bez integrovaného grafického čipu, socket AMD AM4, Vermeer, bez chladiče"
+  },
+  {
+    "id": 24,
+    "category": "cpu",
+    "name": "AMD Ryzen 7 5800X",
+    "description": "Procesor 8 jádrový, 16 vláken, 3,8GHz (TDP 105W), Boost 4,7 GHz, 32MB L3 cache, bez integrovaného grafického čipu, socket AMD AM4, Vermeer, bez chladiče"
+  },
+  {
+    "id": 26,
+    "category": "cpu",
+    "name": "AMD Ryzen 7 5800XT",
+    "description": "Procesor 8 jádrový, 16 vláken, 3,8GHz (TDP 105W), Boost 4,8 GHz, 32MB L3 cache, bez integrovaného grafického čipu, socket AMD AM4, Vermeer, box chladič"
+  },
+  {
+    "id": 27,
+    "category": "cpu",
+    "name": "AMD Ryzen 7 7700",
+    "description": "Procesor 8 jádrový, 16 vláken, 3,8GHz (TDP 65W), Boost 5,3 GHz, 32MB L3 cache, AMD Radeon Graphics, socket AMD AM5, Raphael, box chladič, Wraith Prism"
+  },
+  {
+    "id": 28,
+    "category": "cpu",
+    "name": "AMD Ryzen 7 7700X",
+    "description": "Procesor 8 jádrový, 16 vláken, 4,5GHz (TDP 105W), Boost 5,4 GHz, 32MB L3 cache, AMD Radeon Graphics 2200 MHz, socket AMD AM5, Raphael, bez chladiče"
+  },
+  {
+    "id": 29,
+    "category": "cpu",
+    "name": "AMD Ryzen 7 7800X3D",
+    "description": "Procesor 8 jádrový, 16 vláken, 4,2GHz (TDP 120W), Boost 5 GHz, 96MB L3 cache, AMD Radeon Graphics 2200 MHz, socket AMD AM5, Raphael"
+  },
+  {
+    "id": 30,
+    "category": "cpu",
+    "name": "AMD Ryzen 7 8700F",
+    "description": "Procesor 8 jádrový, 16 vláken, 4,1GHz (TDP 65W), Boost 5 GHz, 16MB L3 cache, bez integrovaného grafického čipu, socket AMD AM5, Phoenix, box chladič"
+  },
+  {
+    "id": 31,
+    "category": "cpu",
+    "name": "AMD Ryzen 7 9700X",
+    "description": "Procesor 8 jádrový, 16 vláken, 3,8GHz (TDP 65W), Boost 5,5 GHz, 32MB L3 cache, AMD Radeon Graphics, socket AMD AM5, Granite Ridge AM5, bez chladiče"
+  },
+  {
+    "id": 32,
+    "category": "cpu",
+    "name": "AMD Ryzen 7 9800X3D",
+    "description": "Procesor 8 jádrový, 16 vláken, 4,7GHz (TDP 120W), Boost 5,2 GHz, 96MB L3 cache, AMD Radeon Graphics, socket AMD AM5, Granite Ridge AM5, bez chladiče"
+  },
+  {
+    "id": 34,
+    "category": "cpu",
+    "name": "AMD Ryzen 9 5900XT",
+    "description": "Procesor 16 jádrový, 32 vláken, 3,3GHz (TDP 105W), Boost 4,8 GHz, 64MB L3 cache, bez integrovaného grafického čipu, socket AMD AM4, Vermeer, bez chladiče"
+  },
+  {
+    "id": 35,
+    "category": "cpu",
+    "name": "AMD Ryzen 9 7900",
+    "description": "Procesor 12 jádrový, 24 vláken, 3,7GHz (TDP 65W), Boost 5,4 GHz, 64MB L3 cache, AMD Radeon Graphics, socket AMD AM5, Raphael, box chladič"
+  },
+  {
+    "id": 36,
+    "category": "cpu",
+    "name": "AMD Ryzen 9 7900X",
+    "description": "Procesor 12 jádrový, 24 vláken, 4,7GHz (TDP 170W), Boost 5,6 GHz, 64MB L3 cache, AMD Radeon Graphics 2200 MHz, socket AMD AM5, Raphael, bez chladiče"
+  },
+  {
+    "id": 37,
+    "category": "cpu",
+    "name": "AMD Ryzen 9 9900X",
+    "description": "Procesor 12 jádrový, 24 vláken, 4,4GHz (TDP 120W), Boost 5,6 GHz, 64MB L3 cache, AMD Radeon Graphics, socket AMD AM5, Granite Ridge AM5, bez chladiče"
+  },
+  {
+    "id": 38,
+    "category": "cpu",
+    "name": "AMD Ryzen 9 9900X3D",
+    "description": "Procesor 12 jádrový, 24 vláken, 4,4GHz (TDP 120W), Boost 5,5 GHz, 128MB L3 cache, AMD Radeon Graphics, socket AMD AM5, Granite Ridge AM5, bez chladiče"
+  },
+  {
+    "id": 40,
+    "category": "cpu",
+    "name": "AMD Ryzen 9 9950X",
+    "description": "Procesor 16 jádrový, 32 vláken, 4,3GHz (TDP 170W), Boost 5,7 GHz, 64MB L3 cache, AMD Radeon Graphics, socket AMD AM5, Granite Ridge AM5, bez chladiče"
+  },
+  {
+    "id": 41,
+    "category": "cpu",
+    "name": "AMD Ryzen 9 9950X3D",
+    "description": "Procesor 16 jádrový, 32 vláken, 4,3GHz (TDP 170W), Boost 5,7 GHz, 128MB L3 cache, AMD Radeon Graphics, socket AMD AM5, Granite Ridge AM5, bez chladiče"
+  },
+  {
+    "id": 43,
+    "category": "cpu",
+    "name": "AMD Ryzen Threadripper 3970X",
+    "description": "Procesor 32 jádrový, 64 vláken, 3,7GHz (TDP 280W), Boost 4,5 GHz, 128MB L3 cache, bez integrovaného grafického čipu, socket AMD TRX4, Castle Peak, bez chladiče"
+  },
+  {
+    "id": 44,
+    "category": "cpu",
+    "name": "AMD Ryzen Threadripper 9960X",
+    "description": "Procesor 24 jádrový, 48 vláken, 4,2GHz (TDP 350W), Boost 5,4 GHz, 128MB L3 cache, bez integrovaného grafického čipu, socket AMD TR5, Shimada Peak, bez chladiče"
+  },
+  {
+    "id": 45,
+    "category": "cpu",
+    "name": "AMD Ryzen Threadripper 9965WX",
+    "description": "Procesor 24 jádrový, 48 vláken, 4,2GHz (TDP 350W), Boost 5,4 GHz, 128MB L3 cache, bez integrovaného grafického čipu, socket AMD TR5, Shimada Peak, bez chladiče"
+  },
+  {
+    "id": 46,
+    "category": "cpu",
+    "name": "AMD Ryzen Threadripper 9970X",
+    "description": "Procesor 32 jádrový, 64 vláken, 4GHz (TDP 350W), Boost 5,4 GHz, 128MB L3 cache, bez integrovaného grafického čipu, socket AMD TR5, Shimada Peak, bez chladiče"
+  },
+  {
+    "id": 47,
+    "category": "cpu",
+    "name": "AMD Ryzen Threadripper 9975WX",
+    "description": "Procesor 32 jádrový, 64 vláken, 4GHz (TDP 350W), Boost 5,4 GHz, 128MB L3 cache, bez integrovaného grafického čipu, socket AMD TR5, Shimada Peak, bez chladiče"
+  },
+  {
+    "id": 48,
+    "category": "cpu",
+    "name": "AMD Ryzen Threadripper 9980X",
+    "description": "Procesor 64 jádrový, 128 vláken, 3,2GHz (TDP 350W), Boost 5,4 GHz, 256MB L3 cache, bez integrovaného grafického čipu, socket AMD TR5, Shimada Peak, bez chladiče"
+  },
+  {
+    "id": 49,
+    "category": "cpu",
+    "name": "AMD Ryzen Threadripper 9985WX",
+    "description": "Procesor 64 jádrový, 128 vláken, 3,2GHz (TDP 350W), Boost 5,4 GHz, 256MB L3 cache, bez integrovaného grafického čipu, socket AMD TR5, Shimada Peak, bez chladiče"
+  },
+  {
+    "id": 50,
+    "category": "cpu",
+    "name": "AMD Ryzen Threadripper 9995WX",
+    "description": "Procesor 96 jádrový, 192 vláken, 2,5GHz (TDP 350W), Boost 5,4 GHz, 384MB L3 cache, bez integrovaného grafického čipu, socket AMD TR5, Shimada Peak, bez chladiče"
+  },
+  {
+    "id": 51,
+    "category": "cpu",
+    "name": "AMD Ryzen Threadripper PRO 5975WX",
+    "description": "Procesor 32 jádrový, 64 vláken, 3,6GHz (TDP 280W), Boost 4,5 GHz, 128MB L3 cache, bez integrovaného grafického čipu, socket AMD WRX8, bez chladiče"
+  },
+  {
+    "id": 52,
+    "category": "cpu",
+    "name": "AMD Ryzen Threadripper PRO 7975WX",
+    "description": "Procesor 32 jádrový, 64 vláken, 4GHz (TDP 350W), Boost 5,3 GHz, 128MB L3 cache, bez integrovaného grafického čipu, socket AMD TR5, Storm Peak, bez chladiče"
+  },
+  {
+    "id": 53,
+    "category": "cpu",
+    "name": "Intel Core i3-10100F",
+    "description": "Procesor 4 jádrový, 8 vláken, 3,6GHz (TDP 65W), Boost 4,3 GHz, 6MB L3 cache, bez integrovaného grafického čipu, socket Intel 1200, Comet Lake, box chladič, pouze chipset Intel řady 5xx, 4xx"
+  },
+  {
+    "id": 54,
+    "category": "cpu",
+    "name": "Intel Core i9-13900KF",
+    "description": "Procesor 24 jádrový, 32 vláken, 3GHz (TDP 253W), Boost 5,8 GHz, 36MB L3 cache, bez integrovaného grafického čipu, socket Intel LGA1700, Raptor Lake, bez chladiče, pouze chipset Intel řady 600, 700"
+  },
+  {
+    "id": 55,
+    "category": "cpu",
+    "name": "Intel Core i9-13900KS",
+    "description": "Procesor 24 jádrový, 32 vláken, 3,2GHz (TDP 253W), Boost 6 GHz, 36MB L3 cache, Intel UHD Graphics 770, socket Intel 1700, Raptor Lake, bez chladiče, pouze chipset Intel řady 600, 700"
+  },
+  {
+    "id": 57,
+    "category": "cpu",
+    "name": "Intel Core i3-12100F",
+    "description": "Procesor 4 jádrový, 8 vláken, 3,3GHz (TDP 89W), Boost 4,3 GHz, 12MB L3 cache, socket Intel 1700, Alder Lake-S, box chladič, RM1"
+  },
+  {
+    "id": 58,
+    "category": "cpu",
+    "name": "Intel Core i3-14100F",
+    "description": "Procesor 4 jádrový, 8 vláken, 3,5GHz (TDP 110W), Boost 4,7 GHz, 12MB L3 cache, bez integrovaného grafického čipu, socket Intel 1700, Raptor Lake Refresh, box chladič, pouze chipset Intel řady 600, 700"
+  },
+  {
+    "id": 59,
+    "category": "cpu",
+    "name": "Intel Core i5-12400F",
+    "description": "Procesor 6 jádrový, 12 vláken, 2,5GHz (TDP 117W), Boost 4,4 GHz, 18MB L3 cache, socket Intel 1700, Alder Lake-S, box chladič, RM1"
+  },
+  {
+    "id": 60,
+    "category": "cpu",
+    "name": "Intel Core i5-12600K",
+    "description": "Procesor 10 jádrový, 16 vláken, 3,7GHz (TDP 150W), Boost 4,9 GHz, 20MB L3 cache, Intel UHD Graphics 770, socket Intel 1700, Alder Lake-S"
+  },
+  {
+    "id": 61,
+    "category": "cpu",
+    "name": "Intel Core i5-14400F",
+    "description": "Procesor 10 jádrový, 16 vláken, 2,5GHz (TDP 148W), Boost 4,7 GHz, 20MB L3 cache, bez integrovaného grafického čipu, socket Intel 1700, Raptor Lake Refresh, box chladič, Intel"
+  },
+  {
+    "id": 62,
+    "category": "cpu",
+    "name": "Intel Core i5-14600K",
+    "description": "Procesor 14 jádrový, 20 vláken, 3,5GHz (TDP 181W), Boost 5,3 GHz, 24MB L3 cache, Intel UHD Graphics 770, socket Intel 1700, Raptor Lake Refresh, bez chladiče"
+  },
+  {
+    "id": 63,
+    "category": "cpu",
+    "name": "Intel Core i7-11700",
+    "description": "Procesor 8 jádrový, 16 vláken, 2,5GHz (TDP 65W), Boost 4,9 GHz, 16MB L3 cache, Intel UHD Graphics 750 1300 MHz, socket Intel 1200, Rocket Lake-S, box chladič, pouze chipset Intel řady 5xx nebo Q470, Z490, H470, Intel"
+  },
+  {
+    "id": 64,
+    "category": "cpu",
+    "name": "Intel Core i7-14700F",
+    "description": "Procesor 20 jádrový, 28 vláken, 3,4GHz (TDP 219W), Boost 5,6 GHz, 33MB L3 cache, bez integrovaného grafického čipu, socket Intel 1700, Raptor Lake Refresh, box chladič, pouze chipset Intel řady 600, 700"
+  },
+  {
+    "id": 65,
+    "category": "cpu",
+    "name": "Intel Core i7-14700K",
+    "description": "Procesor 20 jádrový, 28 vláken, 3,4GHz (TDP 253W), Boost 5,6 GHz, 33MB L3 cache, Intel UHD Graphics 770, socket Intel 1700, Raptor Lake Refresh, bez chladiče"
+  },
+  {
+    "id": 66,
+    "category": "cpu",
+    "name": "Intel Core i7-14700KF",
+    "description": "Procesor 20 jádrový, 28 vláken, 3,4GHz (TDP 253W), Boost 5,6 GHz, 33MB L3 cache, bez integrovaného grafického čipu, socket Intel 1700, Raptor Lake Refresh, bez chladiče"
+  },
+  {
+    "id": 67,
+    "category": "cpu",
+    "name": "Intel Core i9-12900F",
+    "description": "Procesor 16 jádrový, 24 vláken, 2,4GHz (TDP 202W), Boost 5,1 GHz, 30MB L3 cache, socket Intel 1700, Alder Lake-S, box chladič, RH1"
+  },
+  {
+    "id": 68,
+    "category": "cpu",
+    "name": "Intel Core i9-12900K",
+    "description": "Procesor 16 jádrový, 24 vláken, 3,2GHz (TDP 241W), Boost 5,2 GHz, 30MB L3 cache, Intel UHD Graphics 770, socket Intel 1700, Alder Lake-S"
+  },
+  {
+    "id": 69,
+    "category": "cpu",
+    "name": "Intel Core i9-12900KF",
+    "description": "Procesor 16 jádrový, 24 vláken, 3,2GHz (TDP 241W), Boost 5,2 GHz, 30MB L3 cache, socket Intel 1700, Alder Lake-S"
+  },
+  {
+    "id": 70,
+    "category": "cpu",
+    "name": "Intel Core i9-14900F",
+    "description": "Procesor 24 jádrový, 32 vláken, 3,2GHz (TDP 219W), Boost 6 GHz, 36MB L3 cache, bez integrovaného grafického čipu, socket Intel 1700, Raptor Lake Refresh, box chladič"
+  },
+  {
+    "id": 71,
+    "category": "cpu",
+    "name": "Intel Core i9-14900K",
+    "description": "Procesor 24 jádrový, 32 vláken, 3,2GHz (TDP 253W), Boost 6 GHz, 36MB L3 cache, Intel UHD Graphics 770, socket Intel 1700, Raptor Lake Refresh, bez chladiče"
+  },
+  {
+    "id": 72,
+    "category": "cpu",
+    "name": "Intel Core i9-14900KF",
+    "description": "Procesor 24 jádrový, 32 vláken, 3,2GHz (TDP 253W), Boost 6 GHz, 36MB L3 cache, bez integrovaného grafického čipu, socket Intel 1700, Raptor Lake Refresh, bez chladiče"
+  },
+  {
+    "id": 73,
+    "category": "cpu",
+    "name": "Intel Core i9-14900KS",
+    "description": "Procesor 24 jádrový, 32 vláken, 3,2GHz (TDP 253W), Boost 6,2 GHz, 36MB L3 cache, Intel UHD Graphics 770, socket Intel 1700, Raptor Lake Refresh, bez chladiče, pouze chipset Intel řady 600, 700"
+  },
+  {
+    "id": 74,
+    "category": "cpu",
+    "name": "Intel Core Ultra 5 225",
+    "description": "Procesor 10 jádrový, 10 vláken, 3,3GHz (TDP 121W), Boost 4,9 GHz, 20MB L3 cache, Intel Graphics 300 MHz, socket Intel 1851, Arrow Lake, box chladič"
+  },
+  {
+    "id": 75,
+    "category": "cpu",
+    "name": "Intel Core Ultra 5 225F",
+    "description": "Procesor 10 jádrový, 10 vláken, 2,7GHz (TDP 121W), Boost 4,9 GHz, 20MB L3 cache, bez integrovaného grafického čipu 300 MHz, socket Intel 1851, Arrow Lake, box chladič, pouze chipset Intel řady 600, 700"
+  },
+  {
+    "id": 77,
+    "category": "cpu",
+    "name": "Intel Core Ultra 5 245K",
+    "description": "Procesor 14 jádrový, 14 vláken, 5,2GHz (TDP 159W), Boost 5,2 GHz, 24MB L3 cache, Intel Graphics, socket Intel 1851, Arrow Lake, bez chladiče"
+  },
+  {
+    "id": 78,
+    "category": "cpu",
+    "name": "Intel Core Ultra 5 245KF",
+    "description": "Procesor 14 jádrový, 14 vláken, 5,2GHz (TDP 159W), Boost 5,2 GHz, 24MB L3 cache, bez integrovaného grafického čipu, socket Intel 1851, Arrow Lake, bez chladiče"
+  },
+  {
+    "id": 79,
+    "category": "cpu",
+    "name": "Intel Core Ultra 7 265",
+    "description": "Procesor 20 jádrový, 20 vláken, 5,3GHz (TDP 182W), Boost 5,3 GHz, 30MB L3 cache, Intel Graphics 5500 MHz, socket Intel 1851, Arrow Lake, box chladič"
+  },
+  {
+    "id": 80,
+    "category": "cpu",
+    "name": "Intel Core Ultra 7 265F",
+    "description": "Procesor 20 jádrový, 20 vláken, 5,3GHz (TDP 182W), Boost 5,3 GHz, 30MB L3 cache, bez integrovaného grafického čipu 5300 MHz, socket Intel 1851, Arrow Lake, box chladič"
+  },
+  {
+    "id": 81,
+    "category": "cpu",
+    "name": "Intel Core Ultra 7 265K",
+    "description": "Procesor 20 jádrový, 20 vláken, 5,5GHz (TDP 250W), Boost 5,5 GHz, 30MB L3 cache, Intel Graphics, socket Intel 1851, Arrow Lake, bez chladiče"
+  },
+  {
+    "id": 82,
+    "category": "cpu",
+    "name": "Intel Core Ultra 7 265KF",
+    "description": "Procesor 20 jádrový, 20 vláken, (TDP 250W), Boost 5,5 GHz, 30MB L3 cache, bez integrovaného grafického čipu, socket Intel 1851, Arrow Lake, bez chladiče"
+  },
+  {
+    "id": 84,
+    "category": "cpu",
+    "name": "Intel Core Ultra 9 285",
+    "description": "Procesor 24 jádrový, 24 vláken, 5,6GHz (TDP 182W), Boost 5,6 GHz, 36MB L3 cache, Intel Graphics 300 MHz, socket Intel 1851, Arrow Lake, box chladič"
+  },
+  {
+    "id": 85,
+    "category": "cpu",
+    "name": "Intel Core Ultra 9 285K",
+    "description": "Procesor 24 jádrový, 24 vláken, 3,2GHz (TDP 250W), Boost 5,7 GHz, 36MB L3 cache, Intel Graphics, socket Intel 1851, Arrow Lake, bez chladiče"
+  },
+  {
+    "id": 86,
+    "category": "cooler",
+    "name": "Be quiet! Dark Rock 5",
+    "description": "Chladič na procesor socket AM4 a AM5, 1150, 1151, 1155, 1200, 1700 a 1851, 210 W, 1x120mm ventilátor, 6× heatpipe, max. hlučnost 29,8dB, max. rychlost 2100RPM, výška 161mm, PWM"
+  },
+  {
+    "id": 87,
+    "category": "cooler",
+    "name": "Be quiet! Dark Rock Elite",
+    "description": "Chladič na procesor socket AM4 a AM5, 1150, 1151, 1155, 1156, 1200, 1700 a 1851, 280 W, 2x135mm ventilátor, 7× heatpipe, max. hlučnost 25,8dB, max. rychlost 2000RPM, výška 168mm, ARGB podsvícení (5V) a PWM"
+  },
+  {
+    "id": 88,
+    "category": "cooler",
+    "name": "Be quiet! Dark Rock Pro 5",
+    "description": "Chladič na procesor socket AM4 a AM5, 1150, 1151, 1155, 1156, 1200, 1700 a 1851, 270 W, 1x120mm a 1x135mm ventilátor, 7× heatpipe, max. hlučnost 23,3dB, max. rychlost 2000RPM, výška 168mm, PWM"
+  },
+  {
+    "id": 89,
+    "category": "cooler",
+    "name": "Be quiet! PURE ROCK 3 Black",
+    "description": "Chladič na procesor socket AM4 a AM5, 1150, 1151, 1155, 1200, 1700 a 1851, 190 W, 1x120mm ventilátor, 4× heatpipe, max. hlučnost 31,2dB, max. rychlost 2000RPM, výška 154mm, PWM"
+  },
+  {
+    "id": 90,
+    "category": "cooler",
+    "name": "Be quiet! PURE ROCK PRO 3 Black",
+    "description": "Chladič na procesor socket AM4 a AM5, 1150, 1151, 1155, 1200, 1700 a 1851, 250 W, 2x120mm ventilátor, 6× heatpipe, max. hlučnost 34,8dB, max. rychlost 2000RPM, výška 155mm, PWM"
+  },
+  {
+    "id": 91,
+    "category": "cooler",
+    "name": "Be quiet! PURE ROCK PRO 3",
+    "description": "Chladič na procesor socket AM4 a AM5, 1150, 1151, 1155, 1200, 1700 a 1851, 250 W, 2x120mm ventilátor, 6× heatpipe, max. hlučnost 34,8dB, max. rychlost 2000RPM, výška 155mm, PWM"
+  },
+  {
+    "id": 92,
+    "category": "cooler",
+    "name": "Be quiet! PURE ROCK PRO 3 LX Black",
+    "description": "Chladič na procesor socket AM4 a AM5, 1150, 1151, 1155, 1200, 1700 a 1851, 250 W, 2x120mm ventilátor, 6× heatpipe, max. hlučnost 34,8dB, max. rychlost 2000RPM, výška 155mm, PWM"
+  },
+  {
+    "id": 93,
+    "category": "cooler",
+    "name": "Endorfy Fera 5 Black ARGB",
+    "description": "Chladič na procesor socket AM2, AM2+, AM3, AM3+, AM4, FM1, FM2, FM2+ a AM5, 1150, 1151, 1155, 1156, 1200, 1366, 1700, 2011, 2066 a 1851, 220 W, 1x120mm ARGB ventilátor, 4× heatpipe, max. rychlost 1800RPM, výška 155mm, PWM"
+  },
+  {
+    "id": 94,
+    "category": "cooler",
+    "name": "Endorfy Fera 5",
+    "description": "Chladič na procesor socket AM2, AM2+, AM3, AM3+, AM4, FM1, FM2, FM2+ a AM5, 1150, 1151, 1155, 1156, 1200, 1366, 1700, 2011, 2011-3, 2066 a 1851, 220 W, 1x120mm ventilátor, 4× heatpipe, max. rychlost 1800RPM, výška 155mm, PWM"
+  },
+  {
+    "id": 95,
+    "category": "cooler",
+    "name": "Endorfy Fera 5 Dual Fan",
+    "description": "Chladič na procesor socket AM2, AM2+, AM3, AM3+, AM4, FM1, FM2, FM2+ a AM5, 1150, 1151, 1155, 1156, 1200, 1366, 1700, 2011, 2011-3, 2066 a 1851, 220 W, 2x120mm ventilátor, 4× heatpipe, max. rychlost 1800RPM, výška 155mm, PWM"
+  },
+  {
+    "id": 96,
+    "category": "cooler",
+    "name": "Endorfy Fortis 5 Black",
+    "description": "Chladič na procesor socket AM2, AM2+, AM3, AM3+, AM4, FM1, FM2, FM2+ a AM5, 1150, 1151, 1155, 1156, 1200, 1366, 1700, 2011, 2066 a 1851, 220 W, 1x140mm ventilátor, 6× heatpipe, výška 159mm, PWM"
+  },
+  {
+    "id": 97,
+    "category": "cooler",
+    "name": "Endorfy Fortis 5 Dual Fan",
+    "description": "Chladič na procesor socket AM2, AM2+, AM3, AM3+, AM4, FM1, FM2, FM2+ a AM5, 1150, 1151, 1155, 1156, 1200, 1366, 1700, 2011, 2011-3, 2066 a 1851, 220 W, 1x120mm a 1x140mm ventilátor, 6× heatpipe, max. rychlost 1400RPM, výška 159mm, PWM"
+  },
+  {
+    "id": 98,
+    "category": "cooler",
+    "name": "Endorfy Spartan 5 ARGB",
+    "description": "Chladič na procesor socket AM2, AM3, AM3+, AM4, FM1, FM2, FM2+ a AM5, 1150, 1151, 1155, 1156, 1200, 1700 a 1851, 160 W, 2× heatpipe, max. rychlost 1500RPM, výška 146mm, ARGB podsvícení (5V) a PWM"
+  },
+  {
+    "id": 99,
+    "category": "cooler",
+    "name": "Endorfy Spartan 5 MAX",
+    "description": "Chladič na procesor socket AM2, AM3, AM3+, AM4, FM1, FM2, FM2+ a AM5, 1150, 1151, 1155, 1156, 1200, 1700, 2011, 2066 a 1851, 180 W, 4× heatpipe, max. rychlost 1500RPM, výška 146mm, PWM"
+  },
+  {
+    "id": 100,
+    "category": "cooler",
+    "name": "ID-COOLING DK-03 Rainbow",
+    "description": "Chladič na procesor socket AM2, AM3, AM3+, AM4, FM1, FM2, FM2+ a AM5, 1150, 1151, 1155, 1156, 1200, 1700 a 1851, 100 W, 1x120mm RGB ventilátor, max. hlučnost 25,6dB, max. rychlost 1800RPM, výška 63mm, LED podsvícení a PWM"
+  },
+  {
+    "id": 101,
+    "category": "cooler",
+    "name": "ID-COOLING SE-214-XT ARGB",
+    "description": "Chladič na procesor socket AM4 a AM5, 1150, 1151, 1155, 1156, 1200, 1700 a 1851, 180 W, 1x120mm ventilátor, 4× heatpipe, max. hlučnost 26,6dB, max. rychlost 1500RPM, výška 150mm, PWM"
+  },
+  {
+    "id": 102,
+    "category": "cooler",
+    "name": "ID-COOLING SE-214-XT",
+    "description": "Chladič na procesor socket AM4 a AM5, 1150, 1151, 1155, 1156, 1200, 1700 a 1851, 180 W, 1x120mm LED ventilátor, 4× heatpipe, max. hlučnost 30,5dB, max. rychlost 1500RPM, výška 150mm, PWM"
+  },
+  {
+    "id": 103,
+    "category": "cooler",
+    "name": "ID-COOLING SE-224-XTS BLACK",
+    "description": "Chladič na procesor socket AM4 a AM5, 1150, 1151, 1155, 1156, 1200, 1700 a 1851, 220 W, 1x120mm ventilátor, 4× heatpipe, max. hlučnost 28,9dB, max. rychlost 1500RPM, výška 151mm, PWM"
+  },
+  {
+    "id": 104,
+    "category": "cooler",
+    "name": "Noctua NH-D15 G2",
+    "description": "Chladič na procesor socket AM4 a AM5, 1150, 1151, 1155, 1156, 1200, 1700 a 1851, 220 W, 2x140mm ventilátor, 8× heatpipe, max. hlučnost 24,8dB, max. rychlost 1500RPM, výška 168mm, PWM"
+  },
+  {
+    "id": 105,
+    "category": "cooler",
+    "name": "XILENCE chladič pro CPU AMD, heatpipe, ventilátor 92 mm PWM, max. 130 W TDP",
+    "description": "Chladič na procesor chladič CPU, AMD, ventilátor 92 mm, 130 W, PWM"
+  },
+  {
+    "id": 106,
+    "category": "cooler",
+    "name": "XILENCE chladič pro CPU Intel a AMD, heatpipe, ventilátor 120 mm PWM, max. 190 W TDP",
+    "description": "Chladič na procesor chladič CPU, Intel, AMD, ventilátor 120 mm, 190 W, PWM"
+  },
+  {
+    "id": 155,
+    "category": "gpu",
+    "name": "ASROCK Radeon RX 9070 Steel Legend 16G OC",
+    "description": "Grafická karta - 16 GB GDDR6 (20000 MHz), AMD Radeon, RDNA 4.0 (Navi 48, 2210 MHz), Boost 2700 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 298 mm"
+  },
+  {
+    "id": 156,
+    "category": "gpu",
+    "name": "ASROCK Radeon RX 9070 XT Steel Legend 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (20000 MHz), AMD Radeon, RDNA 4.0 (Navi 48, 2400 MHz), Boost 2970 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 298 mm"
+  },
+  {
+    "id": 157,
+    "category": "gpu",
+    "name": "ASUS DUAL GeForce RTX 5050 8G OC",
+    "description": "Grafická karta - 8 GB GDDR6 (20000 MHz), NVIDIA GeForce, Blackwell (GB207, 2317 MHz), Boost 2677 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 203 mm"
+  },
+  {
+    "id": 158,
+    "category": "gpu",
+    "name": "ASUS DUAL GeForce RTX 5060 8G OC",
+    "description": "Grafická karta - 8 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB206, 2280 MHz), Boost 2565 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 228 mm"
+  },
+  {
+    "id": 159,
+    "category": "gpu",
+    "name": "ASUS DUAL GeForce RTX 5060 Ti O16G",
+    "description": "Grafická karta - 16 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB206, 2235 MHz), PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0"
+  },
+  {
+    "id": 160,
+    "category": "gpu",
+    "name": "ASUS DUAL GeForce RTX 5070 12G OC",
+    "description": "Grafická karta - 12 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB205, 2160 MHz), Boost 2572 MHz, PCI Express x16 5.0, 192Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 249 mm"
+  },
+  {
+    "id": 161,
+    "category": "gpu",
+    "name": "ASUS DUAL Radeon RX 9060 XT 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (20000 MHz), AMD Radeon, RDNA 4.0 (Navi 44, 2220 MHz), Boost 3250 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 202 mm"
+  },
+  {
+    "id": 162,
+    "category": "gpu",
+    "name": "ASUS PRIME GeForce RTX 5070 O12G",
+    "description": "Grafická karta - 12 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB205, 2160 MHz), Boost 2587 MHz, PCI Express x16 5.0, 192Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 304 mm"
+  },
+  {
+    "id": 163,
+    "category": "gpu",
+    "name": "ASUS PRIME GeForce RTX 5070 Ti O16G",
+    "description": "Grafická karta - 16 GB GDDR7 (30000 MHz), NVIDIA GeForce, Blackwell (GB203, 2300 MHz), PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, DLSS 4.0, šířka 306 mm"
+  },
+  {
+    "id": 164,
+    "category": "gpu",
+    "name": "ASUS PRIME GeForce RTX 5080 O16G",
+    "description": "Grafická karta - 16 GB GDDR7 (30000 MHz), NVIDIA GeForce, Blackwell (GB203, 2295 MHz), PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, DLSS 4.0, šířka 306 mm"
+  },
+  {
+    "id": 165,
+    "category": "gpu",
+    "name": "GAINWARD GeForce RTX 5060 Ti Ghost 8G",
+    "description": "Grafická karta - 8 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB206, 2235 MHz), Boost 2572 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 262,1 mm"
+  },
+  {
+    "id": 166,
+    "category": "gpu",
+    "name": "GAINWARD GeForce RTX 5060 Ti Python III 16G",
+    "description": "Grafická karta - 16 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB206, 2235 MHz), Boost 2572 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 291,9 mm"
+  },
+  {
+    "id": 167,
+    "category": "gpu",
+    "name": "GAINWARD GeForce RTX 5080 Phoenix 16G",
+    "description": "Grafická karta - 16 GB GDDR7 (30000 MHz), NVIDIA GeForce, Blackwell (GB203, 2295 MHz), Boost 2617 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, DLSS 4.0, šířka 331,9 mm"
+  },
+  {
+    "id": 168,
+    "category": "gpu",
+    "name": "GAINWARD GeForce RTX 5090 Phantom 32G",
+    "description": "Grafická karta - 32 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB202, 2017 MHz), Boost 2407 MHz, PCI Express x16 5.0, 512Bit, DisplayPort 2.1a a HDMI 2.1b, DLSS 4.0, šířka 331,9 mm"
+  },
+  {
+    "id": 169,
+    "category": "gpu",
+    "name": "GIGABYTE GeForce RTX 3050 WINDFORCE OC V2 6G",
+    "description": "Grafická karta - 6 GB GDDR6 (14000 MHz), NVIDIA GeForce, Ampere (GA106, 1042 MHz), Boost 1477 MHz, PCI Express x16 4.0, 96Bit, DisplayPort 1.4a a HDMI 2.1, šířka 191 mm"
+  },
+  {
+    "id": 170,
+    "category": "gpu",
+    "name": "GIGABYTE GeForce RTX 5060 Ti GAMING OC 16G",
+    "description": "Grafická karta - 16 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB206, 2235 MHz), Boost 2647 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 281 mm"
+  },
+  {
+    "id": 171,
+    "category": "gpu",
+    "name": "GIGABYTE GeForce RTX 5060 Ti WINDFORCE OC 16G",
+    "description": "Grafická karta - 16 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB206, 2235 MHz), Boost 2587 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 208 mm"
+  },
+  {
+    "id": 172,
+    "category": "gpu",
+    "name": "GIGABYTE GeForce RTX 5060 WINDFORCE MAX OC 8G",
+    "description": "Grafická karta - 8 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB206, 2280 MHz), Boost 2512 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 199 mm"
+  },
+  {
+    "id": 173,
+    "category": "gpu",
+    "name": "GIGABYTE GeForce RTX 5060 WINDFORCE OC 8G",
+    "description": "Grafická karta - 8 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB206, 2280 MHz), Boost 2677 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 199 mm"
+  },
+  {
+    "id": 174,
+    "category": "gpu",
+    "name": "GIGABYTE GeForce RTX 5070 Ti EAGLE OC SFF 16G",
+    "description": "Grafická karta - 16 GB GDDR7 (30000 MHz), NVIDIA GeForce, Blackwell (GB203, 2300 MHz), PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, DLSS 4.0, šířka 304 mm"
+  },
+  {
+    "id": 175,
+    "category": "gpu",
+    "name": "GIGABYTE GeForce RTX 5070 Ti GAMING OC 16G",
+    "description": "Grafická karta - 16 GB GDDR7 (30000 MHz), NVIDIA GeForce, Blackwell (GB203, 2300 MHz), PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, DLSS 4.0, šířka 342 mm"
+  },
+  {
+    "id": 176,
+    "category": "gpu",
+    "name": "GIGABYTE GeForce RTX 5070 WINDFORCE OC SSF 12G",
+    "description": "Grafická karta - 12 GB GDDR7, NVIDIA GeForce, Blackwell (GB205, 2160 MHz), Boost 2510 MHz, PCI Express x16 5.0, 192Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 282 mm"
+  },
+  {
+    "id": 177,
+    "category": "gpu",
+    "name": "GIGABYTE GeForce RTX 5070 WINDFORCE SFF 12G",
+    "description": "Grafická karta - 12 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB205, 2160 MHz), Boost 2512 MHz, PCI Express x16 5.0, 192Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 282 mm"
+  },
+  {
+    "id": 178,
+    "category": "gpu",
+    "name": "GIGABYTE GeForce RTX 5080 GAMING OC 16G",
+    "description": "Grafická karta - 16 GB GDDR7 (32000 MHz), NVIDIA GeForce, Blackwell (GB203, 2295 MHz), PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, DLSS 4.0, šířka 340 mm"
+  },
+  {
+    "id": 179,
+    "category": "gpu",
+    "name": "GIGABYTE GeForce RTX 5080 WINDFORCE OC SFF 16G",
+    "description": "Grafická karta - 16 GB GDDR7 (30000 MHz), NVIDIA GeForce, Blackwell (GB203, 2295 MHz), Boost 2670 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, DLSS 4.0, šířka 304 mm"
+  },
+  {
+    "id": 180,
+    "category": "gpu",
+    "name": "GIGABYTE Radeon RX 9070 XT GAMING OC 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (20000 MHz), AMD Radeon, RDNA 4.0 (Navi 48, 2400 MHz), Boost 3060 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 288 mm"
+  },
+  {
+    "id": 181,
+    "category": "gpu",
+    "name": "INNO3D GeForce RTX 3080 X3 LHR BULK",
+    "description": "Grafická karta - 10 GB GDDR6X (19000 MHz), NVIDIA GeForce, Ampere (GA102, 1440 MHz), Boost 1710 MHz, PCI Express x16 4.0, 320Bit, DisplayPort 1.4a a HDMI 2.1, šířka 300 mm."
+  },
+  {
+    "id": 182,
+    "category": "gpu",
+    "name": "Intel Arc B580 Limited Edition",
+    "description": "Grafická karta - 12 GB GDDR6 (19000 MHz), Intel ARC, Battlemage (BGM-G21, 2670 MHz), Boost 2670 MHz, PCI Express x16 4.0, 192Bit, DisplayPort 2.1 a HDMI 2.1, šířka 272 mm"
+  },
+  {
+    "id": 183,
+    "category": "gpu",
+    "name": "MSI GeForce RTX 3050 VENTUS 2X XS 8G OC",
+    "description": "Grafická karta - 8 GB GDDR6, NVIDIA GeForce, Ampere, Boost 1807 MHz, PCI Express x8 4.0, DisplayPort 1.4a a HDMI 2.1, šířka 205 mm"
+  },
+  {
+    "id": 184,
+    "category": "gpu",
+    "name": "MSI GeForce RTX 5060 8G VENTUS 2X OC",
+    "description": "Grafická karta - 8 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB206, 2280 MHz), Boost 2535 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 197 mm"
+  },
+  {
+    "id": 185,
+    "category": "gpu",
+    "name": "MSI GeForce RTX 5060 Ti 16G VENTUS 2X OC PLUS",
+    "description": "Grafická karta - 16 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB206, 2235 MHz), Boost 2617 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 227 mm"
+  },
+  {
+    "id": 186,
+    "category": "gpu",
+    "name": "MSI GeForce RTX 5070 12G VENTUS 3X OC",
+    "description": "Grafická karta - 12 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB205, 2160 MHz), Boost 2557 MHz, PCI Express x16 5.0, 192Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 302 mm"
+  },
+  {
+    "id": 187,
+    "category": "gpu",
+    "name": "MSI GeForce RTX 5070 Ti 16G GAMING TRIO OC",
+    "description": "Grafická karta - 16 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB203, 2300 MHz), Boost 2580 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 338 mm"
+  },
+  {
+    "id": 188,
+    "category": "gpu",
+    "name": "MSI GeForce RTX 5070 Ti 16G VENTUS 3X OC",
+    "description": "Grafická karta - 16 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB203, 2300 MHz), Boost 2497 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, DLSS 4.0, šířka 303 mm"
+  },
+  {
+    "id": 189,
+    "category": "gpu",
+    "name": "MSI GeForce RTX 5080 16G VENTUS 3X OC PLUS",
+    "description": "Grafická karta - 16 GB GDDR7 (30000 MHz), NVIDIA GeForce, Blackwell (GB203, 2295 MHz), Boost 2640 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, DLSS 4.0, šířka 303 mm"
+  },
+  {
+    "id": 190,
+    "category": "gpu",
+    "name": "PALIT GeForce RTX 5060 Ti Infinity 3 16G",
+    "description": "Grafická karta - 16 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB206, 2235 MHz), Boost 2572 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 291,9 mm"
+  },
+  {
+    "id": 191,
+    "category": "gpu",
+    "name": "PALIT GeForce RTX 5070 Ti GamingPro-S 16G",
+    "description": "Grafická karta - 16 GB GDDR7 (28000 MHz), NVIDIA GeForce, Blackwell (GB203, 2300 MHz), Boost 2625 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1b a HDMI 2.1b, DLSS 4.0, šířka 331,9 mm"
+  },
+  {
+    "id": 192,
+    "category": "gpu",
+    "name": "SAPPHIRE NITRO+ AMD Radeon RX 9060 XT GAMING OC 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (20000 MHz), AMD Radeon, RDNA 4.0 (Navi 44, 2220 MHz), Boost 3320 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 300 mm"
+  },
+  {
+    "id": 193,
+    "category": "gpu",
+    "name": "SAPPHIRE NITRO+ AMD Radeon RX 9070 GAMING OC 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (20000 MHz), AMD Radeon, RDNA 4.0 (Navi 48, 2210 MHz), Boost 2700 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 330,8 mm"
+  },
+  {
+    "id": 194,
+    "category": "gpu",
+    "name": "SAPPHIRE NITRO+ AMD Radeon RX 9070 XT GAMING OC 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (19500 MHz), AMD Radeon, RDNA 4.0 (Navi 48, 2400 MHz), Boost 3060 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 330,8 mm"
+  },
+  {
+    "id": 195,
+    "category": "gpu",
+    "name": "SAPPHIRE PULSE AMD Radeon RX 7600 8G",
+    "description": "Grafická karta - 8 GB GDDR6 (18000 MHz), AMD Radeon, RDNA 3.0 (Navi 33, 1720 MHz), Boost 2755 MHz, PCI Express x16 4.0, 128Bit, DisplayPort 1.4 a HDMI 2.1, šířka 240 mm"
+  },
+  {
+    "id": 196,
+    "category": "gpu",
+    "name": "SAPPHIRE PULSE AMD Radeon RX 9060 XT GAMING OC 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (20000 MHz), AMD Radeon, RDNA 4.0 (Navi 44, 2220 MHz), Boost 3290 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 240 mm"
+  },
+  {
+    "id": 197,
+    "category": "gpu",
+    "name": "SAPPHIRE PULSE AMD Radeon RX 9070 XT GAMING 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (19500 MHz), AMD Radeon, RDNA 4.0 (Navi 48, 2400 MHz), Boost 2970 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 320 mm"
+  },
+  {
+    "id": 198,
+    "category": "gpu",
+    "name": "SAPPHIRE PURE AMD Radeon RX 9070 XT GAMING OC 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (19500 MHz), AMD Radeon, RDNA 4.0 (Navi 48, 2400 MHz), Boost 3010 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 320 mm"
+  },
+  {
+    "id": 199,
+    "category": "gpu",
+    "name": "XFX Quicksilver AMD Radeon RX 9070 XT Magnetic Air 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (20000 MHz), AMD Radeon, RDNA 4.0 (Navi 48, 2400 MHz), Boost 2970 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 350 mm"
+  },
+  {
+    "id": 200,
+    "category": "gpu",
+    "name": "XFX Quicksilver AMD Radeon RX 9070 XT White Magnetic Air 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (20000 MHz), AMD Radeon, RDNA 4.0 (Navi 48, 2400 MHz), Boost 2970 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 350 mm"
+  },
+  {
+    "id": 201,
+    "category": "gpu",
+    "name": "XFX Swift AMD Radeon RX 9060 XT OC 16G Triple Fan",
+    "description": "Grafická karta - 16 GB GDDR6 (20000 MHz), AMD Radeon, RDNA 4.0 (Navi 44, 2220 MHz), Boost 3320 MHz, PCI Express x16 5.0, 128Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 290 mm"
+  },
+  {
+    "id": 202,
+    "category": "gpu",
+    "name": "XFX Swift AMD Radeon RX 9070 XT 16G",
+    "description": "Grafická karta - 16 GB GDDR6 (20000 MHz), AMD Radeon, RDNA 4.0 (Navi 48, 2400 MHz), Boost 2970 MHz, PCI Express x16 5.0, 256Bit, DisplayPort 2.1a a HDMI 2.1b, šířka 320 mm"
+  },
+  {
+    "id": 291,
+    "category": "motherboard",
+    "name": "ASROCK A520M-HDV",
+    "description": "Základní deska AMD A520, socket AMD AM4, PCI Express 3.0, 1× PCIe x16, 0× PCIe x8, 0× PCIe x4, 1× PCIe x1, 2× DDR4 4733MHz (OC), 4× SATA III, 1× M.2, RJ-45 (LAN) 1Gbps, VGA, DVI, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 292,
+    "category": "motherboard",
+    "name": "ASROCK A620M Pro RS",
+    "description": "Základní deska AMD A620, socket AMD AM5, PCI Express 4.0, 1× PCIe x16, 4× DDR5 6000MHz (OC), 4× SATA III, 3× M.2, RJ-45 (LAN) 1Gbps, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 293,
+    "category": "motherboard",
+    "name": "ASROCK B550M Pro4",
+    "description": "Základní deska AMD B550, socket AMD AM4, PCI Express 4.0, 2× PCIe x16, 1× PCIe x1, 4× DDR4 4733MHz (OC), 6× SATA III, 2× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 1Gbps, VGA, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 294,
+    "category": "motherboard",
+    "name": "ASROCK B650M-HDV/M.2",
+    "description": "Základní deska AMD B650, socket AMD AM5, PCI Express 5.0, 2× PCIe x16, 1× PCIe x1, 2× DDR5 6400MHz (OC), 4× SATA III, 2× M.2, RJ-45 (LAN) 2,5Gbps, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 295,
+    "category": "motherboard",
+    "name": "ASROCK B850 Pro RS",
+    "description": "Základní deska AMD B850, socket AMD AM5, PCI Express 5.0, 2× PCIe x16, 4× DDR5 8000MHz (OC), 4× SATA III, 4× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 296,
+    "category": "motherboard",
+    "name": "ASUS PRIME A520M-A II/CSM",
+    "description": "Základní deska AMD A520, socket AMD AM4, PCI Express 3.0, 1× PCIe x16, 2× PCIe x1, 4× DDR4 4866MHz (OC), 4× SATA III, 1× M.2, RJ-45 (LAN) 1Gbps, VGA, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 297,
+    "category": "motherboard",
+    "name": "ASUS PRIME A520M-R",
+    "description": "Základní deska AMD A520, socket AMD AM4, PCI Express 3.0, 1× PCIe x16, 1× PCIe x1, 2× DDR4 5100MHz (OC), 4× SATA III, 1× M.2, RJ-45 (LAN) 1Gbps, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 298,
+    "category": "motherboard",
+    "name": "ASUS PRIME B650-PLUS-CSM",
+    "description": "Základní deska AMD B650, socket AMD AM5, PCI Express 5.0, 2× PCIe x16, 2× PCIe x1, 4× DDR5 7600MHz (OC), 4× SATA III, 2× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 299,
+    "category": "motherboard",
+    "name": "ASUS PRIME B650-PLUS WIFI",
+    "description": "Základní deska AMD B650, socket AMD AM5, PCI Express 5.0, 2× PCIe x16, 2× PCIe x1, 4× DDR5 7600MHz (OC), 4× SATA III, 2× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 300,
+    "category": "motherboard",
+    "name": "ASUS ROG STRIX X870E-E GAMING WIFI",
+    "description": "Základní deska AMD X870E, socket AMD AM5, PCI Express 5.0, 2× PCIe x16, 4× DDR5 8400MHz (OC), 4× SATA III, 5× M.2, RJ-45 (LAN) 5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 301,
+    "category": "motherboard",
+    "name": "ASUS TUF GAMING A520M-PLUS II",
+    "description": "Základní deska AMD A520, socket AMD AM4, PCI Express 3.0, 1× PCIe x16, 2× PCIe x1, 4× DDR4 4800MHz (OC), 4× SATA III, 1× M.2, RJ-45 (LAN) 1Gbps, VGA, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 302,
+    "category": "motherboard",
+    "name": "ASUS TUF GAMING A520M-PLUS WIFI",
+    "description": "Základní deska AMD A520, socket AMD AM4, PCI Express 3.0, 1× PCIe x16, 2× PCIe x1, 4× DDR4 4800MHz (OC), RJ-45 (LAN) 1Gbps, WiFi, Bluetooth, VGA, 7.1 zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 303,
+    "category": "motherboard",
+    "name": "ASUS TUF GAMING B550-PLUS",
+    "description": "Základní deska AMD B550, socket AMD AM4, PCI Express 4.0, 2× PCIe x16, 3× PCIe x1, 4× DDR4 4600MHz (OC), 6× SATA III, 2× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 304,
+    "category": "motherboard",
+    "name": "ASUS TUF GAMING B650-PLUS WIFI",
+    "description": "Základní deska AMD B650, socket AMD AM5, PCI Express 3.0, PCI Express 4.0, 2× PCIe x16, 3× PCIe x4, 2× PCIe x1, 4× DDR5 6400MHz (OC), 4× SATA III, 3× M.2, USB 3.2 Gen 2x2, 7.1 zvuková karta, formát ATX"
+  },
+  {
+    "id": 305,
+    "category": "motherboard",
+    "name": "ASUS TUF GAMING B650M-E WIFI",
+    "description": "Základní deska AMD B650, socket AMD AM5, PCI Express 5.0, 1× PCIe x16, 2× PCIe x1, 4× DDR5 6400MHz (OC), 4× SATA III, 2× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 306,
+    "category": "motherboard",
+    "name": "ASUS TUF GAMING B650M-PLUS WIFI",
+    "description": "Základní deska AMD B650, socket AMD AM5, PCI Express 4.0, 2× PCIe x16, 3× PCIe x4, 1× PCIe x1, 4× DDR5 6400MHz (OC), 4× SATA III, 2× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 307,
+    "category": "motherboard",
+    "name": "ASUS TUF GAMING B850-PLUS WIFI",
+    "description": "Základní deska AMD B850, socket AMD AM5, PCI Express 5.0, 2× PCIe x16, 2× PCIe x1, 4× DDR5 8000MHz (OC), 4× SATA III, 3× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 308,
+    "category": "motherboard",
+    "name": "ASUS X870 MAX GAMING WIFI7",
+    "description": "Základní deska AMD X870, socket AMD AM5, PCI Express 5.0, 4× PCIe x16, 4× DDR5 8000MHz (OC), 4× SATA III, 3× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 309,
+    "category": "motherboard",
+    "name": "GIGABYTE A520M K V2",
+    "description": "Základní deska AMD A520, socket AMD AM4, PCI Express 3.0, 1× PCIe x16, 1× PCIe x1, 2× DDR4 5100MHz (OC), 4× SATA III, 1× M.2, RJ-45 (LAN) 1Gbps, VGA, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 310,
+    "category": "motherboard",
+    "name": "GIGABYTE A620M H",
+    "description": "Základní deska AMD A620, socket AMD AM5, PCI Express 4.0, 1× PCIe x16, 1× PCIe x1, 2× DDR5 6400MHz (OC), 4× SATA III, 1× M.2, RJ-45 (LAN) 1Gbps, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 311,
+    "category": "motherboard",
+    "name": "GIGABYTE B550 EAGLE WIFI6",
+    "description": "Základní deska AMD B550, socket AMD AM4, PCI Express 4.0, 5× PCIe x16, 4× DDR4 3200MHz (OC), 4× SATA III, 2× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 1Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 312,
+    "category": "motherboard",
+    "name": "GIGABYTE B550 GAMING X V2",
+    "description": "Základní deska AMD B550, socket AMD AM4, 2× PCIe x16, 3× PCIe x1, 4× DDR4 4733MHz (OC), 4× SATA III, 2× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 1Gbps, DVI, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 313,
+    "category": "motherboard",
+    "name": "GIGABYTE B550M DS3H",
+    "description": "Základní deska AMD B550, socket AMD AM4, 2× PCIe x16, 1× PCIe x1, 4× DDR4 4733MHz (OC), 4× SATA III, 2× M.2, RJ-45 (LAN) 1Gbps, DVI, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 314,
+    "category": "motherboard",
+    "name": "GIGABYTE B550M K",
+    "description": "Základní deska AMD B550, socket AMD AM4, PCI Express 4.0, 1× PCIe x16, 1× PCIe x1, 4× DDR4 4733MHz (OC), 4× SATA III, 2× M.2, RJ-45 (LAN) 1Gbps, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 315,
+    "category": "motherboard",
+    "name": "GIGABYTE B650 AORUS ELITE AX V2",
+    "description": "Základní deska AMD B650, socket AMD AM5, PCI Express 5.0, 3× PCIe x16, 4× DDR5 8000MHz (OC), 4× SATA III, 3× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 316,
+    "category": "motherboard",
+    "name": "GIGABYTE B650 EAGLE AX",
+    "description": "Základní deska AMD B650, socket AMD AM5, PCI Express 4.0, 3× PCIe x16, 4× DDR5 7600MHz (OC), 4× SATA III, 3× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 1Gbps, WiFi, Bluetooth, 7.1 zvuková karta, formát ATX"
+  },
+  {
+    "id": 317,
+    "category": "motherboard",
+    "name": "GIGABYTE B650 EAGLE",
+    "description": "Základní deska AMD B650, socket AMD AM5, PCI Express 4.0, 4× PCIe x16, 4× DDR5 7600MHz (OC), 4× SATA III, 3× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 1Gbps, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 318,
+    "category": "motherboard",
+    "name": "GIGABYTE B650 GAMING X AX V2",
+    "description": "Základní deska AMD B650, socket AMD AM5, 3× PCIe x16, 4× DDR5 8000MHz (OC), 4× SATA III, 3× M.2, WiFi, Bluetooth, 7.1 zvuková karta, formát ATX"
+  },
+  {
+    "id": 319,
+    "category": "motherboard",
+    "name": "GIGABYTE B850 AORUS ELITE WIFI7",
+    "description": "Základní deska AMD B850, socket AMD AM5, PCI Express 5.0, 3× PCIe x16, 4× DDR5, 4× SATA III, 3× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 320,
+    "category": "motherboard",
+    "name": "GIGABYTE B850 EAGLE WIFI6E",
+    "description": "Základní deska AMD B850, socket AMD AM5, PCI Express 5.0, 4× PCIe x16, 4× DDR5, 4× SATA III, 3× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 1Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 321,
+    "category": "motherboard",
+    "name": "GIGABYTE B850 GAMING WIFI6",
+    "description": "Základní deska AMD B850, socket AMD AM5, PCI Express 5.0, 4× PCIe x16, 4× DDR5, 4× SATA III, 3× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 1Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 322,
+    "category": "motherboard",
+    "name": "GIGABYTE X870 EAGLE WIFI7",
+    "description": "Základní deska AMD X870, socket AMD AM5, PCI Express 5.0, 3× PCIe x16, 4× DDR5 8000MHz (OC), 4× SATA III, 3× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 323,
+    "category": "motherboard",
+    "name": "GIGABYTE X870E AORUS ELITE WIFI7",
+    "description": "Základní deska AMD X870E, socket AMD AM5, PCI Express 5.0, 3× PCIe x16, 4× DDR5 8000MHz (OC), 4× SATA III, 4× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 324,
+    "category": "motherboard",
+    "name": "MSI B550-A PRO",
+    "description": "Základní deska AMD B550, socket AMD AM4, PCI Express 4.0, 2× PCIe x16, 2× PCIe x1, 4× DDR4 4400MHz (OC), 6× SATA III, 2× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 1Gbps, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 325,
+    "category": "motherboard",
+    "name": "MSI B850 GAMING PLUS WIFI",
+    "description": "Základní deska AMD B850, socket AMD AM5, PCI Express 5.0, 4× PCIe x16, 4× DDR5 8200MHz (OC), 4× SATA III, 3× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 326,
+    "category": "motherboard",
+    "name": "MSI B850M GAMING PLUS WIFI6E",
+    "description": "Základní deska AMD B850, socket AMD AM5, PCI Express 4.0, 1× PCIe x16, 2× PCIe x1, 4× DDR5 8200MHz (OC), 4× SATA III, 2× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát mATX (Micro ATX)"
+  },
+  {
+    "id": 327,
+    "category": "motherboard",
+    "name": "MSI MAG B650 TOMAHAWK WIFI",
+    "description": "Základní deska AMD B650, socket AMD AM5, PCI Express 4.0, 2× PCIe x16, 1× PCIe x1, 4× DDR5 6400MHz (OC), 6× SATA III, 3× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 2,5Gbps, WiFi, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 328,
+    "category": "motherboard",
+    "name": "MSI MAG B850 TOMAHAWK MAX WIFI",
+    "description": "Základní deska AMD B850, socket AMD AM5, PCI Express 5.0, 3× PCIe x16, 4× DDR5 8400MHz (OC), 4× SATA III, 4× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 329,
+    "category": "motherboard",
+    "name": "MSI MAG X870 TOMAHAWK WIFI",
+    "description": "Základní deska AMD X870, socket AMD AM5, PCI Express 5.0, 3× PCIe x16, 4× DDR5, 4× SATA III, 4× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 5Gbps, WiFi, Bluetooth, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 330,
+    "category": "motherboard",
+    "name": "MSI MPG B550 GAMING PLUS",
+    "description": "Základní deska AMD B550, socket AMD AM4, 2× PCIe x16, 2× PCIe x1, 4× DDR4 4400MHz (OC), 6× SATA III, 2× M.2, USB 3.2 Gen 2, RJ-45 (LAN) 1Gbps, 8ch zvuková karta, formát ATX"
+  },
+  {
+    "id": 376,
+    "category": "case",
+    "name": "ADATA XPG Valor Air Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 3,5, 2× 2,5, 1× 2.5/3.5, USB 3.2 Gen 1 a sluchátka/mikrofon, 4x120mm, max. výška chladiče 166 mm, max. délka grafické karty 305 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 377,
+    "category": "case",
+    "name": "ADATA XPG Valor Mesh Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 3,5, 2× 2,5, 1× 2.5/3.5, USB 3.2 Gen 1 a sluchátka/mikrofon, 4x120mm, max. výška chladiče 166 mm, max. délka grafické karty 335 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 378,
+    "category": "case",
+    "name": "ASUS A31 PLUS TG ARGB BLACK",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 2.5/3.5, USB 3.2 Gen 1, usb-c, sluchátka/mikrofon a USB 3.2 Gen 2x2, 4x120mm ARGB, max. výška chladiče 165 mm, max. délka grafické karty 380 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 379,
+    "category": "case",
+    "name": "ASUS ProArt PA602 TG Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX), mITX (Mini ITX) a eATX (Extended ATX), 4× 2,5, 4× 2.5/3.5, usb 2.0, USB 3.2 Gen 1, usb-c, sluchátka/mikrofon a USB 3.2 Gen 2x2, 1x140mm a 2x200mm, max. výška chladiče 190 mm, max. délka grafické karty 450 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 380,
+    "category": "case",
+    "name": "Cooler Master Elite 302",
+    "description": "Počítačová skříň - mATX (Micro ATX) a mITX (Mini ITX), 1× 3,5, 1× 2,5, USB 3.2 Gen 1, usb-c a sluchátka/mikrofon, 3x120mm ARGB, max. výška chladiče 163,5 mm, max. délka grafické karty 365 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 381,
+    "category": "case",
+    "name": "Corsair 3000D AIRFLOW Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 3,5, 2× 2,5, USB 3.2 Gen 1 a sluchátka/mikrofon, 2x120mm, max. výška chladiče 170 mm, max. délka grafické karty 360 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 382,
+    "category": "case",
+    "name": "Corsair 3500X ARGB Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX), mITX (Mini ITX) a eATX (Extended ATX), 2× 3,5, 2× 2,5, USB 3.2 Gen 1, usb-c, sluchátka/mikrofon a USB 3.2 Gen 2, 3x120mm ARGB, max. výška chladiče 170 mm, max. délka grafické karty 410 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 383,
+    "category": "case",
+    "name": "darkFlash B350",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, Bez ventilátorů, max. výška chladiče 160 mm, max. délka grafické karty 345 mm, bez zdroje"
+  },
+  {
+    "id": 384,
+    "category": "case",
+    "name": "darkFlash DRX70 Mesh Black",
+    "description": "Počítačová skříň - ATX a mATX (Micro ATX), 2× 3,5, 1× 2,5, usb 2.0, USB 3.2 Gen 1, usb-c, sluchátka a mikrofon, max. výška chladiče 180 mm, max. délka grafické karty 350 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 385,
+    "category": "case",
+    "name": "Endorfy Armis 100 Solid",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 1× 5,25, 1× 3,5, 4× 2,5, 1× 2.5/3.5, USB 3.2 Gen 1, sluchátka, mikrofon a čtečka karet, 1x120mm, max. výška chladiče 165 mm, max. délka grafické karty 335 mm, bez zdroje, bočnice ocelová"
+  },
+  {
+    "id": 386,
+    "category": "case",
+    "name": "Eurocase ML N6-560B",
+    "description": "Počítačová skříň - ATX a mATX (Micro ATX), 1× 2,5, 2× 2.5/3.5, USB 3.2 Gen 1, sluchátka, mikrofon a USB 3.2 Gen 2, max. výška chladiče 110 mm, max. délka grafické karty 260 mm, bez zdroje, bočnice ocelová"
+  },
+  {
+    "id": 387,
+    "category": "case",
+    "name": "EVOLVEO M1 černá",
+    "description": "Počítačová skříň - mATX (Micro ATX), 2× 3,5, 2× 2,5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, max. výška chladiče 160 mm, max. délka grafické karty 350 mm, bez zdroje, bočnice ocelová"
+  },
+  {
+    "id": 388,
+    "category": "case",
+    "name": "EVOLVEO Ptero Q1",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 3,5, 2× 2,5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, 4x120mm RGB, max. výška chladiče 162 mm, max. délka grafické karty 350 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 389,
+    "category": "case",
+    "name": "EVOLVEO T3 černá",
+    "description": "Počítačová skříň - ATX a mATX (Micro ATX), 1× 5,25, 2× 3,5, 3× 2,5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, 3x120mm LED, max. výška chladiče 163 mm, max. délka grafické karty 400 mm, bez zdroje, bočnice akrylová"
+  },
+  {
+    "id": 390,
+    "category": "case",
+    "name": "Fractal Design Focus 2 Black Solid",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 3,5, 2× 2,5, USB 3.2 Gen 1, sluchátka a mikrofon, 2x140mm, max. výška chladiče 170 mm, max. délka grafické karty 405 mm, bez zdroje, bočnice ocelová"
+  },
+  {
+    "id": 391,
+    "category": "case",
+    "name": "Fractal Design Meshify C Mini Dark Tempered Glass",
+    "description": "Počítačová skříň - mATX (Micro ATX) a mITX (Mini ITX), 3× 2,5, 2× 2.5/3.5, USB 3.2 Gen 1, sluchátka a mikrofon, 2x120mm, max. výška chladiče 172 mm, max. délka grafické karty 315 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 392,
+    "category": "case",
+    "name": "Fractal Design North Chalk White TG Clear",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 2,5, 2× 2.5/3.5, USB 3.2 Gen 1, usb-c, sluchátka, mikrofon a USB 3.2 Gen 2, 2x140mm, max. výška chladiče 170 mm, max. délka grafické karty 355 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 393,
+    "category": "case",
+    "name": "Fractal Design North Charcoal Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 2,5, 2× 2.5/3.5, USB 3.2 Gen 1, usb-c, sluchátka, mikrofon a USB 3.2 Gen 2, 2x140mm, max. výška chladiče 170 mm, max. délka grafické karty 355 mm, bez zdroje, bočnice ocelová"
+  },
+  {
+    "id": 394,
+    "category": "case",
+    "name": "Fractal Design North Charcoal Black TG Dark",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 2,5, 2× 2.5/3.5, USB 3.2 Gen 1, usb-c, sluchátka, mikrofon a USB 3.2 Gen 2, 2x140mm, max. výška chladiče 170 mm, max. délka grafické karty 355 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 395,
+    "category": "case",
+    "name": "Fractal Design Pop Silent Black Solid",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 5,25, 2× 3,5, 2× 2,5, 2× 2.5/3.5, USB 3.2 Gen 1, sluchátka a mikrofon, 3x120mm, max. výška chladiče 170 mm, max. délka grafické karty 380 mm, bez zdroje, bočnice ocelová"
+  },
+  {
+    "id": 396,
+    "category": "case",
+    "name": "Fractal Design Pop XL Air RGB Black TG Clear Tint",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX), mITX (Mini ITX) a eATX (Extended ATX), 2× 5,25, 3× 3,5, 2× 2,5, 3× 2.5/3.5, USB 3.2 Gen 1, sluchátka a mikrofon, 4x120mm ARGB, max. výška chladiče 185 mm, max. délka grafické karty 455 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 397,
+    "category": "case",
+    "name": "GameMax Edge Black",
+    "description": "Počítačová skříň - mATX (Micro ATX) a mITX (Mini ITX), 3× 3,5, 5× 2,5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, 1x120mm, max. výška chladiče 155 mm, max. délka grafické karty 320 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 398,
+    "category": "case",
+    "name": "Gamemax G561 black",
+    "description": "Počítačová skříň ATX, 1x 5.25, 4x 3.5, 2x 2.5, 1x USB 3.0, 2x USB 2.0, 3x 120mm LED ventilátor, bez zdroje, max. délka grafické karty 360mm, max. výška chladiče procesoru 160mm"
+  },
+  {
+    "id": 399,
+    "category": "case",
+    "name": "GameMax G561-FRGB",
+    "description": "Počítačová skříň - ATX, 1× 5,25, 4× 3,5, 2× 2,5, usb 2.0, USB 3.2 Gen 1 a sluchátka, 3x120mm RGB, max. výška chladiče 156 mm, max. délka grafické karty 370 mm, bez zdroje, bočnice akrylová"
+  },
+  {
+    "id": 400,
+    "category": "case",
+    "name": "GameMax Siege Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX), mITX (Mini ITX) a eATX (Extended ATX), 2× 3,5, 3× 2,5, usb 2.0, USB 3.2 Gen 1 a sluchátka/mikrofon, 1x120mm a 3x120mm ARGB, max. výška chladiče 165 mm, max. délka grafické karty 410 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 401,
+    "category": "case",
+    "name": "Gamemax Silent HILL / H606",
+    "description": "Počítačová skříň - mATX (Micro ATX) a mITX (Mini ITX), 2× 3,5, 2× 2,5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, 1x120mm, max. výška chladiče 155 mm, max. délka grafické karty 340 mm, bez zdroje, bočnice ocelová"
+  },
+  {
+    "id": 402,
+    "category": "case",
+    "name": "GameMax Storm Black",
+    "description": "Počítačová skříň - mATX (Micro ATX) a mITX (Mini ITX), 3× 3,5, 5× 2,5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, 1x120mm, max. výška chladiče 155 mm, max. délka grafické karty 320 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 403,
+    "category": "case",
+    "name": "Montech AIR 100 ARGB Black",
+    "description": "Počítačová skříň - mATX (Micro ATX) a mITX (Mini ITX), 2× 2,5, 2× 2.5/3.5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, 4x120mm ARGB, max. výška chladiče 161 mm, max. délka grafické karty 330 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 404,
+    "category": "case",
+    "name": "Montech AIR 1000 LITE Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 3,5, 4× 2,5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, 3x120mm, max. výška chladiče 170 mm, max. délka grafické karty 340 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 405,
+    "category": "case",
+    "name": "Montech AIR 903 MAX Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX), mITX (Mini ITX) a eATX (Extended ATX), 2× 3,5, 5× 2,5, USB 3.2 Gen 1, usb-c, sluchátka a mikrofon, 1x140mm a 3x140mm ARGB, max. výška chladiče 180 mm, max. délka grafické karty 400 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 406,
+    "category": "case",
+    "name": "Montech XR White",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 3,5, 2× 2,5, USB 3.2 Gen 1, usb-c, sluchátka a mikrofon, 3x120mm ARGB, max. výška chladiče 175 mm, max. délka grafické karty 420 mm, bez zdroje, bočnice temperované sklo, mramorový design"
+  },
+  {
+    "id": 407,
+    "category": "case",
+    "name": "Montech FIGHTER 500 Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 3,5, 2× 2,5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, 4x120mm LED, max. výška chladiče 160 mm, max. délka grafické karty 320 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 408,
+    "category": "case",
+    "name": "Montech KING 95 PRO Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 5× 3,5, 8× 2,5, USB 3.2 Gen 1, usb-c, sluchátka a mikrofon, 4x120mm ARGB a 2x140mm ARGB, max. výška chladiče 175 mm, max. délka grafické karty 420 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 409,
+    "category": "case",
+    "name": "Montech X3 MESH Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 2,5, 2× 2.5/3.5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, 3x120mm LED a 3x140mm LED, max. výška chladiče 160 mm, max. délka grafické karty 305 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 410,
+    "category": "case",
+    "name": "Montech X3 MESH White",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 2,5, 2× 2.5/3.5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, 3x120mm LED a 3x140mm LED, max. výška chladiče 160 mm, max. délka grafické karty 305 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 411,
+    "category": "case",
+    "name": "Montech XR Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 2× 3,5, 2× 2,5, USB 3.2 Gen 1, usb-c, sluchátka a mikrofon, 3x120mm ARGB, max. výška chladiče 175 mm, max. délka grafické karty 420 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 412,
+    "category": "case",
+    "name": "NZXT H5 Flow (2024) All Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX), mITX (Mini ITX) a eATX (Extended ATX), 1× 3,5, 2× 2,5, USB 3.2 Gen 1, usb-c a sluchátka/mikrofon, 2x120mm, max. výška chladiče 175 mm, max. délka grafické karty 410 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 413,
+    "category": "case",
+    "name": "NZXT H5 Flow RGB (2024) All Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX), mITX (Mini ITX) a eATX (Extended ATX), 1× 3,5, 2× 2,5, USB 3.2 Gen 1, usb-c a sluchátka/mikrofon, 3x120mm ARGB, max. výška chladiče 175 mm, max. délka grafické karty 410 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 414,
+    "category": "case",
+    "name": "NZXT H5 Flow RGB (2024) All White",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX), mITX (Mini ITX) a eATX (Extended ATX), 1× 3,5, 2× 2,5, USB 3.2 Gen 1, usb-c a sluchátka/mikrofon, 3x120mm ARGB, max. výška chladiče 175 mm, max. délka grafické karty 410 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 415,
+    "category": "case",
+    "name": "NZXT H6 Flow RGB Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 1× 3,5, 2× 2,5, USB 3.2 Gen 1, usb-c, sluchátka/mikrofon a USB 3.2 Gen 2, 3x120mm ARGB, max. výška chladiče 163 mm, max. délka grafické karty 365 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 416,
+    "category": "case",
+    "name": "NZXT H7 Flow (2024) All Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX), mITX (Mini ITX) a eATX (Extended ATX), 2× 3,5, 2× 2,5, USB 3.2 Gen 1, usb-c, sluchátka/mikrofon a USB 3.2 Gen 2, 3x120mm, max. výška chladiče 185 mm, max. délka grafické karty 410 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 417,
+    "category": "case",
+    "name": "NZXT H7 Flow RGB (2024) All Black",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX), mITX (Mini ITX) a eATX (Extended ATX), 2× 3,5, 2× 2,5, USB 3.2 Gen 1, usb-c, sluchátka/mikrofon a USB 3.2 Gen 2, 3x120mm ARGB, max. výška chladiče 185 mm, max. délka grafické karty 410 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 418,
+    "category": "case",
+    "name": "NZXT H9 Flow RGB+ White",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX), mITX (Mini ITX) a eATX (Extended ATX), 2× 3,5, 4× 2,5, 2× 2.5/3.5, USB 3.2 Gen 1, usb-c, sluchátka/mikrofon a USB 3.2 Gen 2x2, 1x120mm ARGB a 6x140mm ARGB, max. výška chladiče 165 mm, max. délka grafické karty 459 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 419,
+    "category": "case",
+    "name": "Zalman P10 White",
+    "description": "Počítačová skříň - mATX (Micro ATX) a mITX (Mini ITX), 1× 2,5, 2× 2.5/3.5, USB 3.2 Gen 1, usb-c a sluchátka/mikrofon, 1x120mm ARGB, max. výška chladiče 173 mm, max. délka grafické karty 384 mm, bez zdroje, bočnice temperované sklo"
+  },
+  {
+    "id": 420,
+    "category": "case",
+    "name": "Zalman S4",
+    "description": "Počítačová skříň - ATX, mATX (Micro ATX) a mITX (Mini ITX), 1× 2,5, 2× 2.5/3.5, usb 2.0, USB 3.2 Gen 1, sluchátka a mikrofon, 2x120mm, max. výška chladiče 160 mm, max. délka grafické karty 315 mm, bez zdroje, bočnice akrylová"
+  },
+  {
+    "id": 661,
+    "category": "psu",
+    "name": "ADATA XPG CORE REACTOR II VE 750W",
+    "description": "Počítačový zdroj 750W, ATX, 80 PLUS Gold, 3 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 6 ks SATA, odpojitelné kabely, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 662,
+    "category": "psu",
+    "name": "ADATA XPG CORE REACTOR II VE 850W",
+    "description": "Počítačový zdroj 850W, ATX, 80 PLUS Gold, 3 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 6 ks SATA, odpojitelné kabely, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 663,
+    "category": "psu",
+    "name": "ADATA XPG KYBER 750W",
+    "description": "Počítačový zdroj 750W, ATX, 80 PLUS Gold, účinnost 90%, 2 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 6 ks SATA, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 664,
+    "category": "psu",
+    "name": "ADATA XPG PROBE 600W",
+    "description": "Počítačový zdroj 600W, ATX, 80 PLUS Bronze, 2 ks PCIe (8-pin / 6+2-pin), 5 ks SATA, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 665,
+    "category": "psu",
+    "name": "ADATA XPG PYLON 550W",
+    "description": "Počítačový zdroj 550W, ATX, 80 PLUS Bronze, účinnost 82%, 2 ks PCIe (8-pin / 6+2-pin), 5 ks SATA, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 666,
+    "category": "psu",
+    "name": "ADATA XPG PYLON 650W",
+    "description": "Počítačový zdroj 650W, ATX, 80 PLUS Bronze, účinnost 82%, 4 ks PCIe (8-pin / 6+2-pin), 8 ks SATA, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 667,
+    "category": "psu",
+    "name": "ADATA XPG PYLON 750W",
+    "description": "Počítačový zdroj 750W, ATX, 80 PLUS Bronze, účinnost 85%, 4 ks PCIe (8-pin / 6+2-pin), 8 ks SATA, síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 668,
+    "category": "psu",
+    "name": "ASUS ROG STRIX 1000W PLATINUM",
+    "description": "Počítačový zdroj 1000W, ATX, 80 PLUS Platinum, 4 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 6 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode,, plně modulární, hloubka 160 mm"
+  },
+  {
+    "id": 669,
+    "category": "psu",
+    "name": "ASUS ROG STRIX 1200W PLATINUM",
+    "description": "Počítačový zdroj 1200W, ATX, 80 PLUS Platinum, 4 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 6 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode,, plně modulární, hloubka 160 mm"
+  },
+  {
+    "id": 670,
+    "category": "psu",
+    "name": "ASUS TUF GAMING 750B",
+    "description": "Počítačový zdroj 750W, ATX, 80 PLUS Bronze, 4 ks PCIe (8-pin / 6+2-pin), 8 ks SATA, tepelná regulace otáček, síťový vypínač, zero RPM mode a dual EPS, 135 mm ventilátor, ne modulární, hloubka 150 mm"
+  },
+  {
+    "id": 671,
+    "category": "psu",
+    "name": "Be quiet! SYSTEM POWER 11 450W",
+    "description": "Počítačový zdroj 450W, ATX, 80 PLUS Bronze, účinnost 89%, 2 ks PCIe (8-pin / 6+2-pin), 5 ks SATA, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 672,
+    "category": "psu",
+    "name": "Cooler Master MWE Gold 850W V3",
+    "description": "Počítačový zdroj 850W, ATX, 80 PLUS Gold, 4 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 6 ks SATA, síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 673,
+    "category": "psu",
+    "name": "Corsair CX550",
+    "description": "Počítačový zdroj 550W, ATX, 80 PLUS Bronze, 2 ks PCIe (8-pin / 6+2-pin), 3 ks SATA, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 125 mm"
+  },
+  {
+    "id": 674,
+    "category": "psu",
+    "name": "Corsair CX650",
+    "description": "Počítačový zdroj 650W, ATX, 80 PLUS Bronze, 2 ks PCIe (8-pin / 6+2-pin), 3 ks SATA, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 125 mm"
+  },
+  {
+    "id": 675,
+    "category": "psu",
+    "name": "Corsair HX1200i (2025) C14",
+    "description": "Počítačový zdroj 1200W, ATX, 80 PLUS Platinum, 5 ks PCIe (8-pin / 6+2-pin), 2 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 140 mm ventilátor, plně modulární, hloubka 200 mm"
+  },
+  {
+    "id": 676,
+    "category": "psu",
+    "name": "Corsair HX1500i (2025) C20",
+    "description": "Počítačový zdroj 1500W, ATX, 80 PLUS Platinum, 5 ks PCIe (8-pin / 6+2-pin), 2 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 140 mm ventilátor, plně modulární, hloubka 200 mm"
+  },
+  {
+    "id": 677,
+    "category": "psu",
+    "name": "Corsair RM1000x ATX 3.1",
+    "description": "Počítačový zdroj 1000W, ATX, 80 PLUS Gold, účinnost 90%, 4 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 12 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 140 mm ventilátor, plně modulární, hloubka 160 mm"
+  },
+  {
+    "id": 678,
+    "category": "psu",
+    "name": "Corsair RM650e (2025)",
+    "description": "Počítačový zdroj 650W, ATX, 80 PLUS Gold, 1 ks PCIe (8-pin / 6+2-pin), 3 ks 12VHPWR (16-pin), 4 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 679,
+    "category": "psu",
+    "name": "Corsair RM750x ATX 3.1",
+    "description": "Počítačový zdroj 750W, ATX, 80 PLUS Gold, účinnost 90%, 3 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 140 mm ventilátor, plně modulární, hloubka 160 mm"
+  },
+  {
+    "id": 680,
+    "category": "psu",
+    "name": "Corsair RM850x ATX 3.1",
+    "description": "Počítačový zdroj 850W, ATX, 80 PLUS Gold, účinnost 90%, 3 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 140 mm ventilátor, plně modulární, hloubka 160 mm"
+  },
+  {
+    "id": 681,
+    "category": "psu",
+    "name": "Corsair SF850 (2024)",
+    "description": "Počítačový zdroj 850W, SFX, 80 PLUS Platinum, 2 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 92 mm ventilátor, plně modulární, hloubka 100 mm"
+  },
+  {
+    "id": 682,
+    "category": "psu",
+    "name": "DeepCool PF500D",
+    "description": "Počítačový zdroj 500W, ATX, 80 PLUS, účinnost 85%, 2 ks PCIe (8-pin / 6+2-pin), 6 ks SATA, síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 683,
+    "category": "psu",
+    "name": "EVOLVEO Pulse 400W černý",
+    "description": "Počítačový zdroj 400W, ATX, 1 ks PCIe (6-pin), 2 ks SATA, aktivní PFC, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, hloubka 143 mm"
+  },
+  {
+    "id": 684,
+    "category": "psu",
+    "name": "FSP Fortron VITA GM 1000W",
+    "description": "Počítačový zdroj 1000W, ATX, 80 PLUS Gold, účinnost 90%, 4 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 685,
+    "category": "psu",
+    "name": "GameMax GM-500 Modular",
+    "description": "Počítačový zdroj 500W, ATX, 80 PLUS Bronze, účinnost 85%, 2 ks PCIe (8-pin), 2 ks PCIe (8-pin / 6+2-pin), 2 ks PCIe (6-pin), 1 ks 12VHPWR (16-pin), 3 ks SATA, odpojitelné kabely, aktivní PFC a síťový vypínač, 140 mm ventilátor, plně modulární, hloubka 150 mm"
+  },
+  {
+    "id": 686,
+    "category": "psu",
+    "name": "GameMax GM-600 Modular",
+    "description": "Počítačový zdroj 600W, ATX, 80 PLUS Bronze, účinnost 85%, 2 ks PCIe (8-pin), 2 ks PCIe (8-pin / 6+2-pin), 2 ks PCIe (6-pin), 1 ks 12VHPWR (16-pin), 3 ks SATA, aktivní PFC a síťový vypínač, 140 mm ventilátor, plně modulární, hloubka 150 mm"
+  },
+  {
+    "id": 687,
+    "category": "psu",
+    "name": "GIGABYTE AORUS ELITE P1000W 80+ Platinum Modular PCIe 5.0",
+    "description": "Počítačový zdroj 1000W, ATX, 80 PLUS Platinum, účinnost 92%, 6 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 688,
+    "category": "psu",
+    "name": "GIGABYTE AORUS ELITE P850W 80+ Platinum Modular PCIe 5.1",
+    "description": "Počítačový zdroj 850W, ATX, 80 PLUS Platinum, účinnost 92%, 6 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 689,
+    "category": "psu",
+    "name": "GIGABYTE P550B",
+    "description": "Počítačový zdroj 550W, ATX, 80 PLUS Bronze, účinnost 85%, 2 ks PCIe (8-pin / 6+2-pin), 6 ks SATA, aktivní PFC, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 690,
+    "category": "psu",
+    "name": "GIGABYTE P650G",
+    "description": "Počítačový zdroj 650W, ATX, 80 PLUS Gold, účinnost 90%, 4 ks PCIe (8-pin / 6+2-pin), 6 ks SATA, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 691,
+    "category": "psu",
+    "name": "GIGABYTE P750BS",
+    "description": "Počítačový zdroj 750W, ATX, 80 PLUS Bronze, účinnost 88%, 4 ks PCIe (8-pin / 6+2-pin), 7 ks SATA, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 692,
+    "category": "psu",
+    "name": "GIGABYTE P750GM",
+    "description": "Počítačový zdroj 750W, ATX, 80 PLUS Gold, účinnost 90%, 4 ks PCIe (8-pin / 6+2-pin), 8 ks SATA, odpojitelné kabely, aktivní PFC, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 693,
+    "category": "psu",
+    "name": "GIGABYTE UD750GM PG5",
+    "description": "Počítačový zdroj 750W, ATX, 80 PLUS Gold, účinnost 90%, 4 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 694,
+    "category": "psu",
+    "name": "GIGABYTE UD850GM PG5W",
+    "description": "Počítačový zdroj 850W, ATX, 80 PLUS Gold, účinnost 90%, 4 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, tepelná regulace otáček, síťový vypínač a zero RPM mode, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 695,
+    "category": "psu",
+    "name": "Montech BETA 650",
+    "description": "Počítačový zdroj 650W, ATX, 80 PLUS Bronze, účinnost 83%, 2 ks PCIe (8-pin / 6+2-pin), 6 ks SATA, síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 696,
+    "category": "psu",
+    "name": "Montech TITAN GOLD 1000",
+    "description": "Počítačový zdroj 1000W, ATX, 80 PLUS Gold, účinnost 90%, 5 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 12 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 135 mm ventilátor, plně modulární, hloubka 160 mm"
+  },
+  {
+    "id": 697,
+    "category": "psu",
+    "name": "MSI MAG A550BN",
+    "description": "Počítačový zdroj 550W, ATX, 80 PLUS Bronze, účinnost 85%, 2 ks PCIe (8-pin / 6+2-pin), 5 ks SATA, aktivní PFC, síťový vypínač a DC-DC měniče, 120 mm ventilátor, hloubka 140 mm"
+  },
+  {
+    "id": 698,
+    "category": "psu",
+    "name": "MSI MAG A750GL PCIE5 II",
+    "description": "Počítačový zdroj 750W, ATX, 80 PLUS Gold, účinnost 90%, 3 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 699,
+    "category": "psu",
+    "name": "NZXT C750 Bronze (ATX 3.1)",
+    "description": "Počítačový zdroj 750W, ATX, 80 PLUS Bronze, účinnost 88,9%, 2 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 3 ks SATA, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 700,
+    "category": "psu",
+    "name": "Raijintek CRATOS 850 BLACK",
+    "description": "Počítačový zdroj 850W, ATX, 80 PLUS Gold, účinnost 90%, 3 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 701,
+    "category": "psu",
+    "name": "Seasonic Core GX-750 ATX 3.1",
+    "description": "Počítačový zdroj 750W, ATX, 80 PLUS Gold, 2 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 6 ks SATA, odpojitelné kabely, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 702,
+    "category": "psu",
+    "name": "Seasonic Core GX-850 ATX 3.1",
+    "description": "Počítačový zdroj 850W, ATX, 80 PLUS Gold, 3 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 6 ks SATA, odpojitelné kabely, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 703,
+    "category": "psu",
+    "name": "Seasonic Focus GX-1000 ATX 3.1",
+    "description": "Počítačový zdroj 1000W, ATX, 80 PLUS Gold, 3 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 135 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 704,
+    "category": "psu",
+    "name": "Seasonic Focus GX-850 ATX 3.1",
+    "description": "Počítačový zdroj 850W, ATX, 80 PLUS Gold, 3 ks PCIe (8-pin / 6+2-pin), 1 ks 12VHPWR (16-pin), 8 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 135 mm ventilátor, plně modulární, hloubka 140 mm"
+  },
+  {
+    "id": 705,
+    "category": "psu",
+    "name": "Seasonic G12 GC-850 Gold (V1.5)",
+    "description": "Počítačový zdroj 850W, ATX, 80 PLUS Gold, 3 ks PCIe (8-pin / 6+2-pin), 6 ks SATA, tepelná regulace otáček, síťový vypínač a zero RPM mode, 120 mm ventilátor, ne modulární, hloubka 140 mm"
+  },
+  {
+    "id": 706,
+    "category": "psu",
+    "name": "Seasonic G12 GM-650 Gold (V1.5)",
+    "description": "Počítačový zdroj 650W, ATX, 80 PLUS Gold, 2 ks PCIe (8-pin / 6+2-pin), 6 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 120 mm ventilátor, Semi modulární, hloubka 140 mm"
+  },
+  {
+    "id": 707,
+    "category": "psu",
+    "name": "Seasonic G12 GM-850 Gold (V1.5)",
+    "description": "Počítačový zdroj 850W, ATX, 80 PLUS Gold, 3 ks PCIe (8-pin / 6+2-pin), 6 ks SATA, odpojitelné kabely, tepelná regulace otáček, síťový vypínač a zero RPM mode, 120 mm ventilátor, Semi modulární, hloubka 140 mm"
+  },
+  {
+    "id": 708,
+    "category": "psu",
+    "name": "SilverStone Strider Essential 80Plus ST40F-ES230 400W",
+    "description": "Počítačový zdroj 400W, ATX, 80 PLUS, účinnost 85%, 2 ks PCIe (8-pin / 6+2-pin), 4 ks SATA, aktivní PFC, tepelná regulace otáček a síťový vypínač, 120 mm ventilátor, hloubka 140 mm"
+  },
+  {
+    "id": 709,
+    "category": "ram",
+    "name": "ADATA XPG 16GB KIT DDR4 3200MHz CL16 GAMMIX D35",
+    "description": "Operační paměť - 2 × 8GB, PC4-25600, CL16-20-20, napětí 1.35 V, pasivní chladič a XMP 2.0"
+  },
+  {
+    "id": 710,
+    "category": "ram",
+    "name": "ADATA XPG 32GB KIT DDR4 3200 MT/s CL16 GAMMIX D35",
+    "description": "Operační paměť - 2 × 16GB, PC4-25600, CL16-20-20, napětí 1.35 V, pasivní chladič a XMP 2.0"
+  },
+  {
+    "id": 711,
+    "category": "ram",
+    "name": "ADATA XPG 32GB KIT DDR5 6000MT/s CL 36 Lancer Blade Black",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL36-38-38, napětí 1.35 V, pasivní chladič, XMP 3.0 a AMD EXPO"
+  },
+  {
+    "id": 712,
+    "category": "ram",
+    "name": "ADATA XPG 32GB KIT DDR5 6000MT/s CL30 Lancer Blade Black",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL30-40-40, napětí 1.4 V, pasivní chladič, XMP 3.0 a AMD EXPO"
+  },
+  {
+    "id": 713,
+    "category": "ram",
+    "name": "Corsair 32GB KIT DDR5 6000MHz CL30 Vengeance Grey EXPO",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL30-36-36-76, napětí 1.4 V, pasivní chladič a AMD EXPO"
+  },
+  {
+    "id": 714,
+    "category": "ram",
+    "name": "Corsair 32GB KIT DDR5 6000 MT/s CL30 Vengeance RGB Grey EXPO",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL30-36-36-76, napětí 1.4 V, pasivní chladič, RGB osvětlení, XMP 3.0 a AMD EXPO"
+  },
+  {
+    "id": 715,
+    "category": "ram",
+    "name": "Corsair 32GB KIT DDR5 6000MHz CL36 Vengeance Grey EXPO",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL36-44-44-96, napětí 1.4 V, pasivní chladič, XMP 3.0 a AMD EXPO"
+  },
+  {
+    "id": 716,
+    "category": "ram",
+    "name": "Corsair 64GB KIT DDR5 6000MHz CL30 Vengeance Grey EXPO",
+    "description": "Operační paměť - 2 × 32GB, PC5-48000, CL30-36-36-76, napětí 1.4 V, pasivní chladič a AMD EXPO"
+  },
+  {
+    "id": 717,
+    "category": "ram",
+    "name": "Corsair 64GB KIT DDR5 6000MHz CL30 Vengeance RGB Grey EXPO",
+    "description": "Operační paměť - 2 × 32GB, PC5-48000, CL30-36-36-76, napětí 1.4 V, pasivní chladič, RGB osvětlení a AMD EXPO"
+  },
+  {
+    "id": 718,
+    "category": "ram",
+    "name": "G.SKILL 16GB KIT DDR4 3000MHz CL16 Gaming series Aegis",
+    "description": "Operační paměť - 2 × 8GB, PC4-24000, CL16-18-18-38, napětí 1.35 V, Unbuffered a XMP 2.0"
+  },
+  {
+    "id": 719,
+    "category": "ram",
+    "name": "G.SKILL 16GB KIT DDR4 3200MHz CL16 Gaming series Aegis",
+    "description": "Operační paměť - 2 × 8GB, PC4-25600, CL16-18-18-38, napětí 1.35 V, Unbuffered a XMP 2.0"
+  },
+  {
+    "id": 720,
+    "category": "ram",
+    "name": "G.SKILL 32GB KIT DDR4 3200MHz CL16 Gaming series Aegis",
+    "description": "Operační paměť - 2 × 16GB, PC4-25600, CL16-18-18-38, napětí 1.35 V, Unbuffered a XMP 2.0"
+  },
+  {
+    "id": 721,
+    "category": "ram",
+    "name": "G.SKILL 32GB KIT DDR4 3200MHz CL16 Ripjaws V",
+    "description": "Operační paměť - 2 × 16GB, PC4-25600, CL16-18-18-38, napětí 1.35 V, pasivní chladič, Unbuffered a XMP 2.0"
+  },
+  {
+    "id": 722,
+    "category": "ram",
+    "name": "G.SKILL 32GB KIT DDR4 3600MHz CL16 Ripjaws V",
+    "description": "Operační paměť - 2 × 16GB, PC4-28800, CL16-19-19-39, napětí 1.35 V, pasivní chladič, Unbuffered a XMP 2.0"
+  },
+  {
+    "id": 723,
+    "category": "ram",
+    "name": "G.SKILL 32GB KIT DDR5 6000MT/s CL36 Ripjaws M5 Neo RGB Black",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL36-48-48-96, napětí 1.25 V, pasivní chladič, RGB osvětlení a AMD EXPO"
+  },
+  {
+    "id": 724,
+    "category": "ram",
+    "name": "G.SKILL 32GB KIT DDR5 6000MHz CL30 Trident Z5 NEO AMD EXPO",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL30-38-38-96, napětí 1.35 V, pasivní chladič a AMD EXPO"
+  },
+  {
+    "id": 725,
+    "category": "ram",
+    "name": "G.SKILL 32GB KIT DDR5 6000MHz CL30 Trident Z5 NEO RGB for AMD",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL30-38-38-96, napětí 1.35 V, AMD EXPO"
+  },
+  {
+    "id": 726,
+    "category": "ram",
+    "name": "G.SKILL 32GB KIT DDR5 6000MHz CL36 Flare X5 AMD EXPO",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL36-36-36-89, napětí 1.35 V, pasivní chladič a AMD EXPO"
+  },
+  {
+    "id": 727,
+    "category": "ram",
+    "name": "Kingston FURY 16GB DDR4 3200MHz CL16 Beast Black",
+    "description": "Operační paměť - 1 × 16GB, PC4-25600, napětí 1.35 V, pasivní chladič a XMP 2.0"
+  },
+  {
+    "id": 728,
+    "category": "ram",
+    "name": "Kingston FURY 16GB DDR5 5600MHz CL40 Beast Black",
+    "description": "Operační paměť - 1 × 16GB, PC5-44800, CL40-40-40, napětí 1.25 V, pasivní chladič a XMP 3.0"
+  },
+  {
+    "id": 729,
+    "category": "ram",
+    "name": "Kingston FURY 16GB DDR5 6000MT/s CL36 Beast Black EXPO",
+    "description": "Operační paměť - 1 × 16GB, PC5-48000, CL36-44-44, napětí 1.35 V, AMD EXPO"
+  },
+  {
+    "id": 730,
+    "category": "ram",
+    "name": "Kingston FURY 16GB KIT DDR4 3200MHz CL16 Beast Black",
+    "description": "Operační paměť - 2 × 8GB, PC4-25600, CL16-18-18, napětí 1.35 V"
+  },
+  {
+    "id": 731,
+    "category": "ram",
+    "name": "Kingston FURY 16GB KIT DDR5 5600MHz CL36 Beast EXPO",
+    "description": "Operační paměť - 2 × 8GB, PC5-44800, CL36-38-38, napětí 1.25 V, pasivní chladič a AMD EXPO"
+  },
+  {
+    "id": 732,
+    "category": "ram",
+    "name": "Kingston FURY 32GB KIT DDR4 3200MHz CL16 Beast Black 1Gx8",
+    "description": "Operační paměť - 2 × 16GB, PC4-25600, CL16-18-18, napětí 1.35 V, pasivní chladič a XMP 2.0"
+  },
+  {
+    "id": 733,
+    "category": "ram",
+    "name": "Kingston FURY 32GB KIT DDR4 3200MHz CL16 Beast Black",
+    "description": "Operační paměť - 2 × 16GB, PC4-25600, CL16-20-20, napětí 1.35 V, pasivní chladič a XMP 2.0"
+  },
+  {
+    "id": 734,
+    "category": "ram",
+    "name": "Kingston FURY 32GB KIT DDR5 5200MHz CL40 Beast Black",
+    "description": "Operační paměť - 2 × 16GB, napětí 1.25 V, pasivní chladič a XMP 3.0"
+  },
+  {
+    "id": 735,
+    "category": "ram",
+    "name": "Kingston FURY 32GB KIT DDR5 5600MHz CL36 Beast Black EXPO",
+    "description": "Operační paměť - 2 × 16GB, PC5-44800, CL36-38-38, napětí 1.25 V, pasivní chladič, XMP, XMP 3.0 a AMD EXPO"
+  },
+  {
+    "id": 736,
+    "category": "ram",
+    "name": "Kingston FURY 32GB KIT DDR5 5600MHz CL40 Beast Black",
+    "description": "Operační paměť - 2 × 16GB, PC5-44800, CL40-40-40, napětí 1.35 V, pasivní chladič a XMP 3.0"
+  },
+  {
+    "id": 737,
+    "category": "ram",
+    "name": "Kingston FURY 32GB KIT DDR5 6000MT/s CL30 Beast Black EXPO",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL30-36-36, napětí 1.4 V, pasivní chladič a AMD EXPO"
+  },
+  {
+    "id": 738,
+    "category": "ram",
+    "name": "Kingston FURY 32GB KIT DDR5 6000MT/s CL36 Beast White RGB EXPO",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL36-44-44, napětí 1.35 V, AMD EXPO"
+  },
+  {
+    "id": 739,
+    "category": "ram",
+    "name": "Kingston FURY 64GB KIT DDR4 3200MHz CL16 Beast Black",
+    "description": "Operační paměť - 2 × 32GB, PC4-25600, CL16-20-20, napětí 1.35 V, pasivní chladič a XMP 2.0"
+  },
+  {
+    "id": 740,
+    "category": "ram",
+    "name": "Kingston FURY 64GB KIT DDR5 5600MHz CL36 Beast EXPO",
+    "description": "Operační paměť - 2 × 32GB, PC5-44800, napětí 1.25 V"
+  },
+  {
+    "id": 741,
+    "category": "ram",
+    "name": "Kingston FURY 64GB KIT DDR5 5600MHz CL40 Beast Black",
+    "description": "Operační paměť - 2 × 32GB, PC5-44800, napětí 1.25 V, pasivní chladič a XMP 3.0"
+  },
+  {
+    "id": 742,
+    "category": "ram",
+    "name": "Kingston FURY 64GB KIT DDR5 6400MT/s CL32 Beast Black EXPO",
+    "description": "Operační paměť - 2 × 32GB, PC5-51200, pasivní chladič a AMD EXPO"
+  },
+  {
+    "id": 743,
+    "category": "ram",
+    "name": "Kingston FURY 8GB DDR4 3200MHz CL16 Beast Black",
+    "description": "Operační paměť - 1 × 8GB, PC4-25600, CL16-18-18, napětí 1.35 V, pasivní chladič a XMP 2.0"
+  },
+  {
+    "id": 744,
+    "category": "ram",
+    "name": "Kingston FURY SO-DIMM 16GB DDR5 4800MHz CL38 Impact",
+    "description": "Operační paměť - 1 × 16GB, PC5-38400, napětí 1.1 V, XMP 3.0"
+  },
+  {
+    "id": 745,
+    "category": "ram",
+    "name": "Patriot 16GB DDR4 2666MT/s CL19 Signature Premium",
+    "description": "Operační paměť - 1 × 16GB, PC4-21300, CL19-19-19-43, napětí 1.2 V, pasivní chladič"
+  },
+  {
+    "id": 746,
+    "category": "ram",
+    "name": "Patriot 32GB KIT DDR4 2666MHz CL19 Signature Premium",
+    "description": "Operační paměť - 2 × 16GB, PC4-21300, CL19-19-19-43, napětí 1.2 V, pasivní chladič a Unbuffered"
+  },
+  {
+    "id": 747,
+    "category": "ram",
+    "name": "Patriot 8GB DDR3 1600MHz CL11 Signature",
+    "description": "Operační paměť - 1 × 8GB, PC3-12800, CL11, napětí 1.5 V"
+  },
+  {
+    "id": 748,
+    "category": "ram",
+    "name": "Patriot 8GB DDR4 2666MT/s CL19 Signature Premium",
+    "description": "Operační paměť - 1 × 8GB, PC4-21300, CL19-19-19-43, napětí 1.2 V, pasivní chladič"
+  },
+  {
+    "id": 749,
+    "category": "ram",
+    "name": "Patriot Viper Steel 16GB KIT DDR4 3200Mhz CL16",
+    "description": "Operační paměť - 2 × 8GB, PC4-25600, CL16-18-18-36, napětí 1.35 V, pasivní chladič, Unbuffered a XMP 2.0"
+  },
+  {
+    "id": 750,
+    "category": "ram",
+    "name": "Patriot Viper Steel 32GB KIT DDR4 3200Mhz CL16",
+    "description": "Operační paměť - 2 × 16GB, PC4-25600, CL16-20-20-40, napětí 1.35 V, pasivní chladič, Unbuffered a XMP 2.0"
+  },
+  {
+    "id": 751,
+    "category": "ram",
+    "name": "Patriot Viper Steel 32GB KIT DDR4 3600Mhz CL18",
+    "description": "Operační paměť - 2 × 16GB, PC4-28800, CL18-22-22-42, napětí 1.35 V, pasivní chladič, Unbuffered a XMP 2.0"
+  },
+  {
+    "id": 752,
+    "category": "ram",
+    "name": "Patriot Viper Steel 64GB KIT DDR4 3600Mhz CL18",
+    "description": "Operační paměť - 2 × 32GB, PC4-28800, CL18-22-22-42, napětí 1.35 V, pasivní chladič, Unbuffered a XMP 2.0"
+  },
+  {
+    "id": 753,
+    "category": "ram",
+    "name": "Patriot Viper Venom 32GB KIT DDR5 6000MHz CL30",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL30-40-40-76, napětí 1.35 V, pasivní chladič, XMP 3.0 a AMD EXPO"
+  },
+  {
+    "id": 754,
+    "category": "ram",
+    "name": "Patriot Viper Venom 32GB KIT DDR5 6000MHz CL36",
+    "description": "Operační paměť - 2 × 16GB, PC5-48000, CL36-36-36-76, napětí 1.25 V, pasivní chladič a XMP 3.0"
+  },
+  {
+    "id": 755,
+    "category": "ram",
+    "name": "Patriot Viper Venom 32GB KIT DDR5 6400MHz CL32",
+    "description": "Operační paměť - 2 × 16GB, PC5-51200, CL32-40-40-84, napětí 1.4 V, pasivní chladič a XMP 3.0"
+  },
+  {
+    "id": 756,
+    "category": "ram",
+    "name": "Patriot Viper Venom 64GB KIT DDR5 6000MHz CL30",
+    "description": "Operační paměť - 2 × 32GB, PC5-48000, CL30-40-40-76, napětí 1.35 V, pasivní chladič, XMP 3.0 a AMD EXPO"
+  },
+  {
+    "id": 757,
+    "category": "storage",
+    "name": "ADATA LEGEND 860 1TB",
+    "description": "SSD disk 1000 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), 3D NAND, rychlost čtení 6000 MB/s, rychlost zápisu 4000 MB/s, životnost 320 TBW, rozměry 22 × 2,15 × 80 mm (Š×V×H), hmotnost 6,5 g"
+  },
+  {
+    "id": 758,
+    "category": "storage",
+    "name": "ADATA LEGEND 860 2TB",
+    "description": "SSD disk 2000 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), 3D NAND, rychlost čtení 6000 MB/s, rychlost zápisu 5000 MB/s, životnost 640 TBW, rozměry 22 × 2,15 × 80 mm (Š×V×H), hmotnost 6,5 g"
+  },
+  {
+    "id": 759,
+    "category": "storage",
+    "name": "ADATA LEGEND 900 PRO 1TB",
+    "description": "SSD disk 1000 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), 3D NAND, rychlost čtení 7400 MB/s, rychlost zápisu 6000 MB/s, životnost 600 TBW, rozměry 22 × 2,15 × 80 mm (Š×V×H), hmotnost 6 g"
+  },
+  {
+    "id": 760,
+    "category": "storage",
+    "name": "ADATA LEGEND 900 PRO 2TB",
+    "description": "SSD disk 2000 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), 3D NAND, rychlost čtení 7400 MB/s, rychlost zápisu 6500 MB/s, životnost 1200 TBW, rozměry 22 × 2,15 × 80 mm (Š×V×H), hmotnost 6 g"
+  },
+  {
+    "id": 761,
+    "category": "storage",
+    "name": "ADATA Ultimate SU650 1TB",
+    "description": "SSD disk 1000 GB - 2.5, SATA III, 3D NAND, rychlost čtení 520 MB/s, rychlost zápisu 450 MB/s, životnost 600 TBW, rozměry 69,85 × 7 × 100,45 mm (Š×V×H), hmotnost 47,5 g"
+  },
+  {
+    "id": 762,
+    "category": "storage",
+    "name": "ADATA Ultimate SU650 512GB",
+    "description": "SSD disk 512 GB - 2.5, SATA III, 3D NAND, rychlost čtení 520 MB/s, rychlost zápisu 450 MB/s, životnost 280 TBW, rozměry 69,85 × 7 × 100,45 mm (Š×V×H), hmotnost 47,5 g"
+  },
+  {
+    "id": 763,
+    "category": "storage",
+    "name": "Apacer AS2280P4 512GB",
+    "description": "SSD disk 512 GB - M.2 (PCIe 3.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 2100 MB/s, rychlost zápisu 1500 MB/s, životnost 400 TBW, typická spotřeba 4 W, stand-by spotřeba (pohotovostní) 0,08 W, rozměry 22 × 2,38 × 80 mm (Š×V×H), hmotnost 6,8 g"
+  },
+  {
+    "id": 764,
+    "category": "storage",
+    "name": "Apacer AS350 Panther 1TB",
+    "description": "SSD disk 1000 GB - 2.5, SATA III, TLC (Triple-Level Cell), rychlost čtení 560 MB/s, rychlost zápisu 540 MB/s, životnost 600 TBW, typická spotřeba 1,62 W, stand-by spotřeba (pohotovostní) 0,32 W, rozměry 69,9 × 7 × 100 mm (Š×V×H), hmotnost 60 g"
+  },
+  {
+    "id": 765,
+    "category": "storage",
+    "name": "Apacer AS350 Panther 512GB",
+    "description": "SSD disk 512 GB - 2.5, SATA III, TLC (Triple-Level Cell), rychlost čtení 560 MB/s, rychlost zápisu 540 MB/s, životnost 320 TBW, typická spotřeba 1,36 W, stand-by spotřeba (pohotovostní) 0,32 W, rozměry 69,9 × 7 × 100 mm (Š×V×H), hmotnost 60 g"
+  },
+  {
+    "id": 766,
+    "category": "storage",
+    "name": "Apacer AS350X 1TB",
+    "description": "SSD disk 1000 GB - 2.5, SATA III, 3D NAND, rychlost čtení 560 MB/s, rychlost zápisu 540 MB/s, životnost 600 TBW, typická spotřeba 1,62 W, stand-by spotřeba (pohotovostní) 0,32 W, rozměry 69,85 × 6,9 × 100 mm (Š×V×H)"
+  },
+  {
+    "id": 767,
+    "category": "storage",
+    "name": "Apacer AS350X 512GB",
+    "description": "SSD disk 512 GB - 2.5, SATA III, 3D NAND, rychlost čtení 560 MB/s, rychlost zápisu 540 MB/s, životnost 320 TBW, typická spotřeba 1,36 W, stand-by spotřeba (pohotovostní) 0,32 W, rozměry 69,85 × 6,9 × 100 mm (Š×V×H)"
+  },
+  {
+    "id": 768,
+    "category": "storage",
+    "name": "AXAGON EE25-A6C, screwless RAW alu box 2.5 HDD/SSD, SuperSpeed USB-C 5 Gbps",
+    "description": "Externí box - pro 2,5 disky, max. výška disku 9,5 mm, max. kapacita 8 TB, rozhraní USB 3.2 Gen 1, LED indikace, automatické vypnutí, Plug & Play, USB Mass Storage Class, Bulk-Only Transport, USB Attached SCSI Protocol, S.M.A.R.T., TRIM, klonování, bootování, konektor USB-A a USB-C, 1 volná pozice, materiál hliník a kov, USB-C na USB-A kabel v balení, rozměry 13 × 122 × 78 mm (V×Š×H), hmotnost 80 g"
+  },
+  {
+    "id": 769,
+    "category": "storage",
+    "name": "DAHUA C900 PLUS-B 1TB",
+    "description": "SSD disk 1000 GB - M.2 2280, M.2 (PCIe 3.0 4x NVMe), 3D NAND, rychlost čtení 3400 MB/s, rychlost zápisu 3000 MB/s, životnost 512 TBW, stand-by spotřeba (pohotovostní) 1,188 W, rozměry 22 × 2,25 × 80 mm (Š×V×H), hmotnost 8 g"
+  },
+  {
+    "id": 770,
+    "category": "storage",
+    "name": "Kingston A400 480GB 7mm",
+    "description": "SSD disk 480 GB - 2.5, SATA III, TLC (Triple-Level Cell), rychlost čtení 500 MB/s, rychlost zápisu 450 MB/s, životnost 160 TBW, typická spotřeba 0,279 W, stand-by spotřeba (pohotovostní) 0,195 W, rozměry 69,9 × 7 × 100 mm (Š×V×H), hmotnost 41 g"
+  },
+  {
+    "id": 771,
+    "category": "storage",
+    "name": "Kingston A400 960GB 7mm",
+    "description": "SSD disk 960 GB - 2.5, SATA III, TLC (Triple-Level Cell), rychlost čtení 500 MB/s, rychlost zápisu 450 MB/s, životnost 300 TBW, typická spotřeba 0,279 W, stand-by spotřeba (pohotovostní) 0,195 W, rozměry 69,9 × 7 × 100 mm (Š×V×H), hmotnost 41 g"
+  },
+  {
+    "id": 772,
+    "category": "storage",
+    "name": "Kingston DC600M Enterprise 960GB",
+    "description": "SSD disk 960 GB - 2.5, SATA III, TLC (Triple-Level Cell), rychlost čtení 560 MB/s, rychlost zápisu 530 MB/s, životnost 1752 TBW, typická spotřeba 1,45 W, stand-by spotřeba (pohotovostní) 1,3 W, rozměry 69,9 × 7 × 100 mm (Š×V×H), hmotnost 92 g"
+  },
+  {
+    "id": 773,
+    "category": "storage",
+    "name": "Kingston FURY Renegade NVMe 1TB",
+    "description": "SSD disk 1000 GB - M.2 (PCIe 4.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 7300 MB/s, rychlost zápisu 6000 MB/s, životnost 1000 TBW, stand-by spotřeba (pohotovostní) 0,005 W, rozměry 22 × 2,21 × 80 mm (Š×V×H), hmotnost 7 g"
+  },
+  {
+    "id": 774,
+    "category": "storage",
+    "name": "Kingston FURY Renegade NVMe 2TB",
+    "description": "SSD disk 2000 GB - M.2 (PCIe 4.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 7300 MB/s, rychlost zápisu 7000 MB/s, životnost 2000 TBW, typická spotřeba 0,36 W, stand-by spotřeba (pohotovostní) 0,005 W, rozměry 22 × 3,5 × 80 mm (Š×V×H), hmotnost 9,7 g"
+  },
+  {
+    "id": 775,
+    "category": "storage",
+    "name": "Kingston KC3000 1TB",
+    "description": "SSD disk 1024 GB - M.2 (PCIe 4.0 4x NVMe), 3D TLC, rychlost čtení 7000 MB/s, rychlost zápisu 6000 MB/s, životnost 800 TBW, stand-by spotřeba (pohotovostní) 0,005 W, rozměry 22 × 2,21 × 80 mm (Š×V×H), hmotnost 7 g"
+  },
+  {
+    "id": 776,
+    "category": "storage",
+    "name": "Kingston KC3000 2TB",
+    "description": "SSD disk 2048 GB - M.2 (PCIe 4.0 4x NVMe), 3D TLC, rychlost čtení 7000 MB/s, rychlost zápisu 7000 MB/s, životnost 1600 TBW, typická spotřeba 0,33 W, stand-by spotřeba (pohotovostní) 0,005 W, rozměry 22 × 3,5 × 80 mm (Š×V×H), hmotnost 9,7 g"
+  },
+  {
+    "id": 777,
+    "category": "storage",
+    "name": "Kingston KC3000 512GB",
+    "description": "SSD disk 512 GB - M.2 (PCIe 4.0 4x NVMe), 3D TLC, rychlost čtení 7000 MB/s, rychlost zápisu 3900 MB/s, životnost 400 TBW, typická spotřeba 0,34 W, stand-by spotřeba (pohotovostní) 0,005 W, rozměry 22 × 2,21 × 80 mm (Š×V×H), hmotnost 7 g"
+  },
+  {
+    "id": 778,
+    "category": "storage",
+    "name": "Kingston NV3 1TB (2230)",
+    "description": "SSD disk 1000 GB - M.2 2230, M.2 (PCIe 4.0 4x NVMe), 3D NAND, rychlost čtení 6000 MB/s, rychlost zápisu 4000 MB/s, životnost 320 TBW, rozměry 22 × 2,3 × 30 mm (Š×V×H), hmotnost 2,8 g"
+  },
+  {
+    "id": 779,
+    "category": "storage",
+    "name": "Kingston NV3 1TB",
+    "description": "SSD disk 1000 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), 3D NAND, rychlost čtení 6000 MB/s, rychlost zápisu 4000 MB/s, životnost 320 TBW, rozměry 22 × 3,8 × 80 mm (Š×V×H), hmotnost 7 g"
+  },
+  {
+    "id": 780,
+    "category": "storage",
+    "name": "Kingston NV3 2TB",
+    "description": "SSD disk 2000 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), 3D NAND, rychlost čtení 6000 MB/s, rychlost zápisu 5000 MB/s, životnost 640 TBW, rozměry 22 × 3,8 × 80 mm (Š×V×H), hmotnost 7 g"
+  },
+  {
+    "id": 781,
+    "category": "storage",
+    "name": "Kingston NV3 4TB",
+    "description": "SSD disk 4000 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), 3D NAND, rychlost čtení 6000 MB/s, rychlost zápisu 5000 MB/s, životnost 1280 TBW, rozměry 22 × 3,8 × 80 mm (Š×V×H), hmotnost 7 g"
+  },
+  {
+    "id": 782,
+    "category": "storage",
+    "name": "Kingston NV3 500GB",
+    "description": "SSD disk 500 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), 3D NAND, rychlost čtení 6000 MB/s, rychlost zápisu 2200 MB/s, životnost 160 TBW, rozměry 22 × 3,8 × 80 mm (Š×V×H), hmotnost 7 g"
+  },
+  {
+    "id": 783,
+    "category": "storage",
+    "name": "Lexar NS100 512GB",
+    "description": "SSD disk 512 GB - 2.5, SATA III, TLC (Triple-Level Cell), rychlost čtení 550 MB/s, rychlost zápisu 450 MB/s, životnost 240 TBW, rozměry 100 × 7 × 69,85 mm (Š×V×H), hmotnost 34 g"
+  },
+  {
+    "id": 784,
+    "category": "storage",
+    "name": "Samsung 870 EVO 1TB",
+    "description": "SSD disk 1000 GB - 2.5, SATA III, TLC (Triple-Level Cell), rychlost čtení 560 MB/s, rychlost zápisu 530 MB/s, životnost 600 TBW, typická spotřeba 2,5 W, stand-by spotřeba (pohotovostní) 0,03 W, rozměry 69,85 × 6,8 × 100 mm (Š×V×H), hmotnost 45 g"
+  },
+  {
+    "id": 785,
+    "category": "storage",
+    "name": "Samsung 870 EVO 2TB",
+    "description": "SSD disk 2000 GB - 2.5, SATA III, TLC (Triple-Level Cell), rychlost čtení 560 MB/s, rychlost zápisu 530 MB/s, životnost 1200 TBW, typická spotřeba 2,5 W, stand-by spotřeba (pohotovostní) 0,035 W, rozměry 69,85 × 6,8 × 100 mm (Š×V×H), hmotnost 46 g"
+  },
+  {
+    "id": 786,
+    "category": "storage",
+    "name": "Samsung 870 EVO 4TB",
+    "description": "SSD disk 4000 GB - 2.5, SATA III, TLC (Triple-Level Cell), rychlost čtení 560 MB/s, rychlost zápisu 530 MB/s, životnost 2400 TBW, typická spotřeba 2,5 W, stand-by spotřeba (pohotovostní) 0,035 W, rozměry 69,85 × 6,8 × 100 mm (Š×V×H), hmotnost 48 g"
+  },
+  {
+    "id": 787,
+    "category": "storage",
+    "name": "Samsung 870 EVO 500GB",
+    "description": "SSD disk 500 GB - 2.5, SATA III, TLC (Triple-Level Cell), rychlost čtení 560 MB/s, rychlost zápisu 530 MB/s, životnost 300 TBW, typická spotřeba 2,2 W, stand-by spotřeba (pohotovostní) 0,03 W, rozměry 69,85 × 6,8 × 100 mm (Š×V×H), hmotnost 45 g"
+  },
+  {
+    "id": 788,
+    "category": "storage",
+    "name": "Samsung 980 500GB",
+    "description": "SSD disk 500 GB - M.2 (PCIe 3.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 3100 MB/s, rychlost zápisu 2600 MB/s, životnost 300 TBW, typická spotřeba 4,3 W, stand-by spotřeba (pohotovostní) 0,045 W, rozměry 22,15 × 2,38 × 80,15 mm (Š×V×H), hmotnost 8 g"
+  },
+  {
+    "id": 789,
+    "category": "storage",
+    "name": "Samsung 990 EVO Plus 1TB",
+    "description": "SSD disk 1000 GB - M.2 (PCIe 4.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 7150 MB/s, rychlost zápisu 6300 MB/s, životnost 600 TBW, typická spotřeba 4,3 W, stand-by spotřeba (pohotovostní) 0,005 W, rozměry 22 × 2,38 × 80 mm (Š×V×H), hmotnost 9 g"
+  },
+  {
+    "id": 790,
+    "category": "storage",
+    "name": "Samsung 990 EVO Plus 2TB",
+    "description": "SSD disk 2000 GB - M.2 (PCIe 4.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 7250 MB/s, rychlost zápisu 6300 MB/s, životnost 1200 TBW, typická spotřeba 4,6 W, stand-by spotřeba (pohotovostní) 0,005 W, rozměry 22 × 2,38 × 80 mm (Š×V×H), hmotnost 9 g"
+  },
+  {
+    "id": 791,
+    "category": "storage",
+    "name": "Samsung 990 EVO Plus 4TB",
+    "description": "SSD disk 4000 GB - M.2 (PCIe 4.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 7250 MB/s, rychlost zápisu 6300 MB/s, životnost 2400 TBW, typická spotřeba 5,5 W, stand-by spotřeba (pohotovostní) 0,005 W, rozměry 22 × 2,38 × 80 mm (Š×V×H), hmotnost 9 g"
+  },
+  {
+    "id": 792,
+    "category": "storage",
+    "name": "Samsung 990 PRO 1TB",
+    "description": "SSD disk 1000 GB - M.2 (PCIe 4.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 7450 MB/s, rychlost zápisu 6900 MB/s, životnost 600 TBW, typická spotřeba 7,8 W, stand-by spotřeba (pohotovostní) 0,05 W, rozměry 22 × 2,3 × 80 mm (Š×V×H), hmotnost 9 g"
+  },
+  {
+    "id": 793,
+    "category": "storage",
+    "name": "Samsung 990 PRO 2TB",
+    "description": "SSD disk 2000 GB - M.2 (PCIe 4.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 7450 MB/s, rychlost zápisu 6900 MB/s, životnost 1200 TBW, typická spotřeba 8,5 W, stand-by spotřeba (pohotovostní) 0,055 W, rozměry 22 × 2,3 × 80 mm (Š×V×H), hmotnost 9 g"
+  },
+  {
+    "id": 794,
+    "category": "storage",
+    "name": "Samsung 990 PRO 4TB",
+    "description": "SSD disk 4000 GB - M.2 (PCIe 4.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 7450 MB/s, rychlost zápisu 6900 MB/s, životnost 2400 TBW, typická spotřeba 6,5 W, stand-by spotřeba (pohotovostní) 0,055 W, rozměry 22 × 2,3 × 80 mm (Š×V×H), hmotnost 9 g"
+  },
+  {
+    "id": 795,
+    "category": "storage",
+    "name": "Seagate BarraCuda 2TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 220 MB/s, cache 256 MB, 7200 ot/min, do počítače, rychlost zápisu 220 MB/s, technologie zápisu SMR, typická spotřeba 4,3 W, stand-by spotřeba 0,3 W, rozměry 101,85 × 20,2 × 146,99 mm (Š×V×H), hmotnost 490 g"
+  },
+  {
+    "id": 796,
+    "category": "storage",
+    "name": "Seagate BarraCuda 8TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 190 MB/s, cache 256 MB, 5400 ot/min, do počítače, technologie zápisu SMR, typická spotřeba 5,3 W, stand-by spotřeba 0,25 W, rozměry 101,85 × 26,11 × 146,99 mm (Š×V×H), hmotnost 630 g"
+  },
+  {
+    "id": 797,
+    "category": "storage",
+    "name": "Seagate Exos 7E10 8TB Standart SATA",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 255 MB/s, cache 256 MB, 7200 ot/min, do počítače a serveru, rychlost zápisu 255 MB/s, technologie zápisu CMR, typická spotřeba 11,03 W, stand-by spotřeba 7,06 W, rozměry 26 × 102 × 147 mm (Š×V×H)"
+  },
+  {
+    "id": 798,
+    "category": "storage",
+    "name": "Seagate Exos X24 16TB 512E/4KN Standart SATA",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 285 MB/s, cache 512 MB, 7200 ot/min, do počítače a serveru, rychlost zápisu 285 MB/s, technologie zápisu CMR, stand-by spotřeba 6,3 W, rozměry 101,85 × 26,1 × 147 mm (Š×V×H), hmotnost 685 g"
+  },
+  {
+    "id": 799,
+    "category": "storage",
+    "name": "Seagate Exos X24 24TB SATA Standard ISE",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 285 MB/s, cache 512 MB, 7200 ot/min, do počítače a serveru, rychlost zápisu 285 MB/s, technologie zápisu CMR, stand-by spotřeba 6,3 W, rozměry 101,85 × 26,1 × 147 mm (Š×V×H), hmotnost 685 g"
+  },
+  {
+    "id": 800,
+    "category": "storage",
+    "name": "Seagate IronWolf 12TB CMR",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 210 MB/s, cache 256 MB, 7200 ot/min, do počítače, pro datová úložiště, rychlost zápisu 210 MB/s, technologie zápisu CMR, hlučnost 28 dB, typická spotřeba 7,8 W, stand-by spotřeba 0,8 W, rozměry 101,85 × 26,11 × 146,99 mm (Š×V×H), hmotnost 690 g"
+  },
+  {
+    "id": 801,
+    "category": "storage",
+    "name": "Seagate IronWolf 4TB CMR",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 202 MB/s, cache 256 MB, 5400 ot/min, do počítače, pro datová úložiště, rychlost zápisu 202 MB/s, technologie zápisu CMR, hlučnost 27 dB, typická spotřeba 4,8 W, stand-by spotřeba 0,5 W, rozměry 101,85 × 20,2 × 146,99 mm (Š×V×H), hmotnost 490 g"
+  },
+  {
+    "id": 802,
+    "category": "storage",
+    "name": "Seagate IronWolf 6TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 202 MB/s, cache 256 MB, 5400 ot/min, do počítače, pro datová úložiště, rychlost zápisu 202 MB/s, technologie zápisu CMR, hlučnost 26 dB, typická spotřeba 5,3 W, stand-by spotřeba 4 W, rozměry 101,85 × 26,11 × 146,99 mm (Š×V×H), hmotnost 630 g"
+  },
+  {
+    "id": 803,
+    "category": "storage",
+    "name": "Seagate IronWolf 8TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 202 MB/s, cache 256 MB, 5400 ot/min, do počítače, pro datová úložiště, rychlost zápisu 202 MB/s, technologie zápisu CMR, hlučnost 26 dB, typická spotřeba 5,3 W, stand-by spotřeba 4 W, rozměry 101,85 × 26,11 × 146,99 mm (Š×V×H), hmotnost 630 g"
+  },
+  {
+    "id": 804,
+    "category": "storage",
+    "name": "Seagate IronWolf Pro 16TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 270 MB/s, cache 256 MB, 7200 ot/min, do počítače, pro datová úložiště, rychlost zápisu 270 MB/s, technologie zápisu CMR, hlučnost 26 dB, typická spotřeba 7,6 W, stand-by spotřeba 1 W, rozměry 101,85 × 26,11 × 146,99 mm (Š×V×H), hmotnost 670 g"
+  },
+  {
+    "id": 805,
+    "category": "storage",
+    "name": "Seagate IronWolf Pro 30TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 275 MB/s, cache 512 MB, 7200 ot/min, do počítače, pro datová úložiště, rychlost zápisu 275 MB/s, technologie zápisu CMR, typická spotřeba 8,3 W, stand-by spotřeba 6,8 W, rozměry 101,85 × 26,11 × 146,99 mm (Š×V×H), hmotnost 695 g"
+  },
+  {
+    "id": 806,
+    "category": "storage",
+    "name": "Seagate IronWolf Pro 4TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 250 MB/s, cache 256 MB, 7200 ot/min, do počítače, pro datová úložiště, rychlost zápisu 250 MB/s, technologie zápisu CMR, hlučnost 30 dB, typická spotřeba 8,7 W, stand-by spotřeba 1 W, rozměry 101,85 × 26,11 × 146,99 mm (Š×V×H), hmotnost 650 g"
+  },
+  {
+    "id": 807,
+    "category": "storage",
+    "name": "Seagate IronWolf Pro 8TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 255 MB/s, cache 256 MB, 7200 ot/min, do počítače, pro datová úložiště, rychlost zápisu 255 MB/s, technologie zápisu CMR, hlučnost 30 dB, typická spotřeba 10,1 W, stand-by spotřeba 1 W, rozměry 101,85 × 26,11 × 146,99 mm (Š×V×H), hmotnost 720 g"
+  },
+  {
+    "id": 808,
+    "category": "storage",
+    "name": "Seagate SkyHawk 4TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 180 MB/s, cache 256 MB, 5400 ot/min, do počítače, pro monitorovací systémy, technologie zápisu CMR, typická spotřeba 3,7 W, stand-by spotřeba 2,5 W, rozměry 101,85 × 26,11 × 146,99 mm (Š×V×H), hmotnost 490 g"
+  },
+  {
+    "id": 809,
+    "category": "storage",
+    "name": "Seagate SkyHawk 6TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 180 MB/s, cache 256 MB, do počítače, pro datová úložiště, technologie zápisu CMR, typická spotřeba 5,3 W, stand-by spotřeba 0,25 W, rozměry 101,6 × 26,1 × 146,99 mm (Š×V×H), hmotnost 630 g"
+  },
+  {
+    "id": 810,
+    "category": "storage",
+    "name": "Synology HAT3300-4T",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 202 MB/s, cache 256 MB, 5400 ot/min, do serveru, pro datová úložiště, rychlost zápisu 202 MB/s, technologie zápisu CMR, hlučnost 27 dB, typická spotřeba 4,85 W, stand-by spotřeba 3,96 W, rozměry 101,8 × 20,2 × 147 mm (Š×V×H), hmotnost 450 g"
+  },
+  {
+    "id": 811,
+    "category": "storage",
+    "name": "Synology HAT3310-12T",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 281 MB/s, cache 512 MB, 7200 ot/min, do serveru, pro datová úložiště, technologie zápisu CMR, hlučnost 32 dB, typická spotřeba 6,85 W, stand-by spotřeba 3,3 W, rozměry 101,85 × 26,1 × 147 mm (Š×V×H), hmotnost 720 g"
+  },
+  {
+    "id": 812,
+    "category": "storage",
+    "name": "Synology HAT3310-16T",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 281 MB/s, cache 512 MB, 7200 ot/min, do serveru, pro datová úložiště, rychlost zápisu 281 MB/s, technologie zápisu CMR, typická spotřeba 7,48 W, stand-by spotřeba 4,14 W, rozměry 101,85 × 26,1 × 147 mm (Š×V×H), hmotnost 720 g"
+  },
+  {
+    "id": 813,
+    "category": "storage",
+    "name": "Verbatim Vi3000 1TB",
+    "description": "SSD disk 1000 GB - M.2 (PCIe 3.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 3100 MB/s, rychlost zápisu 2200 MB/s, životnost 750 TBW, rozměry 22 × 2,3 × 80 mm (Š×V×H)"
+  },
+  {
+    "id": 814,
+    "category": "storage",
+    "name": "Verbatim Vi3000 256GB",
+    "description": "SSD disk 256 GB - M.2 (PCIe 3.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 3100 MB/s, rychlost zápisu 1300 MB/s, životnost 185 TBW, rozměry 22 × 2,2 × 80 mm (Š×V×H), hmotnost 6,5 g"
+  },
+  {
+    "id": 815,
+    "category": "storage",
+    "name": "Verbatim VI550 S3 2.5 SSD 256GB",
+    "description": "SSD disk 256 GB - 2.5, SATA III, 3D NAND, rychlost čtení 550 MB/s, rychlost zápisu 460 MB/s, životnost 150 TBW, typická spotřeba 1,31 W, rozměry 69,9 × 7 × 100,5 mm (Š×V×H), hmotnost 45 g"
+  },
+  {
+    "id": 816,
+    "category": "storage",
+    "name": "Verbatim VI560 S3 512GB",
+    "description": "SSD disk 512 GB - M.2 (SATA), 3D NAND, rychlost čtení 520 MB/s, rychlost zápisu 480 MB/s, životnost 240 TBW, typická spotřeba 1,43 W, stand-by spotřeba (pohotovostní) 0,6 W, rozměry 22 × 2,3 × 80 mm (Š×V×H), hmotnost 9,1 g"
+  },
+  {
+    "id": 817,
+    "category": "storage",
+    "name": "WD Blue SN5000 1TB",
+    "description": "SSD disk 1000 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), 3D NAND, rychlost čtení 5150 MB/s, rychlost zápisu 4900 MB/s, životnost 600 TBW, rozměry 22 × 2,38 × 80 mm (Š×V×H)"
+  },
+  {
+    "id": 818,
+    "category": "storage",
+    "name": "WD Blue SN5000 500GB",
+    "description": "SSD disk 500 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), 3D NAND, rychlost čtení 5000 MB/s, rychlost zápisu 4000 MB/s, životnost 300 TBW, rozměry 22 × 2,38 × 80 mm (Š×V×H)"
+  },
+  {
+    "id": 819,
+    "category": "storage",
+    "name": "WD Purple 3TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 180 MB/s, cache 256 MB, do počítače, pro monitorovací systémy a datová úložiště, technologie zápisu CMR, hlučnost 27 dB, typická spotřeba 4,6 W, stand-by spotřeba 0,3 W, rozměry 101,85 × 26,11 × 146,99 mm (Š×V×H), hmotnost 570 g"
+  },
+  {
+    "id": 820,
+    "category": "storage",
+    "name": "WD Red Plus 4TB",
+    "description": "Pevný disk - 3.5, SATA III, cache 256 MB, 5400 ot/min, pro datová úložiště, technologie zápisu CMR, rozměry 101 × 26 × 146 mm (Š×V×H), hmotnost 570 g"
+  },
+  {
+    "id": 821,
+    "category": "storage",
+    "name": "WD Red Plus 6TB",
+    "description": "Pevný disk - 3.5, SATA III, cache 256 MB, 5400 ot/min, pro datová úložiště, technologie zápisu CMR, rozměry 101 × 26 × 146 mm (Š×V×H), hmotnost 750 g"
+  },
+  {
+    "id": 822,
+    "category": "storage",
+    "name": "WD Red Plus 8TB",
+    "description": "Pevný disk - 3.5, SATA III, maximální rychlost přenosu 215 MB/s, cache 256 MB, 5640 ot/min, do počítače, pro datová úložiště, rychlost zápisu 215 MB/s, technologie zápisu CMR, rozměry 101,6 × 26,1 × 147 mm (Š×V×H), hmotnost 715 g"
+  },
+  {
+    "id": 823,
+    "category": "storage",
+    "name": "WD Red SA500 1TB",
+    "description": "SSD disk 1000 GB - 2.5, SATA III, TLC (Triple-Level Cell), rychlost čtení 560 MB/s, rychlost zápisu 530 MB/s, životnost 600 TBW, typická spotřeba 0,06 W, stand-by spotřeba (pohotovostní) 0,056 W, rozměry 69,85 × 7 × 100,2 mm (Š×V×H), hmotnost 37,4 g"
+  },
+  {
+    "id": 824,
+    "category": "storage",
+    "name": "WD Red SA500 2TB",
+    "description": "SSD disk 2000 GB - 2.5, SATA III, 3D NAND, rychlost čtení 560 MB/s, rychlost zápisu 520 MB/s, životnost 1300 TBW, rozměry 100,08 × 7,11 × 69,85 mm (Š×V×H)"
+  },
+  {
+    "id": 825,
+    "category": "storage",
+    "name": "WD Red SN700 NVMe 1TB",
+    "description": "SSD disk 1000 GB - M.2 (PCIe 3.0 4x NVMe), rychlost čtení 3430 MB/s, rychlost zápisu 3000 MB/s, životnost 2000 TBW, rozměry 22 × 2,38 × 80 mm (Š×V×H), hmotnost 7,5 g"
+  },
+  {
+    "id": 826,
+    "category": "storage",
+    "name": "WD Red SN700 NVMe 500GB",
+    "description": "SSD disk 500 GB - M.2 (PCIe 3.0 4x NVMe), rychlost čtení 3430 MB/s, rychlost zápisu 2600 MB/s, životnost 1000 TBW, rozměry 22 × 2,38 × 80 mm (Š×V×H), hmotnost 7,5 g"
+  },
+  {
+    "id": 827,
+    "category": "storage",
+    "name": "WD_BLACK SN7100 1TB",
+    "description": "SSD disk 1000 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 7250 MB/s, rychlost zápisu 6900 MB/s, životnost 600 TBW, rozměry 22 × 2,38 × 80 mm (Š×V×H), hmotnost 5,4 g"
+  },
+  {
+    "id": 828,
+    "category": "storage",
+    "name": "WD_BLACK SN7100 2TB",
+    "description": "SSD disk 2000 GB - M.2 2280, M.2 (PCIe 4.0 4x NVMe), TLC (Triple-Level Cell), rychlost čtení 7250 MB/s, rychlost zápisu 6900 MB/s, životnost 1200 TBW, rozměry 22 × 2,38 × 80 mm (Š×V×H), hmotnost 5,4 g"
+  }
+]

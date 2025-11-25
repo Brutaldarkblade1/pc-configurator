@@ -503,7 +503,6 @@
             removeBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
                 const itemsNow = loadBuildItems();
-                // odstraníme JEN jeden kus (pro RAM / storage může být více stejných)
                 let removed = false;
                 const filtered = [];
                 for (const it of itemsNow) {
@@ -704,13 +703,13 @@
             return match ? match[1].trim() : null;
         }
 
-        const type = m(/^(SSD disk|HDD disk)/i);
+        const type = m(/^(SSD disk|Pevný disk)/i);
         specs.push({ label: "Typ disku", value: ensureValue(type) });
 
         const capacity = m(/([0-9 ]+(?:TB|GB))/i);
         specs.push({ label: "Kapacita", value: ensureValue(capacity) });
 
-        const form = m(/(M\.2 2280|M\.2 22110|M\.2|2,5\"|3,5\")/i);
+        const form = m(/(M\.2 2280|M\.2 2230|M\.2 22110|M\.2|2,5|3,5)/i);
         specs.push({ label: "Formát", value: ensureValue(form) });
 
         let iface = m(/M\.2\s*\(([^)]+)\)/i);
@@ -726,11 +725,7 @@
         const endurance = m(/([0-9 ]+ ?TBW)/i);
         specs.push({ label: "Výdrž (TBW)", value: ensureValue(endurance) });
 
-        const size = m(/rozměry\s*([^,]+mm)/i);
-        specs.push({ label: "Rozměry", value: ensureValue(size) });
-
-        const weight = m(/hmotnost\s*([^,]+)$/i);
-        specs.push({ label: "Hmotnost", value: ensureValue(weight) });
+        // rozměry a hmotnost NECHCEME – odstraněno
 
         return specs;
     }
@@ -757,8 +752,9 @@
         const iface = m(/PCI Express\s*([^,]+)/i);
         specs.push({ label: "Rozhraní", value: ensureValue(iface) });
 
-        const size = m(/šířka\s*([^,]+mm)/i);
-        specs.push({ label: "Rozměr karty", value: ensureValue(size) });
+        // tady bereme ŠÍŘKU jako DÉLKU
+        const length = m(/(?:délka|šířka)\s*([^,]+mm)/i);
+        specs.push({ label: "Délka karty", value: ensureValue(length) });
 
         return specs;
     }
@@ -782,11 +778,13 @@
         const cert = m(/(80 PLUS [^,]+)/i);
         specs.push({ label: "Certifikace", value: ensureValue(cert) });
 
-        const cab = m(/(plně modulární|polomodulární|nemodulární)/i);
+        const cab = m(/(plně modulární|plne modulární|plne modularni|plně modularní|semi modulární|polomodulární|ne modulární|nemodulární)/i);
         specs.push({ label: "Kabeláž", value: ensureValue(cab) });
 
         const fan = m(/([0-9]+ ?mm ventilátor)/i);
         specs.push({ label: "Ventilátor", value: ensureValue(fan) });
+
+        // účinnost úmyslně NEZOBRAZUJU
 
         return specs;
     }
@@ -804,7 +802,7 @@
         const form = m(/(ATX|mATX|Micro ATX|Mini ITX|mITX)/i);
         specs.push({ label: "Formát desky", value: ensureValue(form) });
 
-        const fans = m(/([0-9]+x ?[0-9]+mm)/i);
+        const fans = m(/([0-9]+x ?[0-9]+ ?mm)/i);
         specs.push({ label: "Ventilátory", value: ensureValue(fans) });
 
         const gpuLen = m(/max\. délka grafické karty\s*([^,]+)/i);
@@ -812,6 +810,8 @@
 
         const coolerH = m(/max\. výška chladiče\s*([^,]+)/i);
         specs.push({ label: "Max. výška chladiče", value: ensureValue(coolerH) });
+
+        // PSU v balení NEZOBRAZUJU
 
         return specs;
     }
@@ -826,16 +826,17 @@
             return match ? match[1].trim() : null;
         }
 
-        const socket = m(/socket[^,]*/i);
+        // sockety – vezmeme celý seznam za slovem "socket"
+        const socket = m(/socket\s*([^,]+(?:,[^,]+)*)/i);
         specs.push({ label: "Sockety", value: ensureValue(socket) });
 
         const tdp = m(/([0-9]+ ?W)/i);
         specs.push({ label: "TDP", value: ensureValue(tdp) });
 
-        const height = m(/výška\s*([^,]+)/i);
+        const height = m(/výška\s*([0-9]+ ?mm)/i);
         specs.push({ label: "Výška", value: ensureValue(height) });
 
-        const fan = m(/([0-9]+ ?mm ventilátor)/i);
+        const fan = m(/([0-9]+x?[0-9]* ?mm ventilátor)/i);
         specs.push({ label: "Ventilátor", value: ensureValue(fan) });
 
         return specs;
@@ -857,7 +858,7 @@
         const chipset = m(/(A320|A520|A620|B450|B550|B650|X570|X670|Z[0-9]+|H[0-9]+|B[0-9]+)/i);
         specs.push({ label: "Chipset", value: ensureValue(chipset) });
 
-        const form = m(/formát\s*([^,]+)/i);
+        const form = m(/(ATX|mATX|Micro ATX|Mini ITX|mITX)/i);
         specs.push({ label: "Formát", value: ensureValue(form) });
 
         const ramSlots = m(/([0-9]+)\s*×\s*DDR[0-9]/i);
@@ -908,20 +909,18 @@
         if (catKey === "cpu") extra = buildCpuSpecs(product);
         else if (catKey === "ram") extra = buildRamSpecs(product);
         else if (["ssd", "hdd", "storage"].includes(catKey)) extra = buildStorageSpecs(product);
-        else if (["gpu"].includes(catKey)) extra = buildGpuSpecs(product);
+        else if (catKey === "gpu") extra = buildGpuSpecs(product);
         else if (["psu", "zdroj"].includes(catKey)) extra = buildPsuSpecs(product);
         else if (["case", "skrine", "skříň"].includes(catKey)) extra = buildCaseSpecs(product);
         else if (["cooler", "chlazeni", "chlazení"].includes(catKey)) extra = buildCoolerSpecs(product);
         else if (["motherboard", "mb", "deska"].includes(catKey)) extra = buildMotherboardSpecs(product);
 
-        // přidáme extra parametry, pokud něco máme
         if (extra && extra.length > 0) {
             extra.forEach(row => specs.push(row));
         } else {
-            // fallback – generické "Detail 1–N" pro neznámé kategorie
             const desc = safeDesc(product);
             if (desc) {
-                const parts = desc.split(/,(?![0-9])/); // nerozsekne 3,8GHz
+                const parts = desc.split(/,(?![0-9])/);
                 parts.slice(0, 12).forEach((p, i) => {
                     specs.push({
                         label: "Detail " + (i + 1),
@@ -1085,10 +1084,21 @@
             }
 
             const descEl = document.getElementById("product-description");
-            descEl.textContent = product.description || "";
+            let descText = product.description || "";
+
+            // U GPU přepíšeme v popisu "šířka" na "délka"
+            const catKey = String(product.category || "").toLowerCase();
+            if (catKey === "gpu") {
+                descText = descText.replace(/šířka/gi, "délka");
+            }
+
+            descEl.textContent = descText;
 
             // specifikace
-            renderSpecsTable(product);
+            renderSpecsTable({
+                ...product,
+                description: descText
+            });
 
             // tlačítko přidat do sestavy
             const addBtn = document.getElementById("add-to-build");
