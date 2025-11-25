@@ -242,6 +242,29 @@
             border-bottom: 1px solid #e2e2e2;
         }
 
+        /* LOADER pro cenu */
+        .price-loading {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            border-top-color: #007bff;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             .layout {
                 flex-direction: column;
@@ -725,8 +748,6 @@
         const endurance = m(/([0-9 ]+ ?TBW)/i);
         specs.push({ label: "Výdrž (TBW)", value: ensureValue(endurance) });
 
-        // rozměry a hmotnost NECHCEME – odstraněno
-
         return specs;
     }
 
@@ -752,8 +773,8 @@
         const iface = m(/PCI Express\s*([^,]+)/i);
         specs.push({ label: "Rozhraní", value: ensureValue(iface) });
 
-        // tady bereme ŠÍŘKU jako DÉLKU
-        const length = m(/(?:délka|šířka)\s*([^,]+mm)/i);
+        // délka karty – bereme „šířka“ jako délku
+        let length = m(/šířka\s*([^,]+mm)/i);
         specs.push({ label: "Délka karty", value: ensureValue(length) });
 
         return specs;
@@ -778,13 +799,11 @@
         const cert = m(/(80 PLUS [^,]+)/i);
         specs.push({ label: "Certifikace", value: ensureValue(cert) });
 
-        const cab = m(/(plně modulární|plne modulární|plne modularni|plně modularní|semi modulární|polomodulární|ne modulární|nemodulární)/i);
+        const cab = m(/(plně modulární|plně modulární|semi modulární|polomodulární|ne modulární|nemodulární)/i);
         specs.push({ label: "Kabeláž", value: ensureValue(cab) });
 
         const fan = m(/([0-9]+ ?mm ventilátor)/i);
         specs.push({ label: "Ventilátor", value: ensureValue(fan) });
-
-        // účinnost úmyslně NEZOBRAZUJU
 
         return specs;
     }
@@ -802,7 +821,7 @@
         const form = m(/(ATX|mATX|Micro ATX|Mini ITX|mITX)/i);
         specs.push({ label: "Formát desky", value: ensureValue(form) });
 
-        const fans = m(/([0-9]+x ?[0-9]+ ?mm)/i);
+        const fans = m(/([0-9]+x ?[0-9]+mm)/i);
         specs.push({ label: "Ventilátory", value: ensureValue(fans) });
 
         const gpuLen = m(/max\. délka grafické karty\s*([^,]+)/i);
@@ -810,8 +829,6 @@
 
         const coolerH = m(/max\. výška chladiče\s*([^,]+)/i);
         specs.push({ label: "Max. výška chladiče", value: ensureValue(coolerH) });
-
-        // PSU v balení NEZOBRAZUJU
 
         return specs;
     }
@@ -826,17 +843,25 @@
             return match ? match[1].trim() : null;
         }
 
-        // sockety – vezmeme celý seznam za slovem "socket"
-        const socket = m(/socket\s*([^,]+(?:,[^,]+)*)/i);
-        specs.push({ label: "Sockety", value: ensureValue(socket) });
+        // Sockety – jen seznam socketů, bez zbytku textu
+        let socketText = null;
+        const socketMatch = desc.match(/socket\s+([^\.]+)/i);
+        if (socketMatch) {
+            socketText = socketMatch[1].trim();
+            // odříznout cokoli za „W“, „ventilátor“ nebo „max.“
+            socketText = socketText.replace(/,\s*(?:[0-9]+\s*W\b.*)$/i, "");
+            socketText = socketText.replace(/,\s*(?:[0-9x ]+mm ventilátor.*)$/i, "");
+            socketText = socketText.replace(/,\s*(?:max\..*)$/i, "");
+        }
+        specs.push({ label: "Sockety", value: ensureValue(socketText) });
 
         const tdp = m(/([0-9]+ ?W)/i);
         specs.push({ label: "TDP", value: ensureValue(tdp) });
 
-        const height = m(/výška\s*([0-9]+ ?mm)/i);
+        const height = m(/výška\s*([^,]+)/i);
         specs.push({ label: "Výška", value: ensureValue(height) });
 
-        const fan = m(/([0-9]+x?[0-9]* ?mm ventilátor)/i);
+        const fan = m(/([0-9x ]+mm ventilátor)/i);
         specs.push({ label: "Ventilátor", value: ensureValue(fan) });
 
         return specs;
@@ -858,7 +883,7 @@
         const chipset = m(/(A320|A520|A620|B450|B550|B650|X570|X670|Z[0-9]+|H[0-9]+|B[0-9]+)/i);
         specs.push({ label: "Chipset", value: ensureValue(chipset) });
 
-        const form = m(/(ATX|mATX|Micro ATX|Mini ITX|mITX)/i);
+        const form = m(/formát\s*([^,]+)/i);
         specs.push({ label: "Formát", value: ensureValue(form) });
 
         const ramSlots = m(/([0-9]+)\s*×\s*DDR[0-9]/i);
@@ -876,31 +901,9 @@
 
         const specs = [];
 
-        // základ – společný pro vše
-        specs.push({ label: "ID", value: ensureValue(product.id) });
-        specs.push({ label: "Kategorie", value: ensureValue(getCategoryLabel(product.category)) });
-        specs.push({ label: "Značka", value: ensureValue(product.brand) });
-
-        let priceText = "";
-        if (product.price === 1) {
-            if (product.old_price != null) {
-                priceText = "Nedostupný (posl. " + formatKc(product.old_price) + ")";
-            } else {
-                priceText = "Nedostupný";
-            }
-        } else if (product.price == null) {
-            priceText = "Cena na dotaz";
-        } else {
-            priceText = formatKc(product.price);
-        }
-        specs.push({ label: "Cena", value: ensureValue(priceText) });
-
-        if (product.source) {
-            specs.push({ label: "Zdroj", value: ensureValue(product.source) });
-        }
-
-        if (product.url) {
-            specs.push({ label: "Odkaz na e-shop", value: ensureValue(product.url) });
+        // Základ – nechávám jen značku, ostatní máš textově nahoře
+        if (product.brand) {
+            specs.push({ label: "Značka", value: ensureValue(product.brand) });
         }
 
         const catKey = String(product.category || "").toLowerCase();
@@ -909,7 +912,7 @@
         if (catKey === "cpu") extra = buildCpuSpecs(product);
         else if (catKey === "ram") extra = buildRamSpecs(product);
         else if (["ssd", "hdd", "storage"].includes(catKey)) extra = buildStorageSpecs(product);
-        else if (catKey === "gpu") extra = buildGpuSpecs(product);
+        else if (["gpu"].includes(catKey)) extra = buildGpuSpecs(product);
         else if (["psu", "zdroj"].includes(catKey)) extra = buildPsuSpecs(product);
         else if (["case", "skrine", "skříň"].includes(catKey)) extra = buildCaseSpecs(product);
         else if (["cooler", "chlazeni", "chlazení"].includes(catKey)) extra = buildCoolerSpecs(product);
@@ -973,6 +976,82 @@
         holder.appendChild(table);
     }
 
+    // ====== CENA – pomocná funkce pro vykreslení ======
+    function updatePriceBlock(product) {
+        const statusEl = document.getElementById("product-status");
+        const priceEl = document.getElementById("product-price");
+
+        let priceText = "";
+
+        if (product.price === 1) {
+            statusEl.textContent = "Produkt již není dostupný";
+            priceEl.classList.add("unavailable");
+
+            if (product.old_price != null) {
+                priceText = "Poslední známá cena: " + formatKc(product.old_price);
+            } else {
+                priceText = "";
+            }
+        } else {
+            statusEl.textContent = "";
+            priceEl.classList.remove("unavailable");
+
+            if (product.price == null) {
+                priceText = "Cena na dotaz";
+            } else {
+                priceText = formatKc(product.price);
+            }
+        }
+
+        priceEl.textContent = priceText;
+    }
+
+    // ====== REFRESH CENY PŘES BACKEND ======
+    async function refreshPrice(product) {
+    const priceEl = document.getElementById("product-price");
+    const statusEl = document.getElementById("product-status");
+    const errorDiv = document.getElementById("error");
+
+    // smazat staré chyby
+    errorDiv.textContent = "";
+    statusEl.textContent = "";
+    priceEl.classList.remove("unavailable");
+
+    // loader
+    priceEl.innerHTML = `
+        <span class="price-loading">
+            <span class="spinner"></span>
+            Načítá se cena produktu...
+        </span>
+    `;
+
+    try {
+        const res = await fetch(`${API_BASE}/products/${product.id}/refresh-price`, {
+            method: "POST"
+        });
+
+        if (!res.ok) {
+            // když backend vrátí chybu, jen logneme a necháme uloženou cenu
+            console.warn("Chyba při ověřování ceny:", res.status, res.statusText);
+            updatePriceBlock(product);
+            return;
+        }
+
+        const updated = await res.json();
+
+        // přepíšeme data produktu (kvůli addToBuild)
+        Object.assign(product, updated);
+
+        updatePriceBlock(product);
+
+    } catch (e) {
+        // sem spadne jen síťová chyba / něco úplně rozbitýho
+        console.error("Výjimka při ověřování ceny:", e);
+        // žádná hláška pro uživatele, jen vrátíme uloženou cenu
+        updatePriceBlock(product);
+    }
+}
+
     // ====== načtení produktu ======
 
     async function loadProduct() {
@@ -1034,32 +1113,6 @@
             document.getElementById("product-name").textContent =
                 product.name || "Neznámý produkt";
 
-            const statusEl = document.getElementById("product-status");
-            const priceEl = document.getElementById("product-price");
-
-            let priceText = "";
-            if (product.price === 1) {
-                statusEl.textContent = "Produkt již není dostupný";
-                priceEl.classList.add("unavailable");
-
-                if (product.old_price != null) {
-                    priceText = "Poslední známá cena: " + formatKc(product.old_price);
-                } else {
-                    priceText = "";
-                }
-            } else {
-                statusEl.textContent = "";
-                priceEl.classList.remove("unavailable");
-
-                if (product.price == null) {
-                    priceText = "Cena na dotaz";
-                } else {
-                    priceText = formatKc(product.price);
-                }
-            }
-
-            priceEl.textContent = priceText;
-
             const categoryEl = document.getElementById("product-category");
             categoryEl.textContent = product.category
                 ? "Kategorie: " + getCategoryLabel(product.category)
@@ -1073,36 +1126,41 @@
 
             const linkEl = document.getElementById("product-link");
             if (product.url) {
-                linkEl.innerHTML =
-                    'Otevřít na e-shopu: <a href="' +
-                    product.url +
-                    '" target="_blank" rel="noopener noreferrer">' +
-                    product.url +
-                    "</a>";
+                linkEl.innerHTML = `
+                    <button 
+                        style="
+                            margin-top: 10px;
+                            padding: 8px 16px;
+                            background: #007bff;
+                            color: white;
+                            border: none;
+                            border-radius: 20px;
+                            cursor: pointer;
+                            font-size: 14px;
+                        "
+                        onclick="window.open('${product.url}', '_blank')"
+                    >
+                        Otevřít stránku produktu
+                    </button>
+                `;
             } else {
                 linkEl.textContent = "";
             }
 
             const descEl = document.getElementById("product-description");
-            let descText = product.description || "";
-
-            // U GPU přepíšeme v popisu "šířka" na "délka"
-            const catKey = String(product.category || "").toLowerCase();
-            if (catKey === "gpu") {
-                descText = descText.replace(/šířka/gi, "délka");
-            }
-
-            descEl.textContent = descText;
+            descEl.textContent = product.description || "";
 
             // specifikace
-            renderSpecsTable({
-                ...product,
-                description: descText
-            });
+            renderSpecsTable(product);
 
             // tlačítko přidat do sestavy
             const addBtn = document.getElementById("add-to-build");
             addBtn.onclick = () => addProductToBuild(product);
+
+            // NEJDŘÍV zobrazíme uloženou cenu...
+            updatePriceBlock(product);
+            // ...a hned potom zkusíme cenu aktualizovat přes scraper
+            refreshPrice(product);
 
         } catch (err) {
             console.error(err);

@@ -23,7 +23,7 @@
             text-align: center;
         }
 
-        /* Top bar: search + sort */
+        /* Top bar: search + sort + dostupnost */
         .top-bar {
             display: flex;
             justify-content: center;
@@ -47,6 +47,14 @@
             font-size: 14px;
             background: white;
             cursor: pointer;
+        }
+
+        .avail-filter {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #333;
         }
 
         .layout {
@@ -271,6 +279,11 @@
         <option value="price_asc">Cena od nejlevnější</option>
         <option value="price_desc">Cena od nejdražší</option>
     </select>
+    <!-- ✅ nový checkbox jen dostupné -->
+    <label class="avail-filter">
+        <input type="checkbox" id="availableOnlyCheckbox">
+        Jen dostupné
+    </label>
 </div>
 
 <div class="layout">
@@ -343,6 +356,7 @@
             searchQuery,
             sortMode,
             currentPage,
+            availableOnly,
             scrollY: window.scrollY || 0
         };
         localStorage.setItem(VIEW_STATE_KEY, JSON.stringify(state));
@@ -716,6 +730,7 @@
     let selectedCategory = "";
     let searchQuery = "";
     let sortMode = "none";
+    let availableOnly = false;
 
     const savedState = loadViewState();
     if (savedState) {
@@ -723,13 +738,16 @@
         selectedCategory = savedState.selectedCategory || "";
         searchQuery = savedState.searchQuery || "";
         sortMode = savedState.sortMode || "none";
+        availableOnly = !!savedState.availableOnly;
     }
 
     const searchBox = document.getElementById("searchBox");
     const sortSelect = document.getElementById("sortSelect");
+    const availCheckbox = document.getElementById("availableOnlyCheckbox");
 
     searchBox.value = searchQuery;
     sortSelect.value = sortMode;
+    availCheckbox.checked = availableOnly;
 
     async function loadProducts(page = 1) {
         const error = document.getElementById("error");
@@ -738,7 +756,8 @@
         error.textContent = "";
         container.textContent = "Načítám produkty...";
 
-        if (searchQuery || sortMode !== "none") {
+        // 🔍 Když hledáš, řadíš nebo chceš jen dostupné → všechno přes JS (bez stránkování)
+        if (searchQuery || sortMode !== "none" || availableOnly) {
             try {
                 const limit = 200;
                 let offset = 0;
@@ -769,9 +788,14 @@
                 const q = searchQuery.toLowerCase();
                 let filtered = allItems;
                 if (q) {
-                    filtered = allItems.filter(p =>
+                    filtered = filtered.filter(p =>
                         (p.name || "").toLowerCase().includes(q)
                     );
+                }
+
+                if (availableOnly) {
+                    // jen produkty, které nejsou označené jako skončené (price !== 1)
+                    filtered = filtered.filter(p => p.price !== 1);
                 }
 
                 filtered = sortProductsArray(filtered);
@@ -792,11 +816,12 @@
             } catch (e) {
                 console.error(e);
                 container.textContent = "";
-                error.textContent = "Chyba při načítání produktů (vyhledávání/řazení).";
+                error.textContent = "Chyba při načítání produktů (vyhledávání/řazení/filtr).";
                 return;
             }
         }
 
+        // 📄 normální režim – stránkování po 15 kusech
         const offset = (page - 1) * PAGE_SIZE;
 
         const params = new URLSearchParams();
@@ -840,7 +865,8 @@
         currentPage = page;
         const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
 
-        if (searchQuery || sortMode !== "none") {
+        // když je aktivní hledání / řazení / jen dostupné → stránkování vypneme
+        if (searchQuery || sortMode !== "none" || availableOnly) {
             prev.disabled = true;
             next.disabled = true;
             info.textContent = "Výsledky: " + totalItems;
@@ -928,6 +954,8 @@
         }
     }
 
+    // --- eventy ---
+
     searchBox.addEventListener("input", (e) => {
         searchQuery = e.target.value.trim();
         currentPage = 1;
@@ -942,14 +970,21 @@
         loadProducts(1);
     });
 
+    availCheckbox.addEventListener("change", (e) => {
+        availableOnly = e.target.checked;
+        currentPage = 1;
+        saveViewState();
+        loadProducts(1);
+    });
+
     document.getElementById("prevBtn").addEventListener("click", () => {
-        if (currentPage > 1 && !searchQuery && sortMode === "none") {
+        if (currentPage > 1 && !searchQuery && sortMode === "none" && !availableOnly) {
             loadProducts(currentPage - 1);
         }
     });
 
     document.getElementById("nextBtn").addEventListener("click", () => {
-        if (!searchQuery && sortMode === "none") {
+        if (!searchQuery && sortMode === "none" && !availableOnly) {
             loadProducts(currentPage + 1);
         }
     });

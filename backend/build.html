@@ -28,6 +28,24 @@
             text-align: center;
         }
 
+        #download-build {
+            display: none;
+            margin: 10px auto 0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            background: #6c757d;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            max-width: 260px;
+            text-align: center;
+        }
+
+        #download-build:hover {
+            background: #5a6268;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -90,6 +108,8 @@
 
 <h1>Tvoje sestava</h1>
 
+<button id="download-build" type="button">Stáhnout sestavu (Word)</button>
+
 <div id="error"></div>
 
 <div id="empty">Zatím nemáš v sestavě žádné produkty.</div>
@@ -145,6 +165,8 @@
         "monitor"
     ];
 
+    const downloadBtn = document.getElementById("download-build");
+
     function getCategoryLabel(cat) {
         if (!cat) return "Neznámá kategorie";
         const key = String(cat).toLowerCase();
@@ -157,8 +179,15 @@
             if (!raw) return [];
             const parsed = JSON.parse(raw);
 
-            if (Array.isArray(parsed)) return parsed;
+            // nový formát – pole
+            if (Array.isArray(parsed)) {
+                return parsed.map(v => ({
+                    ...v,
+                    url: typeof v.url === "string" ? v.url : null
+                }));
+            }
 
+            // starší objektový formát
             if (parsed && typeof parsed === "object") {
                 const arr = [];
                 for (const [cat, value] of Object.entries(parsed)) {
@@ -170,7 +199,8 @@
                                 name: v.name,
                                 category: v.category || cat,
                                 price: (typeof v.price === "number" ? v.price : null),
-                                old_price: (typeof v.old_price === "number" ? v.old_price : null)
+                                old_price: (typeof v.old_price === "number" ? v.old_price : null),
+                                url: typeof v.url === "string" ? v.url : null
                             });
                         });
                     } else if (value) {
@@ -179,7 +209,8 @@
                             name: value.name,
                             category: value.category || cat,
                             price: (typeof value.price === "number" ? value.price : null),
-                            old_price: (typeof value.old_price === "number" ? value.old_price : null)
+                            old_price: (typeof value.old_price === "number" ? value.old_price : null),
+                            url: typeof value.url === "string" ? value.url : null
                         });
                     }
                 }
@@ -241,11 +272,13 @@
             table.style.display = "none";
             empty.style.display = "block";
             totalCell.textContent = "0 Kč";
+            if (downloadBtn) downloadBtn.style.display = "none";
             return;
         }
 
         empty.style.display = "none";
         table.style.display = "table";
+        if (downloadBtn) downloadBtn.style.display = "block";
 
         const sorted = items.slice().sort((a, b) => {
             const ak = String(a.category || "other").toLowerCase();
@@ -313,6 +346,40 @@
         });
 
         totalCell.textContent = total.toLocaleString("cs-CZ") + " Kč";
+    }
+
+    function downloadBuildAsWord() {
+        const items = loadBuildItems();
+        if (!items.length) {
+            alert("Sestava je prázdná, není co uložit.");
+            return;
+        }
+
+        const lines = items.map(item => {
+            let line = item.name || "Neznámý produkt";
+            if (item.url) {
+                line += " - " + item.url;
+            } else {
+                line += " - bez odkazu";
+            }
+            return line;
+        });
+
+        const content = "Sestava PC\n\n" + lines.join("\n");
+        const blob = new Blob([content], { type: "application/msword" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "sestava.doc";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    if (downloadBtn) {
+        downloadBtn.addEventListener("click", downloadBuildAsWord);
     }
 
     renderBuild();
