@@ -1,5 +1,5 @@
 # schemas.py
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 from pydantic import BaseModel
 
 class ProductOut(BaseModel):
@@ -12,6 +12,7 @@ class ProductOut(BaseModel):
     source: Optional[str] = None
     url: Optional[str] = None
     description: Optional[str] = None
+    spec: Optional[Dict[str, Any]] = None
 
     class Config:
         orm_mode = True

@@ -4,148 +4,416 @@
     <meta charset="UTF-8">
     <title>Produkty</title>
     <style>
+        :root {
+            --bg: #eef1f7;
+            --page-bg: linear-gradient(180deg, #f7f9ff 0%, #eef1f7 100%);
+            --card: #ffffff;
+            --muted: #e5e9f1;
+            --border: #dfe3ea;
+            --text: #0e1424;
+            --muted-text: #606778;
+            --primary: #2563eb;
+            --primary-dark: #1f4fbf;
+            --danger: #ef4444;
+            --shadow: 0 22px 60px rgba(15, 23, 42, 0.06);
+            --shadow-soft: 0 12px 28px rgba(15, 23, 42, 0.05);
+            --radius: 14px;
+        }
+
+        .dark {
+            --bg: #0e1219;
+            --page-bg: radial-gradient(circle at 20% 18%, rgba(46, 58, 89, 0.35) 0, transparent 32%), linear-gradient(180deg, #0d1117 0%, #0b1016 100%);
+            --card: #111827;
+            --muted: #1a2231;
+            --border: #1f2a3a;
+            --text: #e5e7eb;
+            --muted-text: #9ca3af;
+            --primary: #3b82f6;
+            --primary-dark: #2f6fde;
+            --danger: #f87171;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+            --shadow-soft: 0 12px 26px rgba(0, 0, 0, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 1200px;
+            font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 20px;
-            background: #f5f5f5;
+            padding: 32px 24px 48px;
+            background: var(--page-bg);
+            color: var(--text);
         }
 
         h1 {
-            margin-bottom: 10px;
-            text-align: center;
+            margin: 0 0 18px 0;
+            font-size: 32px;
+            letter-spacing: -0.02em;
+        }
+
+        .page-header { margin-bottom: 18px; }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--muted);
+            color: var(--primary);
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .lead {
+            margin: 8px 0 0 0;
+            color: var(--muted-text);
+            max-width: 720px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 16px;
+            right: 18px;
+            z-index: 50;
+        }
+
+        .theme-toggle button {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+        }
+
+        .theme-toggle button:hover {
+            transform: translateY(-1px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .filter-card { color: var(--text); }
+
+        .lead,
+        .section-heading,
+        .hint { color: var(--muted-text); }
+
+        .top-bar input,
+        .top-bar select,
+        .avail-filter {
+            background: var(--card);
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        .top-bar input::placeholder { color: var(--muted-text); }
+
+        .cat-btn {
+            color: var(--text);
+            background: var(--card);
+            border-color: var(--border);
+        }
+
+        .cat-btn.active { color: #fff; }
+        .product-card { color: var(--text); }
+        #build-sidebar { color: var(--text); }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 4px 0 10px 0;
+            color: var(--muted-text);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .hint {
+            color: var(--muted-text);
+            font-weight: 500;
+            font-size: 12px;
         }
 
         #error {
-            color: red;
-            margin-bottom: 10px;
+            color: var(--danger);
+            margin-bottom: 12px;
             text-align: center;
+            padding: 10px 12px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            border-radius: 12px;
+            display: none;
         }
 
-        /* Top bar: search + sort + dostupnost */
-        .top-bar {
+        #error:not(:empty) { display: block; }
+
+        .filter-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px 16px 14px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 18px;
+        }
+
+        .filter-head {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: flex-start;
             gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            margin-bottom: 12px;
         }
 
-        #searchBox {
-            padding: 8px 14px;
-            width: 260px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
+        .filter-note {
+            color: var(--muted-text);
+            font-size: 13px;
+            margin: 6px 0 0 0;
+            line-height: 1.5;
+        }
+
+        .top-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            align-items: center;
+        }
+
+        #searchBox,
+        #sortSelect {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
             font-size: 14px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            outline: none;
+        }
+
+        #searchBox:focus,
+        #sortSelect:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+            background: var(--card);
         }
 
         #sortSelect {
-            padding: 8px 14px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-            background: white;
             cursor: pointer;
+            appearance: none;
+            background-image: none;
+            padding-right: 44px;
         }
 
         .avail-filter {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--card);
             font-size: 14px;
-            color: #333;
+            color: var(--text);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .avail-filter input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .avail-filter:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.06);
+            background: #fff;
+        }
+
+        .input-wrap, .select-wrap { position: relative; }
+
+        .field-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: var(--muted-text);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .input-wrap input { padding-left: 36px; }
+        .input-wrap.has-text .field-icon { display: none; }
+
+        .select-chevron {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: var(--muted-text);
+            pointer-events: none;
         }
 
         .layout {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 320px;
             gap: 20px;
             align-items: flex-start;
         }
 
-        main {
-            flex: 1 1 auto;
-        }
-
-        aside {
-            flex: 0 0 260px;
-        }
+        main { flex: 1 1 auto; }
+        aside { width: 100%; }
 
         #categoryBar {
             display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
             flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            align-items: center;
         }
 
         .cat-btn {
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-            background: white;
+            padding: 9px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--card);
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
+            color: var(--text);
+            transition: all 0.18s ease;
+        }
+
+        .cat-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
         .cat-btn.active {
-            background: #007bff;
-            color: white;
-            border-color: #007bff;
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.25);
         }
 
         #products {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 16px;
             margin-bottom: 20px;
+            align-items: stretch;
         }
 
         .product-card {
-            background: white;
-            border-radius: 8px;
-            padding: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-soft);
             cursor: pointer;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            gap: 12px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+            height: 100%;
+            padding: 12px 12px 14px;
         }
 
         .product-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(37, 99, 235, 0.16);
+            border-color: rgba(37, 99, 235, 0.18);
+        }
+
+        .product-card.unavailable { opacity: 0.9; }
+
+        .product-media {
+            position: relative;
+            background: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 6px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .product-card img {
-            max-width: 180px;
-            max-height: 180px;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            margin-bottom: 10px;
         }
 
         .product-name {
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            margin: 4px 0;
+            color: var(--text);
+            min-height: 38px;
+            line-height: 1.4;
+            display: -webkit-box;
+            line-clamp: 2;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .product-price {
-            color: #007b00;
-            font-weight: bold;
-            margin-bottom: 4px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 2px;
+            font-size: 16px;
         }
 
         .product-price.unavailable {
-            color: #b00020;
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .product-category {
             font-size: 12px;
-            color: #666;
-            text-transform: none;
+            color: var(--muted-text);
+            background: var(--muted);
+            border-radius: 999px;
+            padding: 6px 10px;
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            background: var(--danger);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
         }
 
         #pagination {
@@ -157,35 +425,47 @@
         }
 
         #pagination button {
-            padding: 6px 12px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            background: white;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--card);
             cursor: pointer;
+            font-weight: 600;
+            color: var(--text);
+            transition: all 0.18s ease;
+        }
+
+        #pagination button:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: var(--shadow-soft);
         }
 
         #pagination button:disabled {
-            opacity: 0.5;
+            opacity: 0.55;
             cursor: default;
         }
 
         #pageInfo {
             font-size: 14px;
-            color: #444;
+            color: var(--muted-text);
         }
 
         #build-sidebar {
-            background: white;
-            border-radius: 8px;
-            padding: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border);
+            position: sticky;
+            top: 22px;
         }
 
         #build-sidebar h2 {
-            font-size: 16px;
-            margin-top: 0;
-            margin-bottom: 10px;
+            font-size: 17px;
+            margin: 0 0 12px 0;
             text-align: center;
+            letter-spacing: -0.01em;
         }
 
         #build-list {
@@ -193,103 +473,156 @@
             padding-left: 0;
             margin: 0;
             font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         #build-list li {
-            padding: 6px 4px;
-            border-bottom: 1px solid #eee;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            background: var(--muted);
         }
 
         #build-empty {
             font-size: 13px;
-            color: #777;
+            color: var(--muted-text);
             text-align: center;
+            padding: 14px 8px;
+            background: var(--muted);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
         }
 
         .build-remove-btn {
             border: none;
-            background: transparent;
+            background: #ffe4e6;
             cursor: pointer;
             font-size: 14px;
             line-height: 1;
-            color: #b00020;
+            color: var(--danger);
+            border-radius: 8px;
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s ease, transform 0.1s ease;
         }
 
         .build-remove-btn:hover {
             font-weight: bold;
+            transform: translateY(-1px);
         }
 
-        /* součet + odkaz na sestavu */
         #build-total {
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid #eee;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
             display: none;
             justify-content: space-between;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 13px;
         }
 
         #build-total span:last-child {
             white-space: nowrap;
+            color: var(--primary);
         }
 
         #build-open {
             display: none;
-            margin-top: 10px;
-            padding: 8px 12px;
-            border-radius: 20px;
-            background: #007bff;
+            margin-top: 12px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: var(--primary);
             color: #fff;
             text-decoration: none;
             font-size: 13px;
             text-align: center;
+            font-weight: 700;
+            transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+            width: 100%;
         }
 
         #build-open:hover {
-            background: #0069d9;
+            background: var(--primary-dark);
+            box-shadow: 0 18px 40px rgba(37, 99, 235, 0.25);
+            transform: translateY(-1px);
         }
 
-        /* Mobil */
-        @media (max-width: 768px) {
-            .layout {
-                flex-direction: column;
-            }
+        .category-note { margin: 2px 0 10px 0; }
 
-            aside {
-                flex: 1 1 auto;
-                width: 100%;
-                order: 2;
-            }
+        @media (max-width: 1100px) {
+            .layout { grid-template-columns: 1fr; }
+            #build-sidebar { position: relative; top: 0; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 22px 16px 36px; }
+            .layout { grid-template-columns: 1fr; }
+            aside { order: 2; }
         }
     </style>
 </head>
 <body>
 
-<h1>Produkty</h1>
+<div class="theme-toggle">
+    <button id="themeToggle" type="button">Tmavý režim</button>
+</div>
 
-<div class="top-bar">
-    <input id="searchBox" type="text" placeholder="Hledat produkt..." />
-    <select id="sortSelect">
-        <option value="none">Řazení: výchozí</option>
-        <option value="price_asc">Cena od nejlevnější</option>
-        <option value="price_desc">Cena od nejdražší</option>
-    </select>
-    <!-- ✅ nový checkbox jen dostupné -->
-    <label class="avail-filter">
-        <input type="checkbox" id="availableOnlyCheckbox">
-        Jen dostupné
-    </label>
+<div class="page-header">
+    <span class="eyebrow">PC konfigurátor</span>
+    <h1>Produkty</h1>
+    <p class="lead">Vyhledejte, filtrujte a proklikejte se do detailu.</p>
 </div>
 
 <div class="layout">
     <main>
 
-        <div id="categoryBar"></div>
+        <div class="filter-card">
+            <div class="filter-head">
+                <div>
+                    <span class="eyebrow">Filtry &amp; řazení</span>
+                    <p class="filter-note"></p>
+                </div>
+            </div>
+
+            <div class="top-bar">
+                <div class="input-wrap">
+                    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
+                    </svg>
+                    <input id="searchBox" type="text" placeholder="     Hledat produkt" />
+                </div>
+                <div class="select-wrap">
+                    <select id="sortSelect">
+                        <option value="none">Řazení: výchozí</option>
+                        <option value="price_asc">Cena od nejlevnějších</option>
+                        <option value="price_desc">Cena od nejdražších</option>
+                    </select>
+                    <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <label class="avail-filter">
+                    <input type="checkbox" id="availableOnlyCheckbox">
+                    Pouze dostupné
+                </label>
+            </div>
+
+            <div class="section-heading category-note">
+                <span>Kategorie</span>
+                <span class="hint">Vyberte kategorii pro zúžení nabídky</span>
+            </div>
+            <div id="categoryBar"></div>
+        </div>
 
         <div id="error"></div>
         <div id="products">Načítám produkty...</div>
@@ -303,8 +636,8 @@
     </main>
 
     <aside id="build-sidebar">
-        <h2>Tvoje sestava</h2>
-        <p id="build-empty">Zatím nic vybráno.</p>
+        <h2>Vaše sestava</h2>
+        <p id="build-empty">Zatím není nic vybráno.</p>
         <ul id="build-list"></ul>
 
         <div id="build-total">
@@ -312,11 +645,39 @@
             <span id="build-total-value">0 Kč</span>
         </div>
 
-        <a id="build-open" href="build.html">Otevřít sestavu</a>
+        <a id="build-open" href="build.html">Otevřít konfiguraci</a>
     </aside>
 </div>
 
 <script>
+    const THEME_KEY = "pc_theme_mode_v1";
+
+    function applyTheme(mode) {
+        const next = mode === "dark" ? "dark" : "light";
+        document.body.classList.toggle("dark", next === "dark");
+        try { localStorage.setItem(THEME_KEY, next); } catch {}
+        const btn = document.getElementById("themeToggle");
+        if (btn) {
+            btn.textContent = next === "dark" ? "Světlý režim" : "Tmavý režim";
+        }
+    }
+
+    (function initTheme() {
+        let saved = null;
+        try { saved = localStorage.getItem(THEME_KEY); } catch {}
+        if (!saved) {
+            saved = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        applyTheme(saved);
+        const btn = document.getElementById("themeToggle");
+        if (btn) {
+            btn.addEventListener("click", () => {
+                const next = document.body.classList.contains("dark") ? "light" : "dark";
+                applyTheme(next);
+            });
+        }
+    })();
+
     const API_BASE = "http://127.0.0.1:8000";
     const PAGE_SIZE = 15;
 
@@ -398,7 +759,6 @@
         });
     }
 
-    // ---- formátování ceny ----
     function formatKc(value) {
         if (value == null || isNaN(value)) return "";
         return Number(value).toLocaleString("cs-CZ") + " Kč";
@@ -415,8 +775,6 @@
         return null;
     }
 
-    // ---- práce se sestavou ----
-
     function loadBuildItems() {
         try {
             const raw = localStorage.getItem(BUILD_KEY);
@@ -426,10 +784,7 @@
             if (Array.isArray(parsed)) {
                 return parsed.map(v => {
                     const qty = Math.max(1, Number(v.qty) || 1);
-                    return {
-                        ...v,
-                        qty
-                    };
+                    return { ...v, qty };
                 });
             }
 
@@ -486,9 +841,9 @@
 
         if (item.price === 1 && base != null) {
             if (qty > 1) {
-                return qty + "× posl. " + formatKc(base);
+                return qty + "× poslední " + formatKc(base);
             }
-            return "posl. " + formatKc(base);
+            return "poslední " + formatKc(base);
         }
 
         if (item.price == null && base != null) {
@@ -611,7 +966,6 @@
         let updated;
 
         if (multi) {
-            // RAM / disky – může být víc kusů stejného produktu
             let found = false;
             updated = items.map(it => {
                 if (it.id === newItem.id) {
@@ -625,7 +979,15 @@
                 updated.push(newItem);
             }
         } else {
-            // ostatní – jen jeden kus na kategorii
+            const existing = items.find(it => String(it.category || "other").toLowerCase() === catKey);
+            if (existing && existing.id !== newItem.id) {
+                const label = getCategoryLabel(catKey);
+                const ok = window.confirm(
+                    `V sestavě už máte položku z kategorie ${label}: ${existing.name}.\nChcete ji vyměnit za ${product.name}?`
+                );
+                if (!ok) return;
+            }
+
             updated = items.filter(it => {
                 const itsCat = String(it.category || "other").toLowerCase();
                 return itsCat !== catKey;
@@ -638,11 +1000,15 @@
         saveViewState();
     }
 
-    // ---- produkty ----
-
     function renderProductCard(product, container) {
         const card = document.createElement("div");
         card.className = "product-card";
+        if (product.price === 1) {
+            card.classList.add("unavailable");
+        }
+
+        const media = document.createElement("div");
+        media.className = "product-media";
 
         const img = document.createElement("img");
         let triedPng = false, triedJpeg = false;
@@ -662,6 +1028,15 @@
             this.remove();
         };
 
+        media.appendChild(img);
+
+        if (product.price === 1) {
+            const badge = document.createElement("span");
+            badge.className = "status-badge";
+            badge.textContent = "Nedostupné";
+            media.appendChild(badge);
+        }
+
         const name = document.createElement("div");
         name.className = "product-name";
         name.textContent = product.name || "";
@@ -670,13 +1045,9 @@
         price.className = "product-price";
         if (product.price === 1) {
             price.classList.add("unavailable");
-            if (product.old_price != null) {
-                price.textContent =
-                    "Produkt již není dostupný (poslední známá cena: " +
-                    formatKc(product.old_price) + ")";
-            } else {
-                price.textContent = "Produkt již není dostupný";
-            }
+            price.textContent = product.old_price != null
+                ? "Poslední známá cena: " + formatKc(product.old_price)
+                : "Poslední známá cena: –";
         } else if (product.price == null) {
             price.textContent = "Cena na dotaz";
         } else {
@@ -687,12 +1058,16 @@
         cat.className = "product-category";
         cat.textContent = getCategoryLabel(product.category);
 
+        const meta = document.createElement("div");
+        meta.className = "product-meta";
+        meta.appendChild(cat);
+
         card.addEventListener("click", () => {
             saveViewState();
             window.location.href = "product-detail.html?id=" + product.id;
         });
 
-        card.append(img, name, price, cat);
+        card.append(media, name, price, meta);
         container.appendChild(card);
     }
 
@@ -745,9 +1120,20 @@
     const sortSelect = document.getElementById("sortSelect");
     const availCheckbox = document.getElementById("availableOnlyCheckbox");
 
+    function updateSearchIconVisibility() {
+        const wrap = searchBox.closest(".input-wrap");
+        if (!wrap) return;
+        if (searchBox.value.trim()) {
+            wrap.classList.add("has-text");
+        } else {
+            wrap.classList.remove("has-text");
+        }
+    }
+
     searchBox.value = searchQuery;
     sortSelect.value = sortMode;
     availCheckbox.checked = availableOnly;
+    updateSearchIconVisibility();
 
     async function loadProducts(page = 1) {
         const error = document.getElementById("error");
@@ -756,7 +1142,6 @@
         error.textContent = "";
         container.textContent = "Načítám produkty...";
 
-        // 🔍 Když hledáš, řadíš nebo chceš jen dostupné → všechno přes JS (bez stránkování)
         if (searchQuery || sortMode !== "none" || availableOnly) {
             try {
                 const limit = 200;
@@ -794,7 +1179,6 @@
                 }
 
                 if (availableOnly) {
-                    // jen produkty, které nejsou označené jako skončené (price !== 1)
                     filtered = filtered.filter(p => p.price !== 1);
                 }
 
@@ -804,7 +1188,7 @@
                 container.innerHTML = "";
 
                 if (filtered.length === 0) {
-                    container.textContent = "Nic nenalezeno.";
+                    container.textContent = "Nic nebylo nalezeno.";
                 } else {
                     filtered.forEach(p => renderProductCard(p, container));
                 }
@@ -821,7 +1205,6 @@
             }
         }
 
-        // 📄 normální režim – stránkování po 15 kusech
         const offset = (page - 1) * PAGE_SIZE;
 
         const params = new URLSearchParams();
@@ -842,7 +1225,7 @@
             container.innerHTML = "";
 
             if (products.length === 0) {
-                container.textContent = "Žádné produkty.";
+                container.textContent = "Žádné produkty nebyly nalezeny.";
             } else {
                 products.forEach(p => renderProductCard(p, container));
             }
@@ -865,7 +1248,6 @@
         currentPage = page;
         const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
 
-        // když je aktivní hledání / řazení / jen dostupné → stránkování vypneme
         if (searchQuery || sortMode !== "none" || availableOnly) {
             prev.disabled = true;
             next.disabled = true;
@@ -954,13 +1336,12 @@
         }
     }
 
-    // --- eventy ---
-
     searchBox.addEventListener("input", (e) => {
         searchQuery = e.target.value.trim();
         currentPage = 1;
         saveViewState();
         loadProducts(1);
+        updateSearchIconVisibility();
     });
 
     sortSelect.addEventListener("change", (e) => {
@@ -989,18 +1370,14 @@
         }
     });
 
-    window.addEventListener("scroll", () => {
-        saveViewState();
-    });
+    window.addEventListener("scroll", () => { saveViewState(); });
 
     renderBuildSidebar();
     initCategories().then(() => {
         loadProducts(currentPage || 1);
 
         if (savedState && typeof savedState.scrollY === "number") {
-            setTimeout(() => {
-                window.scrollTo(0, savedState.scrollY);
-            }, 0);
+            setTimeout(() => { window.scrollTo(0, savedState.scrollY); }, 0);
         }
     });
 </script>

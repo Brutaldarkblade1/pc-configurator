@@ -197,16 +197,22 @@ def domain_of(url: str) -> str:
         return ""
 
 # ---------- DB helper --------------------------------------------------------
-def update_price(conn, prod_id: int, new_price: int):
+def update_price(conn, prod_id: int, new_price: int, prev_price: Optional[int] = None):
     """
     Udělá UPDATE a vypíše, kolik řádků se změnilo.
     Když rowcount = 0 -> víme, že v DB se nic neupdatuje.
     """
     with conn.cursor() as cur:
-        cur.execute(
-            "UPDATE products SET price = %s, updated_at = NOW() WHERE id = %s",
-            (new_price, prod_id),
-        )
+        if prev_price is not None:
+            cur.execute(
+                "UPDATE products SET price = %s, old_price = %s, updated_at = NOW() WHERE id = %s",
+                (new_price, int(prev_price), prod_id),
+            )
+        else:
+            cur.execute(
+                "UPDATE products SET price = %s, updated_at = NOW() WHERE id = %s",
+                (new_price, prod_id),
+            )
         if cur.rowcount == 0:
             print(f"    [DB WARN] UPDATE nic nezměnil (id={prod_id})", file=sys.stderr)
         else:
@@ -284,7 +290,7 @@ def main():
                             print(f"{dom} → 404, nastavím price = 1 (old={old_price}) [DRY]", flush=True)
                         else:
                             print(f"{dom} → 404, UPDATE {old_price} ➜ {new_price}", flush=True)
-                            update_price(conn, prod_id, new_price)
+                            update_price(conn, prod_id, new_price, old_price)
                             changed += 1
 
                     time.sleep(args.delay)
@@ -300,7 +306,7 @@ def main():
                             print(f"{dom} → Prodej skončil, nastavím price = 1 (old={old_price}) [DRY]", flush=True)
                         else:
                             print(f"{dom} → Prodej skončil, UPDATE {old_price} ➜ {new_price}", flush=True)
-                            update_price(conn, prod_id, new_price)
+                            update_price(conn, prod_id, new_price, old_price)
                             changed += 1
 
                     time.sleep(args.delay)
@@ -350,7 +356,7 @@ def main():
                     print(f"{dom} → {new_price} (old={old_price}) [DRY]", flush=True)
                 else:
                     print(f"{dom} → UPDATE {old_price} ➜ {new_price}", flush=True)
-                    update_price(conn, prod_id, new_price)
+                    update_price(conn, prod_id, new_price, old_price)
                     changed += 1
 
                 time.sleep(args.delay)

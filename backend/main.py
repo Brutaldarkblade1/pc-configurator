@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 
 from database import get_db
-from models import Product
+from models import Product, CPU, GPU, Motherboard, PCCase, PSU, RAM, Storage, Cooler
 from schemas import ProductOut, ProductListResponse
 
 # ⬇️ tady importujeme tvůj scraper jako modul
@@ -54,6 +54,8 @@ def list_products(
         limit = 1
     if limit > 200:
         limit = 200
+    if offset < 0:
+        offset = 0
 
     query = db.query(Product)
 
@@ -79,6 +81,101 @@ def list_products(
 
 
 # ======================
+#   SPECIFIKACE PODLE KATEGORIE
+# ======================
+
+def get_spec_for_product(product: Product, db: Session):
+    """
+    Vrati dictionary se specifikacemi z kategoriovych tabulek podle produktu.
+    Pokud kategorie nema zaznam, vrati None.
+    """
+    cat = (product.category or "").lower()
+    pid = product.id
+
+    try:
+        if cat == "cpu":
+            row = db.query(CPU).filter(CPU.product_id == pid).first()
+            if row:
+                return {
+                    "socket": row.socket,
+                    "tdp": row.tdp,
+                    "igpu": row.igpu,
+                }
+
+        elif cat == "gpu":
+            row = db.query(GPU).filter(GPU.product_id == pid).first()
+            if row:
+                return {
+                    "vram_gb": row.vram_gb,
+                    "tdp": row.tdp,
+                    "length_mm": row.length_mm,
+                }
+
+        elif cat in ("motherboard", "mb"):
+            row = db.query(Motherboard).filter(Motherboard.product_id == pid).first()
+            if row:
+                return {
+                    "socket": row.socket,
+                    "ram_type": row.ram_type,
+                    "form_factor": row.form_factor,
+                }
+
+        elif cat in ("case", "skrine", "pc_case"):
+            row = db.query(PCCase).filter(PCCase.product_id == pid).first()
+            if row:
+                return {
+                    "form_factor_support": row.form_factor_support,
+                    "gpu_max_length_mm": row.gpu_max_length_mm,
+                    "cooler_max_height_mm": row.cooler_max_height_mm,
+                    "psu_form_factor": row.psu_form_factor,
+                }
+
+        elif cat in ("psu", "zdroj"):
+            row = db.query(PSU).filter(PSU.product_id == pid).first()
+            if row:
+                return {
+                    "wattage": row.wattage,
+                    "efficiency": row.efficiency,
+                    "modular": row.modular,
+                }
+
+        elif cat == "ram":
+            row = db.query(RAM).filter(RAM.product_id == pid).first()
+            if row:
+                return {
+                    "type": row.type,
+                    "speed_mhz": row.speed_mhz,
+                    "capacity_gb": row.capacity_gb,
+                    "sticks": row.sticks,
+                }
+
+        elif cat in ("ssd", "hdd", "storage"):
+            row = db.query(Storage).filter(Storage.product_id == pid).first()
+            if row:
+                return {
+                    "type": row.type,
+                    "capacity_gb": row.capacity_gb,
+                    "interface": row.interface,
+                }
+
+        elif cat in ("cooler", "chlazeni"):
+            row = db.query(Cooler).filter(Cooler.product_id == pid).first()
+            if row:
+                return {
+                    "type": row.type,
+                    "tdp_support": row.tdp_support,
+                    "socket_support": row.socket_support,
+                    "height_mm": row.height_mm,
+                }
+    except Exception as exc:
+        # Nechceme spadnout na chybě tabulky/specifikací – jen logneme a vrátíme None
+        print(f"[SPEC LOOKUP WARN] product_id={pid} category={cat} -> {exc}")
+
+    return None
+
+
+
+# ======================
 #   PRODUCTS – DETAIL
 # ======================
 
@@ -90,6 +187,8 @@ def get_product_detail(
     product = db.query(Product).filter(Product.id == product_id).first()
     if not product:
         raise HTTPException(status_code=404, detail="Produkt nenalezen")
+
+    product.spec = get_spec_for_product(product, db)
 
     return product
 
@@ -157,6 +256,8 @@ def refresh_product_price(
     if not product:
         raise HTTPException(status_code=404, detail="Produkt nenalezen")
 
+    product.spec = get_spec_for_product(product, db)
+
     # Bez URL nemáme co refreshovat => jen vrátíme produkt
     if not product.url or not product.url.strip():
         return product
@@ -183,5 +284,7 @@ def refresh_product_price(
     db.add(product)
     db.commit()
     db.refresh(product)
+
+    product.spec = get_spec_for_product(product, db)
 
     return product

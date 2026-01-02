@@ -1,126 +1,291 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
     <title>Detail produktu</title>
     <style>
+        :root {
+            --bg: #eef1f7;
+            --page-bg: linear-gradient(180deg, #f7f9ff 0%, #eef1f7 100%);
+            --card: #ffffff;
+            --muted: #e5e9f1;
+            --border: #dfe3ea;
+            --text: #0e1424;
+            --muted-text: #606778;
+            --primary: #2563eb;
+            --primary-dark: #1f4fbf;
+            --danger: #ef4444;
+            --shadow: 0 22px 60px rgba(15, 23, 42, 0.06);
+            --shadow-soft: 0 12px 28px rgba(15, 23, 42, 0.05);
+            --radius: 14px;
+        }
+
+        .dark {
+            --bg: #0e1219;
+            --page-bg: radial-gradient(circle at 20% 18%, rgba(46, 58, 89, 0.35) 0, transparent 32%), linear-gradient(180deg, #0d1117 0%, #0b1016 100%);
+            --card: #111827;
+            --muted: #1a2231;
+            --border: #1f2a3a;
+            --text: #e5e7eb;
+            --muted-text: #9ca3af;
+            --primary: #3b82f6;
+            --primary-dark: #2f6fde;
+            --danger: #f87171;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+            --shadow-soft: 0 12px 26px rgba(0, 0, 0, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
+            font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 20px;
-            background: #f5f5f5;
+            padding: 32px 24px 48px;
+            background: var(--page-bg);
+            color: var(--text);
         }
 
         a {
-            color: #007bff;
+            color: var(--primary);
             text-decoration: none;
+            font-weight: 600;
         }
+
+        .top-link {
+            position: fixed;
+            top: 18px;
+            left: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            box-shadow: var(--shadow);
+            color: var(--text);
+            font-weight: 600;
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+            z-index: 60;
+        }
+
+        .top-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 18px 40px rgba(37, 99, 235, 0.18);
+        }
+
+        .page-header { margin: 16px 0 14px 0; }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--muted);
+            color: var(--primary);
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 10px 0 6px 0;
+            font-size: 28px;
+            letter-spacing: -0.02em;
+        }
+
+        .lead {
+            margin: 6px 0 0 0;
+            color: var(--muted-text);
+            max-width: 760px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 16px;
+            right: 18px;
+            z-index: 50;
+        }
+
+        .theme-toggle button {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+        }
+
+        .theme-toggle button:hover {
+            transform: translateY(-1px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        /* Kontrast ve formátech detailu */
+        .lead { color: var(--muted-text); }
+
+        #product-info,
+        #build-sidebar,
+        .description,
+        .meta { color: var(--text); }
+
+        #product-container,
+        #build-sidebar {
+            background: var(--card);
+            border-color: var(--border);
+        }
+
+        #spec-table th,
+        #spec-table td { color: var(--text); }
+
+        #spec-table tbody td:first-child { color: var(--muted-text); }
 
         #error {
-            color: red;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            color: var(--danger);
+            margin: 12px 0;
+            padding: 10px 12px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            border-radius: 12px;
+            display: none;
         }
+
+        #error:not(:empty) { display: block; }
 
         .layout {
-            display: flex;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: 1.6fr 0.9fr;
+            gap: 22px;
             align-items: flex-start;
         }
 
-        main {
-            flex: 1 1 auto;
-        }
-
-        aside {
-            flex: 0 0 260px;
-        }
+        main { flex: 1 1 auto; }
+        aside { width: 100%; }
 
         #product-container {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-top: 10px;
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 18px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border);
+            margin-top: 8px;
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: minmax(260px, 1fr) 1.15fr;
             gap: 20px;
             align-items: flex-start;
+        }
+
+        #img-holder {
+            background: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            position: relative;
         }
 
         #product-image {
             max-width: 100%;
-            max-height: 350px;
+            max-height: 360px;
             object-fit: contain;
-            background: #fafafa;
-            border-radius: 8px;
-            padding: 10px;
         }
 
         #product-info h1 {
-            margin-top: 0;
-            margin-bottom: 10px;
+            margin: 0 0 8px 0;
+            font-size: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--muted);
+            border-radius: 999px;
+            color: var(--muted-text);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .price {
-            color: #007b00;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 8px;
+            color: var(--primary);
+            font-size: 22px;
+            font-weight: 800;
+            margin: 8px 0 6px 0;
         }
 
-        .price.unavailable {
-            color: #b00020;
-        }
+        .price.unavailable { color: var(--danger); }
 
         .status {
-            color: #b00020;
-            font-weight: bold;
+            color: var(--danger);
+            font-weight: 700;
             margin-bottom: 6px;
         }
 
         .meta {
             font-size: 14px;
-            color: #555;
+            color: var(--muted-text);
             margin-bottom: 4px;
         }
 
         .description {
-            margin-top: 15px;
+            margin-top: 14px;
             font-size: 14px;
-            line-height: 1.4;
+            line-height: 1.55;
+            color: var(--text);
         }
 
         #add-to-build {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            padding: 8px 16px;
+            margin: 6px 0 12px 0;
+            padding: 12px 16px;
             font-size: 14px;
-            border-radius: 20px;
+            border-radius: 12px;
             border: none;
-            background: #28a745;
-            color: white;
+            background: var(--primary);
+            color: #fff;
             cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
         }
 
         #add-to-build:hover {
-            background: #218838;
+            background: var(--primary-dark);
+            box-shadow: 0 18px 40px rgba(37, 99, 235, 0.25);
+            transform: translateY(-1px);
         }
 
         /* Sidebar – sestava */
         #build-sidebar {
-            background: white;
-            border-radius: 8px;
-            padding: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border);
+            position: sticky;
+            top: 22px;
         }
 
         #build-sidebar h2 {
-            font-size: 16px;
-            margin-top: 0;
-            margin-bottom: 10px;
+            font-size: 17px;
+            margin: 0 0 10px 0;
             text-align: center;
+            letter-spacing: -0.01em;
         }
 
         #build-list {
@@ -128,73 +293,99 @@
             padding-left: 0;
             margin: 0;
             font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         #build-list li {
-            padding: 6px 4px;
-            border-bottom: 1px solid #eee;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            background: var(--muted);
         }
 
         #build-empty {
             font-size: 13px;
-            color: #777;
+            color: var(--muted-text);
             text-align: center;
+            padding: 14px 8px;
+            background: var(--muted);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
         }
 
         .build-remove-btn {
             border: none;
-            background: transparent;
+            background: #ffe4e6;
             cursor: pointer;
             font-size: 14px;
             line-height: 1;
-            color: #b00020;
+            color: var(--danger);
+            border-radius: 8px;
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s ease, transform 0.1s ease;
         }
 
         .build-remove-btn:hover {
             font-weight: bold;
+            transform: translateY(-1px);
         }
 
         #build-total {
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid #eee;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
             display: none;
             justify-content: space-between;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 13px;
         }
 
         #build-total span:last-child {
             white-space: nowrap;
+            color: var(--primary);
         }
 
         #build-open {
             display: none;
-            margin-top: 10px;
-            padding: 8px 12px;
-            border-radius: 20px;
-            background: #007bff;
+            margin-top: 12px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: var(--primary);
             color: #fff;
             text-decoration: none;
             font-size: 13px;
             text-align: center;
+            font-weight: 700;
+            transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+            width: 100%;
+            display: inline-block;
         }
 
         #build-open:hover {
-            background: #0069d9;
+            background: var(--primary-dark);
+            box-shadow: 0 18px 40px rgba(37, 99, 235, 0.25);
+            transform: translateY(-1px);
         }
 
-        /* Specifikace tabulka */
+        /* Specifikace – tabulka */
         #spec-table {
-            margin-top: 18px;
-            border-radius: 8px;
+            margin-top: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            border: 1px solid #eee;
+            border: 1px solid var(--border);
             font-size: 14px;
+            box-shadow: var(--shadow-soft);
+            background: var(--card);
         }
 
         #spec-table table {
@@ -202,53 +393,65 @@
             border-collapse: collapse;
         }
 
-        #spec-table thead {
-            background: #f8f8f8;
-        }
+        #spec-table thead { background: var(--muted); }
 
         #spec-table th,
-        #spec-table td {
-            padding: 6px 10px;
-        }
+        #spec-table td { padding: 10px 12px; }
 
         #spec-table th {
             text-align: left;
-            font-weight: bold;
+            font-weight: 700;
+            color: var(--text);
         }
 
-        #spec-table thead th {
-            border-bottom: 1px solid #e2e2e2;
-        }
+        #spec-table thead th { border-bottom: 1px solid var(--border); }
 
-        #spec-table tbody tr:nth-child(odd) {
-            background: #fff;
-        }
-
+        #spec-table tbody tr:nth-child(odd),
         #spec-table tbody tr:nth-child(even) {
-            background: #fafafa;
+            background: var(--card);
         }
 
         #spec-table tbody td:first-child {
-            width: 40%;
-            color: #555;
+            width: 38%;
+            color: var(--muted-text);
+            font-weight: 600;
         }
 
         #spec-table caption {
             caption-side: top;
             text-align: left;
-            padding: 8px 10px;
-            font-weight: bold;
-            background: #f1f1f1;
-            border-bottom: 1px solid #e2e2e2;
+            padding: 10px 12px;
+            font-weight: 700;
+            background: var(--muted);
+            border-bottom: 1px solid var(--border);
         }
 
-        /* LOADER pro cenu */
+        /* Loader pro cenu */
         .price-loading {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             font-size: 14px;
-            color: #555;
+            color: var(--muted-text);
+        }
+
+        .product-link-btn {
+            margin-top: 10px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+        }
+
+        .product-link-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: var(--shadow);
+            transform: translateY(-1px);
         }
 
         .spinner {
@@ -256,7 +459,7 @@
             height: 16px;
             border-radius: 50%;
             border: 2px solid #ccc;
-            border-top-color: #007bff;
+            border-top-color: var(--primary);
             animation: spin 0.8s linear infinite;
         }
 
@@ -265,26 +468,30 @@
             to   { transform: rotate(360deg); }
         }
 
+        @media (max-width: 1024px) {
+            .layout { grid-template-columns: 1fr; }
+            #build-sidebar { position: relative; top: 0; }
+        }
+
         @media (max-width: 768px) {
-            .layout {
-                flex-direction: column;
-            }
-
-            aside {
-                flex: 1 1 auto;
-                width: 100%;
-                order: 2;
-            }
-
-            #product-container {
-                grid-template-columns: 1fr;
-            }
+            body { padding: 22px 16px 36px; }
+            #product-container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<a href="products.html">← Zpět na produkty</a>
+<div class="theme-toggle">
+    <button id="themeToggle" type="button">Tmavý režim</button>
+</div>
+
+<a class="top-link" href="products.html">← Zpět na produkty</a>
+
+<div class="page-header">
+    <span class="eyebrow">Detail produktu</span>
+    <h1>Parametry a dostupnost</h1>
+    <p class="lead">Prohlédněte si podrobnosti, cenu a přidejte produkt rovnou do sestavy.</p>
+</div>
 
 <div class="layout">
     <main>
@@ -293,17 +500,16 @@
         <div id="product-container" style="display: none;">
             <div id="img-holder"></div>
             <div id="product-info">
+                <div class="pill">Produkt</div>
                 <h1 id="product-name">Načítám...</h1>
-
-                <button id="add-to-build">Přidat do sestavy</button>
 
                 <div id="product-status" class="status"></div>
                 <div id="product-price" class="price"></div>
-                <div id="product-category" class="meta"></div>
-                <div id="product-brand" class="meta"></div>
-                <div id="product-source" class="meta"></div>
-                <div id="product-link" class="meta"></div>
+
+                <button id="add-to-build">Přidat do sestavy</button>
+
                 <div id="product-description" class="description"></div>
+                <button id="product-link" class="product-link-btn" style="display:none;"></button>
 
                 <div id="spec-table"></div>
             </div>
@@ -311,8 +517,8 @@
     </main>
 
     <aside id="build-sidebar">
-        <h2>Tvoje sestava</h2>
-        <p id="build-empty">Zatím nic vybráno.</p>
+        <h2>Vaše sestava</h2>
+        <p id="build-empty">Zatím není nic vybráno.</p>
         <ul id="build-list"></ul>
 
         <div id="build-total">
@@ -325,6 +531,34 @@
 </div>
 
 <script>
+    const THEME_KEY = "pc_theme_mode_v1";
+
+    function applyTheme(mode) {
+        const next = mode === "dark" ? "dark" : "light";
+        document.body.classList.toggle("dark", next === "dark");
+        try { localStorage.setItem(THEME_KEY, next); } catch {}
+        const btn = document.getElementById("themeToggle");
+        if (btn) {
+            btn.textContent = next === "dark" ? "Světlý režim" : "Tmavý režim";
+        }
+    }
+
+    (function initTheme() {
+        let saved = null;
+        try { saved = localStorage.getItem(THEME_KEY); } catch {}
+        if (!saved) {
+            saved = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        applyTheme(saved);
+        const btn = document.getElementById("themeToggle");
+        if (btn) {
+            btn.addEventListener("click", () => {
+                const next = document.body.classList.contains("dark") ? "light" : "dark";
+                applyTheme(next);
+            });
+        }
+    })();
+
     const API_BASE = "http://127.0.0.1:8000";
     const BUILD_KEY = "pc_build_v2";
 
@@ -366,15 +600,15 @@
     function isMultiCategory(catKey) {
         const key = String(catKey || "").toLowerCase();
 
-        // víc kusů – RAM + úložiště
+        // Více kusů – RAM + úložiště
         if (["ssd", "hdd", "storage", "ram"].includes(key)) return true;
         if (key.includes("ssd")) return true;
         if (key.includes("hdd")) return true;
         if (key.includes("disk")) return true;
-        if (key.includes("ulož") || key.includes("uloz")) return true;
+        if (key.includes("ulo") || key.includes("uloz")) return true;
         if (key.includes("storage")) return true;
         if (key.includes("ram")) return true;
-        if (key.includes("paměť") || key.includes("pamet")) return true;
+        if (key.includes("pam") || key.includes("pamet")) return true;
 
         return false;
     }
@@ -453,9 +687,9 @@
 
         if (item.price === 1) {
             if (typeof item.old_price === "number") {
-                return "posl. " + formatKc(item.old_price);
+                return "poslední " + formatKc(item.old_price);
             }
-            return "nedostupný";
+            return "nedostupné";
         }
 
         if (item.price == null) {
@@ -572,10 +806,18 @@
         let updated;
 
         if (multi) {
-            // RAM a úložiště – dovolíme stejné ID víckrát
+            // RAM a úložiště – dovolíme stejný ID vícekrát
             updated = [...items, newItem];
         } else {
-            // ostatní – vždy max 1 kus na kategorii
+            // Ostatní – vždy max. 1 kus na kategorii
+            const existing = items.find(it => String(it.category || "other").toLowerCase() === catKey);
+            if (existing && existing.id !== newItem.id) {
+                const label = getCategoryLabel(catKey);
+                const ok = window.confirm(`V sestavě už máte položku z kategorie ${label}: ${existing.name}.
+Chcete ji vyměnit za ${product.name}?`);
+                if (!ok) return;
+            }
+
             updated = items.filter(it => {
                 const itsCat = String(it.category || "other").toLowerCase();
                 return itsCat !== catKey;
@@ -588,352 +830,84 @@
     }
 
     // ====== SPECIFIKACE ======
-
     function safeDesc(product) {
         return (product && product.description) ? String(product.description) : "";
     }
 
     function ensureValue(v) {
-        if (v == null) return "–";
+        if (v == null) return "";
         const s = String(v).trim();
-        return s === "" ? "–" : s;
+        return s === "" ? "" : s;
     }
 
-    // ---------- CPU ----------
-    function buildCpuSpecs(product) {
-        const desc = safeDesc(product);
-        const specs = [];
-
-        function m(re) {
-            const match = desc.match(re);
-            return match ? match[1].trim() : null;
-        }
-
-        let cores = m(/([0-9]+)\s*jádrový/i);
-        if (cores) cores = cores + " jader";
-        specs.push({ label: "Počet jader", value: ensureValue(cores) });
-
-        let threads = m(/([0-9]+)\s*vláken/i);
-        if (threads) threads = threads + " vláken";
-        specs.push({ label: "Počet vláken", value: ensureValue(threads) });
-
-        let base = m(/([0-9]+(?:[.,][0-9]+)?)\s*GHz\s*\(TDP/i);
-        if (base) base = base.replace(".", ",") + " GHz";
-        specs.push({ label: "Základní frekvence", value: ensureValue(base) });
-
-        let boost = m(/Boost\s*([0-9]+(?:[.,][0-9]+)?)\s*GHz/i);
-        if (boost) boost = boost.replace(".", ",") + " GHz";
-        specs.push({ label: "Boost frekvence", value: ensureValue(boost) });
-
-        let tdp = m(/TDP\s*([0-9]+)\s*W/i);
-        if (tdp) tdp = tdp + " W";
-        specs.push({ label: "TDP", value: ensureValue(tdp) });
-
-        let l3 = m(/([0-9]+)\s*MB\s*L3 cache/i);
-        if (l3) l3 = l3 + " MB";
-        specs.push({ label: "L3 cache", value: ensureValue(l3) });
-
-        let socket = m(/socket\s*([^,]+)/i);
-        if (socket) socket = socket.replace(/^AMD\s+/i, "").trim();
-        specs.push({ label: "Socket", value: ensureValue(socket) });
-
-        // Integrovaná grafika
-        const descLower = desc.toLowerCase();
-        const nameLower = (product.name || "").toLowerCase();
-        let igpu = null;
-
-        if (descLower.includes("bez integrovaného grafického čipu") ||
-            descLower.includes("bez integrované grafické karty")) {
-            igpu = "Ne";
-        } else if (descLower.includes("integrovaného grafického čipu") ||
-                   descLower.includes("integrovanou grafickou kartou")) {
-            igpu = "Ano";
-        }
-
-        if (igpu == null) {
-            if (nameLower.includes("ryzen")) {
-                if (/\b[0-9]{3,4}(g|ge|gt|u)\b/i.test(product.name)) igpu = "Ano";
-                else igpu = "Ne";
-            }
-            if (nameLower.includes("intel core")) {
-                const parts = product.name.split("-");
-                const model = parts[parts.length - 1].trim();
-                igpu = model.endsWith("F") ? "Ne" : "Ano";
-            }
-        }
-        specs.push({ label: "Integrovaná grafika", value: ensureValue(igpu) });
-
-        // chladič v balení
-        let coolerText = null;
-        if (/box chladič/i.test(desc)) {
-            coolerText = "box chladič";
-        }
-        const wraithMatch = desc.match(/(AMD\s+Wraith[^\.,]*)/i);
-        if (wraithMatch) {
-            coolerText = coolerText
-                ? coolerText + " (" + wraithMatch[1].trim() + ")"
-                : wraithMatch[1].trim();
-        }
-        specs.push({ label: "Chladič v balení", value: ensureValue(coolerText) });
-
-        return specs;
+    // --- Specifikace z databáze (používáme jen sloupce z jednotlivých tabulek) ---
+    function normalizeSpecValue(value, suffix = "") {
+        if (value === undefined || value === null) return "";
+        const text = String(value).trim();
+        if (!text) return "";
+        return suffix ? text + suffix : text;
     }
 
-    // ---------- RAM ----------
-    function buildRamSpecs(product) {
-        const desc = safeDesc(product);
-        const specs = [];
+    function buildSpecsFromDb(product) {
+        if (!product || !product.spec) return [];
 
-        function m(re) {
-            const match = desc.match(re);
-            return match ? match[1].trim() : null;
-        }
-
-        let capacity = m(/([0-9]+\s*×\s*[0-9]+\s*GB)/i);
-        if (!capacity) capacity = m(/([0-9]+\s*GB)\s*KIT/i);
-        specs.push({ label: "Kapacita / kit", value: ensureValue(capacity) });
-
-        const speed = m(/(PC[0-9\-]+|[0-9]{3,5}\s*MHz)/i);
-        specs.push({ label: "Rychlost", value: ensureValue(speed) });
-
-        const timings = m(/(CL[0-9\- ]+)/i);
-        specs.push({ label: "Časování", value: ensureValue(timings) });
-
-        let voltage = m(/napětí\s*([0-9]+(?:[.,][0-9]+)?\s*V)/i);
-        if (voltage) voltage = voltage.replace(".", ",");
-        specs.push({ label: "Napětí", value: ensureValue(voltage) });
-
-        let cooling = m(/(pasivní chladič[^,]*)/i);
-        if (!cooling) cooling = m(/(chladič[^,]*)/i);
-        specs.push({ label: "Chlazení", value: ensureValue(cooling) });
-
-        let profile = null;
-        if (/EXPO/i.test(desc) && /XMP/i.test(desc)) profile = "XMP / EXPO";
-        else if (/EXPO/i.test(desc)) profile = "EXPO";
-        else if (/XMP/i.test(desc)) profile = "XMP";
-        specs.push({ label: "Profily (XMP / EXPO)", value: ensureValue(profile) });
-
-        return specs;
-    }
-
-    // ---------- Storage (SSD / HDD) ----------
-    function buildStorageSpecs(product) {
-        const desc = safeDesc(product);
-        const specs = [];
-
-        function m(re) {
-            const match = desc.match(re);
-            return match ? match[1].trim() : null;
-        }
-
-        const type = m(/^(SSD disk|Pevný disk)/i);
-        specs.push({ label: "Typ disku", value: ensureValue(type) });
-
-        const capacity = m(/([0-9 ]+(?:TB|GB))/i);
-        specs.push({ label: "Kapacita", value: ensureValue(capacity) });
-
-        const form = m(/(M\.2 2280|M\.2 2230|M\.2 22110|M\.2|2,5|3,5)/i);
-        specs.push({ label: "Formát", value: ensureValue(form) });
-
-        let iface = m(/M\.2\s*\(([^)]+)\)/i);
-        if (!iface) iface = m(/(SATA III|SATA 6 ?Gb\/s)/i);
-        specs.push({ label: "Rozhraní", value: ensureValue(iface) });
-
-        const read = m(/čten[ií]\s*([0-9 ]+ ?MB\/s)/i);
-        specs.push({ label: "Rychlost čtení", value: ensureValue(read) });
-
-        const write = m(/zápis[u]?\s*([0-9 ]+ ?MB\/s)/i);
-        specs.push({ label: "Rychlost zápisu", value: ensureValue(write) });
-
-        const endurance = m(/([0-9 ]+ ?TBW)/i);
-        specs.push({ label: "Výdrž (TBW)", value: ensureValue(endurance) });
-
-        return specs;
-    }
-
-    // ---------- GPU ----------
-    function buildGpuSpecs(product) {
-        const desc = safeDesc(product);
-        const specs = [];
-
-        function m(re) {
-            const match = desc.match(re);
-            return match ? match[1].trim() : null;
-        }
-
-        const vram = m(/([0-9]+ ?GB\s*GDDR[0-9X7]*)/i);
-        specs.push({ label: "Paměť", value: ensureValue(vram) });
-
-        const boost = m(/Boost\s*([0-9 ]+ ?MHz)/i);
-        specs.push({ label: "Boost frekvence", value: ensureValue(boost) });
-
-        const bus = m(/([0-9]+ ?Bit)/i);
-        specs.push({ label: "Šířka sběrnice", value: ensureValue(bus) });
-
-        const iface = m(/PCI Express\s*([^,]+)/i);
-        specs.push({ label: "Rozhraní", value: ensureValue(iface) });
-
-        // délka karty – bereme „šířka“ jako délku
-        let length = m(/šířka\s*([^,]+mm)/i);
-        specs.push({ label: "Délka karty", value: ensureValue(length) });
-
-        return specs;
-    }
-
-    // ---------- PSU (zdroj) ----------
-    function buildPsuSpecs(product) {
-        const desc = safeDesc(product);
-        const specs = [];
-
-        function m(re) {
-            const match = desc.match(re);
-            return match ? match[1].trim() : null;
-        }
-
-        const power = m(/([0-9]+ ?W)/i);
-        specs.push({ label: "Výkon", value: ensureValue(power) });
-
-        const form = m(/(ATX|SFX|TFX)/i);
-        specs.push({ label: "Formát", value: ensureValue(form) });
-
-        const cert = m(/(80 PLUS [^,]+)/i);
-        specs.push({ label: "Certifikace", value: ensureValue(cert) });
-
-        const cab = m(/(plně modulární|plně modulární|semi modulární|polomodulární|ne modulární|nemodulární)/i);
-        specs.push({ label: "Kabeláž", value: ensureValue(cab) });
-
-        const fan = m(/([0-9]+ ?mm ventilátor)/i);
-        specs.push({ label: "Ventilátor", value: ensureValue(fan) });
-
-        return specs;
-    }
-
-    // ---------- Case (skříň) ----------
-    function buildCaseSpecs(product) {
-        const desc = safeDesc(product);
-        const specs = [];
-
-        function m(re) {
-            const match = desc.match(re);
-            return match ? match[1].trim() : null;
-        }
-
-        const form = m(/(ATX|mATX|Micro ATX|Mini ITX|mITX)/i);
-        specs.push({ label: "Formát desky", value: ensureValue(form) });
-
-        const fans = m(/([0-9]+x ?[0-9]+mm)/i);
-        specs.push({ label: "Ventilátory", value: ensureValue(fans) });
-
-        const gpuLen = m(/max\. délka grafické karty\s*([^,]+)/i);
-        specs.push({ label: "Max. délka GPU", value: ensureValue(gpuLen) });
-
-        const coolerH = m(/max\. výška chladiče\s*([^,]+)/i);
-        specs.push({ label: "Max. výška chladiče", value: ensureValue(coolerH) });
-
-        return specs;
-    }
-
-    // ---------- Cooler (chlazení CPU) ----------
-    function buildCoolerSpecs(product) {
-        const desc = safeDesc(product);
-        const specs = [];
-
-        function m(re) {
-            const match = desc.match(re);
-            return match ? match[1].trim() : null;
-        }
-
-        // Sockety – jen seznam socketů, bez zbytku textu
-        let socketText = null;
-        const socketMatch = desc.match(/socket\s+([^\.]+)/i);
-        if (socketMatch) {
-            socketText = socketMatch[1].trim();
-            // odříznout cokoli za „W“, „ventilátor“ nebo „max.“
-            socketText = socketText.replace(/,\s*(?:[0-9]+\s*W\b.*)$/i, "");
-            socketText = socketText.replace(/,\s*(?:[0-9x ]+mm ventilátor.*)$/i, "");
-            socketText = socketText.replace(/,\s*(?:max\..*)$/i, "");
-        }
-        specs.push({ label: "Sockety", value: ensureValue(socketText) });
-
-        const tdp = m(/([0-9]+ ?W)/i);
-        specs.push({ label: "TDP", value: ensureValue(tdp) });
-
-        const height = m(/výška\s*([^,]+)/i);
-        specs.push({ label: "Výška", value: ensureValue(height) });
-
-        const fan = m(/([0-9x ]+mm ventilátor)/i);
-        specs.push({ label: "Ventilátor", value: ensureValue(fan) });
-
-        return specs;
-    }
-
-    // ---------- Motherboard ----------
-    function buildMotherboardSpecs(product) {
-        const desc = safeDesc(product);
-        const specs = [];
-
-        function m(re) {
-            const match = desc.match(re);
-            return match ? match[1].trim() : null;
-        }
-
-        const socket = m(/socket\s*([^,]+)/i);
-        specs.push({ label: "Socket", value: ensureValue(socket) });
-
-        const chipset = m(/(A320|A520|A620|B450|B550|B650|X570|X670|Z[0-9]+|H[0-9]+|B[0-9]+)/i);
-        specs.push({ label: "Chipset", value: ensureValue(chipset) });
-
-        const form = m(/formát\s*([^,]+)/i);
-        specs.push({ label: "Formát", value: ensureValue(form) });
-
-        const ramSlots = m(/([0-9]+)\s*×\s*DDR[0-9]/i);
-        specs.push({ label: "Počet slotů RAM", value: ensureValue(ramSlots) });
-
-        const pcie = m(/PCI Express\s*([^,]+)/i);
-        specs.push({ label: "PCIe", value: ensureValue(pcie) });
-
-        return specs;
-    }
-
-    // ---------- Hlavní buildSpecs ----------
-    function buildSpecsForProduct(product) {
-        if (!product) return [];
-
-        const specs = [];
-
-        // Základ – nechávám jen značku, ostatní máš textově nahoře
-        if (product.brand) {
-            specs.push({ label: "Značka", value: ensureValue(product.brand) });
-        }
-
+        const spec = product.spec || {};
         const catKey = String(product.category || "").toLowerCase();
-        let extra = [];
+        const rows = [];
 
-        if (catKey === "cpu") extra = buildCpuSpecs(product);
-        else if (catKey === "ram") extra = buildRamSpecs(product);
-        else if (["ssd", "hdd", "storage"].includes(catKey)) extra = buildStorageSpecs(product);
-        else if (["gpu"].includes(catKey)) extra = buildGpuSpecs(product);
-        else if (["psu", "zdroj"].includes(catKey)) extra = buildPsuSpecs(product);
-        else if (["case", "skrine", "skříň"].includes(catKey)) extra = buildCaseSpecs(product);
-        else if (["cooler", "chlazeni", "chlazení"].includes(catKey)) extra = buildCoolerSpecs(product);
-        else if (["motherboard", "mb", "deska"].includes(catKey)) extra = buildMotherboardSpecs(product);
+        const add = (label, value, suffix = "") => {
+            const v = normalizeSpecValue(value, suffix);
+            if (v) rows.push({ label, value: v });
+        };
 
-        if (extra && extra.length > 0) {
-            extra.forEach(row => specs.push(row));
-        } else {
-            const desc = safeDesc(product);
-            if (desc) {
-                const parts = desc.split(/,(?![0-9])/);
-                parts.slice(0, 12).forEach((p, i) => {
-                    specs.push({
-                        label: "Detail " + (i + 1),
-                        value: ensureValue(p)
-                    });
-                });
+        if (product.brand) add("Značka", product.brand);
+
+        if (catKey === "cpu") {
+            add("Socket", spec.socket);
+            add("TDP", spec.tdp, " W");
+            if (spec.igpu !== undefined && spec.igpu !== null) {
+                add("Integrovaná grafika", spec.igpu ? "Ano" : "Ne");
             }
+        } else if (catKey === "ram") {
+            add("Typ", spec.type);
+            add("Rychlost", spec.speed_mhz, " MHz");
+            add("Kapacita", spec.capacity_gb, " GB");
+            add("Počet modulů", spec.sticks, " ks");
+        } else if (["ssd", "hdd", "storage"].includes(catKey)) {
+            add("Typ disku", spec.type);
+            add("Kapacita", spec.capacity_gb, " GB");
+            add("Rozhraní", spec.interface);
+        } else if (catKey === "gpu") {
+            add("Paměť", spec.vram_gb, " GB");
+            add("TDP", spec.tdp, " W");
+            add("Délka karty", spec.length_mm, " mm");
+        } else if (["psu", "zdroj"].includes(catKey)) {
+            add("Výkon", spec.wattage, " W");
+            add("Účinnost", spec.efficiency);
+            if (spec.modular !== undefined && spec.modular !== null) {
+                add("Modulární kabeláž", spec.modular ? "Ano" : "Ne");
+            }
+        } else if (["case", "skrine", "pc_case"].includes(catKey)) {
+            add("Podpora formátu desky", spec.form_factor_support);
+            add("Max. délka GPU", spec.gpu_max_length_mm, " mm");
+            add("Max. výška chladiče", spec.cooler_max_height_mm, " mm");
+            add("Formát zdroje", spec.psu_form_factor);
+        } else if (["cooler", "chlazeni"].includes(catKey)) {
+            add("Typ", spec.type);
+            add("Podpora TDP", spec.tdp_support, " W");
+            add("Podporované sockety", spec.socket_support);
+            add("Výška", spec.height_mm, " mm");
+        } else if (["motherboard", "mb", "deska"].includes(catKey)) {
+            add("Socket", spec.socket);
+            add("Typ paměti", spec.ram_type);
+            add("Formát desky", spec.form_factor);
         }
 
-        return specs;
+        return rows;
+    }
+
+    function buildSpecsForProduct(product) {
+        return buildSpecsFromDb(product);
     }
 
     function renderSpecsTable(product) {
@@ -941,7 +915,10 @@
         holder.innerHTML = "";
 
         const specs = buildSpecsForProduct(product);
-        if (!specs || specs.length === 0) return;
+        if (!specs || specs.length === 0) {
+            holder.textContent = "Specifikace nejsou v databázi k dispozici.";
+            return;
+        }
 
         const table = document.createElement("table");
         const caption = document.createElement("caption");
@@ -976,7 +953,7 @@
         holder.appendChild(table);
     }
 
-    // ====== CENA – pomocná funkce pro vykreslení ======
+    // ====== Cena – pomocné funkce pro vykreslení ======
     function updatePriceBlock(product) {
         const statusEl = document.getElementById("product-status");
         const priceEl = document.getElementById("product-price");
@@ -1006,54 +983,53 @@
         priceEl.textContent = priceText;
     }
 
-    // ====== REFRESH CENY PŘES BACKEND ======
+    // ====== Refresh ceny přes backend ======
     async function refreshPrice(product) {
-    const priceEl = document.getElementById("product-price");
-    const statusEl = document.getElementById("product-status");
-    const errorDiv = document.getElementById("error");
+        const priceEl = document.getElementById("product-price");
+        const statusEl = document.getElementById("product-status");
+        const errorDiv = document.getElementById("error");
 
-    // smazat staré chyby
-    errorDiv.textContent = "";
-    statusEl.textContent = "";
-    priceEl.classList.remove("unavailable");
+        // Smazat staré chyby
+        errorDiv.textContent = "";
+        statusEl.textContent = "";
+        priceEl.classList.remove("unavailable");
 
-    // loader
-    priceEl.innerHTML = `
-        <span class="price-loading">
-            <span class="spinner"></span>
-            Načítá se cena produktu...
-        </span>
-    `;
+        // Loader
+        priceEl.innerHTML = `
+            <span class="price-loading">
+                <span class="spinner"></span>
+                Načítá se cena produktu...
+            </span>
+        `;
 
-    try {
-        const res = await fetch(`${API_BASE}/products/${product.id}/refresh-price`, {
-            method: "POST"
-        });
+        try {
+            const res = await fetch(`${API_BASE}/products/${product.id}/refresh-price`, {
+                method: "POST"
+            });
 
-        if (!res.ok) {
-            // když backend vrátí chybu, jen logneme a necháme uloženou cenu
-            console.warn("Chyba při ověřování ceny:", res.status, res.statusText);
+            if (!res.ok) {
+                // Když backend vrátí chybu, jen zalogujeme a necháme uloženou cenu
+                console.warn("Chyba při ověření ceny:", res.status, res.statusText);
+                updatePriceBlock(product);
+                return;
+            }
+
+            const updated = await res.json();
+
+            // Přepíšeme data produktu (kvůli addToBuild)
+            Object.assign(product, updated);
+
             updatePriceBlock(product);
-            return;
+
+        } catch (e) {
+            // Sem spadne jen souhrnná chyba / něco úplně rozbitého
+            console.error("Výjimka při ověření ceny:", e);
+            // Žádná hláška pro uživatele, jen vrátíme uloženou cenu
+            updatePriceBlock(product);
         }
-
-        const updated = await res.json();
-
-        // přepíšeme data produktu (kvůli addToBuild)
-        Object.assign(product, updated);
-
-        updatePriceBlock(product);
-
-    } catch (e) {
-        // sem spadne jen síťová chyba / něco úplně rozbitýho
-        console.error("Výjimka při ověřování ceny:", e);
-        // žádná hláška pro uživatele, jen vrátíme uloženou cenu
-        updatePriceBlock(product);
     }
-}
 
-    // ====== načtení produktu ======
-
+    // ====== Načtení produktu ======
     async function loadProduct() {
         const id = getIdFromUrl();
         const errorDiv = document.getElementById("error");
@@ -1077,7 +1053,7 @@
 
             container.style.display = "grid";
 
-            // obrázek
+            // Obrázek
             imgHolder.innerHTML = "";
             const img = document.createElement("img");
             img.id = "product-image";
@@ -1109,55 +1085,32 @@
 
             imgHolder.appendChild(img);
 
-            // základní info
+            // Základní info
             document.getElementById("product-name").textContent =
                 product.name || "Neznámý produkt";
 
-            const categoryEl = document.getElementById("product-category");
-            categoryEl.textContent = product.category
-                ? "Kategorie: " + getCategoryLabel(product.category)
-                : "";
-
-            const brandEl = document.getElementById("product-brand");
-            brandEl.textContent = product.brand ? "Značka: " + product.brand : "";
-
-            const sourceEl = document.getElementById("product-source");
-            sourceEl.textContent = product.source ? "Zdroj: " + product.source : "";
-
-            const linkEl = document.getElementById("product-link");
-            if (product.url) {
-                linkEl.innerHTML = `
-                    <button 
-                        style="
-                            margin-top: 10px;
-                            padding: 8px 16px;
-                            background: #007bff;
-                            color: white;
-                            border: none;
-                            border-radius: 20px;
-                            cursor: pointer;
-                            font-size: 14px;
-                        "
-                        onclick="window.open('${product.url}', '_blank')"
-                    >
-                        Otevřít stránku produktu
-                    </button>
-                `;
-            } else {
-                linkEl.textContent = "";
-            }
-
+            // Popis
             const descEl = document.getElementById("product-description");
             descEl.textContent = product.description || "";
 
-            // specifikace
+            // Odkaz na zdrojovou stránku
+            const linkEl = document.getElementById("product-link");
+            if (product.url) {
+                linkEl.style.display = "inline-flex";
+                linkEl.textContent = "Otevřít stránku produktu";
+                linkEl.onclick = () => window.open(product.url, "_blank");
+            } else {
+                linkEl.style.display = "none";
+            }
+
+            // Specifikace
             renderSpecsTable(product);
 
-            // tlačítko přidat do sestavy
+            // Tlačítko „Přidat do sestavy“
             const addBtn = document.getElementById("add-to-build");
             addBtn.onclick = () => addProductToBuild(product);
 
-            // NEJDŘÍV zobrazíme uloženou cenu...
+            // Nejdřív zobrazíme uloženou cenu...
             updatePriceBlock(product);
             // ...a hned potom zkusíme cenu aktualizovat přes scraper
             refreshPrice(product);
@@ -1165,7 +1118,7 @@
         } catch (err) {
             console.error(err);
             errorDiv.textContent =
-                "Chyba při načítání detailu produktu. Zkontroluj, jestli běží backend.";
+                "Chyba při načtení detailu produktu. Zkontrolujte, jestli běží backend.";
         }
     }
 
