@@ -23,7 +23,8 @@
 
         .dark {
             --bg: #0e1219;
-            --page-bg: radial-gradient(circle at 20% 18%, rgba(46, 58, 89, 0.35) 0, transparent 32%), linear-gradient(180deg, #0d1117 0%, #0b1016 100%);
+            --page-bg: radial-gradient(circle at 20% 18%, rgba(46, 58, 89, 0.35) 0, transparent 32%),
+                        linear-gradient(180deg, #0d1117 0%, #0b1016 100%);
             --card: #111827;
             --muted: #1a2231;
             --border: #1f2a3a;
@@ -37,17 +38,20 @@
             --shadow-soft: 0 12px 26px rgba(0, 0, 0, 0.35);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
-            font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-            max-width: 1100px;
-            margin: 0 auto;
+            font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+            margin: 0;
+            min-height: 100vh;
             padding: 32px 24px 48px;
             background: var(--page-bg);
             color: var(--text);
+        }
+
+        .page-shell {
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         a {
@@ -56,120 +60,34 @@
             font-weight: 600;
         }
 
-        .top-link {
-            position: fixed;
-            top: 18px;
-            left: 18px;
-            display: inline-flex;
+        .top-row {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .top-link {
             padding: 8px 12px;
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 999px;
             box-shadow: var(--shadow);
             color: var(--text);
-            font-weight: 600;
-            transition: transform 0.12s ease, box-shadow 0.12s ease;
-            z-index: 60;
-        }
-
-        .top-link:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 18px 40px rgba(37, 99, 235, 0.18);
         }
 
         h1 {
-            text-align: left;
-            margin: 12px 0 6px 0;
+            margin: 12px 0 6px;
             font-size: 30px;
-            letter-spacing: -0.02em;
         }
 
         .lead {
-            margin: 6px 0 14px 0;
+            margin: 6px 0 14px;
             color: var(--muted-text);
             max-width: 700px;
             line-height: 1.6;
             font-size: 15px;
-        }
-
-        /* Kontrast v sestavě */
-        .card,
-        table {
-            color: var(--text);
-        }
-
-        table {
-            background: var(--card);
-            border-color: var(--border);
-        }
-
-        th, td {
-            border-color: var(--border);
-        }
-
-        .theme-toggle {
-            position: fixed;
-            top: 16px;
-            right: 18px;
-            z-index: 50;
-        }
-
-        .theme-toggle button {
-            border: 1px solid var(--border);
-            background: var(--card);
-            color: var(--text);
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: var(--shadow-soft);
-            transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
-        }
-
-        .theme-toggle button:hover {
-            transform: translateY(-1px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-
-        #error {
-            color: var(--danger);
-            margin: 10px 0;
-            text-align: center;
-            padding: 10px 12px;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.35);
-            border-radius: 12px;
-            display: none;
-        }
-
-        #error:not(:empty) {
-            display: block;
-        }
-
-        #download-build {
-            display: none;
-            margin: 0 0 12px 0;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: none;
-            background: var(--primary);
-            color: #fff;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 700;
-            width: 100%;
-            max-width: 280px;
-            text-align: center;
-            transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
-        }
-
-        #download-build:hover {
-            background: var(--primary-dark);
-            box-shadow: 0 18px 40px rgba(37, 99, 235, 0.25);
-            transform: translateY(-1px);
         }
 
         .card {
@@ -185,10 +103,6 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 8px;
-            background: var(--card);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow-soft);
         }
 
         th, td {
@@ -201,45 +115,27 @@
             background: var(--muted);
             text-align: left;
             color: var(--muted-text);
-            font-weight: 700;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
         }
 
         .price-cell {
             text-align: right;
-            white-space: nowrap;
             font-weight: 700;
             color: var(--primary);
         }
 
         .total-row td {
             font-weight: 800;
-            border-top: 2px solid var(--border);
             background: var(--muted);
-            color: var(--text);
         }
 
         .remove-btn {
             border: none;
             background: #ffe4e6;
-            cursor: pointer;
             color: var(--danger);
-            font-size: 14px;
             border-radius: 8px;
             width: 26px;
             height: 26px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.15s ease, transform 0.1s ease;
-        }
-
-        .remove-btn:hover {
-            font-weight: bold;
-            transform: translateY(-1px);
+            cursor: pointer;
         }
 
         #empty {
@@ -252,334 +148,162 @@
             color: var(--muted-text);
         }
 
-        @media (max-width: 600px) {
-            th:nth-child(3),
-            td:nth-child(3) {
-                display: none;
-            }
+        #download-build {
+            display: none;
+            margin-bottom: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
         }
-</style>
+
+        /* Theme toggle button styling */
+        #themeToggle {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+        }
+
+        #themeToggle:hover {
+            transform: translateY(-1px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+    </style>
 </head>
+
 <body>
+<div class="page-shell">
 
-<div class="theme-toggle">
-    <button id="themeToggle" type="button">Tmavý režim</button>
-</div>
+    <div class="top-row">
+        <a class="top-link" href="products.html">← Zpět na produkty</a>
+        <button id="themeToggle">Tmavý režim</button>
+    </div>
 
-<a class="top-link" href="products.html">← Zpět na produkty</a>
+    <h1>Tvoje sestava</h1>
+    <p class="lead">
+        Přehled všeho, co máš vybráno. Můžeš upravovat položky, stáhnout seznam nebo se vrátit do detailu produktu.
+    </p>
 
-<h1>Tvoje sestava</h1>
-<p class="lead">Přehled všeho, co máš vybráno. Můžeš upravovat položky, stáhnout seznam nebo se vrátit do detailu.</p>
+    <div class="card">
+        <button id="download-build">Stáhnout sestavu (Word)</button>
 
-<div class="card">
-    <button id="download-build" type="button">Stáhnout sestavu (Word)</button>
+        <div id="empty">Zatím nemáš v sestavě žádné produkty.</div>
 
-    <div id="error"></div>
+        <table id="build-table" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Kategorie</th>
+                    <th>Produkt</th>
+                    <th>Detail</th>
+                    <th class="price-cell">Cena</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="build-tbody"></tbody>
+            <tfoot>
+                <tr class="total-row">
+                    <td colspan="3">Celková cena</td>
+                    <td class="price-cell" id="build-total">0 Kč</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 
-    <div id="empty">Zatím nemáš v sestavě žádné produkty.</div>
-
-    <table id="build-table" style="display:none;">
-        <thead>
-        <tr>
-            <th>Kategorie</th>
-            <th>Produkt</th>
-            <th>Detail</th>
-            <th class="price-cell">Cena</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody id="build-tbody"></tbody>
-        <tfoot>
-        <tr class="total-row">
-            <td colspan="3">Celková cena</td>
-            <td class="price-cell" id="build-total">0 Kč</td>
-            <td></td>
-        </tr>
-        </tfoot>
-    </table>
 </div>
 
 <script>
-    const THEME_KEY = "pc_theme_mode_v1";
+const THEME_KEY = "pc_theme_mode_v1";
+const BUILD_KEY = "pc_build_v2";
 
-    function applyTheme(mode) {
-        const next = mode === "dark" ? "dark" : "light";
-        document.body.classList.toggle("dark", next === "dark");
-        try {
-            localStorage.setItem(THEME_KEY, next);
-        } catch {}
-        const btn = document.getElementById("themeToggle");
-        if (btn) {
-            btn.textContent = next === "dark" ? "Světlý režim" : "Tmavý režim";
-        }
-    }
+function applyTheme(mode) {
+    document.body.classList.toggle("dark", mode === "dark");
+    localStorage.setItem(THEME_KEY, mode);
+    document.getElementById("themeToggle").textContent =
+        mode === "dark" ? "Světlý režim" : "Tmavý režim";
+}
 
-    (function initTheme() {
-        let saved = null;
-        try {
-            saved = localStorage.getItem(THEME_KEY);
-        } catch {}
-        if (!saved) {
-            saved = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        }
-        applyTheme(saved);
-        const btn = document.getElementById("themeToggle");
-        if (btn) {
-            btn.addEventListener("click", () => {
-                const next = document.body.classList.contains("dark") ? "light" : "dark";
-                applyTheme(next);
-            });
-        }
-    })();
+document.getElementById("themeToggle").onclick = () => {
+    applyTheme(document.body.classList.contains("dark") ? "light" : "dark");
+};
 
-    const BUILD_KEY = "pc_build_v2";
+applyTheme(localStorage.getItem(THEME_KEY) || "light");
 
-    const CATEGORY_LABELS = {
-        cpu: "Procesory",
-        mb: "Základní desky",
-        gpu: "Grafické karty",
-        ram: "Operační paměť",
-        psu: "Zdroj",
-        case: "Skříně",
-        ssd: "SSD disky",
-        hdd: "HDD disky",
-        storage: "Úložiště",
-        cooler: "Chlazení",
-        monitor: "Monitory"
-    };
+function loadBuildItems() {
+    return JSON.parse(localStorage.getItem(BUILD_KEY) || "[]");
+}
 
-    const CATEGORY_ORDER = [
-        "cpu",
-        "mb",
-        "ram",
-        "gpu",
-        "ssd",
-        "hdd",
-        "storage",
-        "psu",
-        "case",
-        "cooler",
-        "monitor"
-    ];
+function saveBuildItems(items) {
+    localStorage.setItem(BUILD_KEY, JSON.stringify(items));
+}
 
+function renderBuild() {
+    const items = loadBuildItems();
+    const tbody = document.getElementById("build-tbody");
+    const table = document.getElementById("build-table");
+    const empty = document.getElementById("empty");
+    const totalCell = document.getElementById("build-total");
     const downloadBtn = document.getElementById("download-build");
 
-    function getCategoryLabel(cat) {
-        if (!cat) return "Neznámá kategorie";
-        const key = String(cat).toLowerCase();
-        return CATEGORY_LABELS[key] || key.charAt(0).toUpperCase() + key.slice(1);
+    tbody.innerHTML = "";
+    let total = 0;
+
+    if (!items.length) {
+        table.style.display = "none";
+        empty.style.display = "block";
+        downloadBtn.style.display = "none";
+        totalCell.textContent = "0 Kč";
+        return;
     }
 
-    function loadBuildItems() {
-        try {
-            const raw = localStorage.getItem(BUILD_KEY);
-            if (!raw) return [];
-            const parsed = JSON.parse(raw);
+    empty.style.display = "none";
+    table.style.display = "table";
+    downloadBtn.style.display = "block";
 
-            // nový formát – pole
-            if (Array.isArray(parsed)) {
-                return parsed.map(v => ({
-                    ...v,
-                    url: typeof v.url === "string" ? v.url : null
-                }));
-            }
+    items.forEach(item => {
+        const tr = document.createElement("tr");
 
-            // starší objektový formát
-            if (parsed && typeof parsed === "object") {
-                const arr = [];
-                for (const [cat, value] of Object.entries(parsed)) {
-                    if (Array.isArray(value)) {
-                        value.forEach(v => {
-                            if (!v) return;
-                            arr.push({
-                                id: v.id,
-                                name: v.name,
-                                category: v.category || cat,
-                                price: (typeof v.price === "number" ? v.price : null),
-                                old_price: (typeof v.old_price === "number" ? v.old_price : null),
-                                url: typeof v.url === "string" ? v.url : null
-                            });
-                        });
-                    } else if (value) {
-                        arr.push({
-                            id: value.id,
-                            name: value.name,
-                            category: value.category || cat,
-                            price: (typeof value.price === "number" ? value.price : null),
-                            old_price: (typeof value.old_price === "number" ? value.old_price : null),
-                            url: typeof value.url === "string" ? value.url : null
-                        });
-                    }
-                }
-                return arr;
-            }
+        tr.innerHTML = `
+            <td>${item.category || "Neznámá"}</td>
+            <td>${item.name || "Neznámý produkt"}</td>
+            <td><a href="product-detail.html?id=${item.id}">Detail</a></td>
+            <td class="price-cell">${item.price?.toLocaleString("cs-CZ")} Kč</td>
+            <td><button class="remove-btn">×</button></td>
+        `;
 
-            return [];
-        } catch (e) {
-            console.error(e);
-            return [];
-        }
-    }
+        tr.querySelector(".remove-btn").onclick = () => {
+            saveBuildItems(items.filter(i => i.id !== item.id));
+            renderBuild();
+        };
 
-    function saveBuildItems(items) {
-        localStorage.setItem(BUILD_KEY, JSON.stringify(items));
-    }
+        total += item.price || 0;
+        tbody.appendChild(tr);
+    });
 
-    function formatItemPriceText(item) {
-        if (!item) return "";
+    totalCell.textContent = total.toLocaleString("cs-CZ") + " Kč";
+}
 
-        if (item.price === 1) {
-            if (typeof item.old_price === "number") {
-                return "posl. " + item.old_price.toLocaleString("cs-CZ") + " Kč";
-            }
-            return "nedostupný";
-        }
+document.getElementById("download-build").onclick = () => {
+    const items = loadBuildItems();
+    const text = "Sestava PC\n\n" + items.map(i => i.name).join("\n");
+    const blob = new Blob([text], { type: "application/msword" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "sestava.doc";
+    a.click();
+};
 
-        if (item.price == null) {
-            if (typeof item.old_price === "number") {
-                return item.old_price.toLocaleString("cs-CZ") + " Kč";
-            }
-            return "";
-        }
-
-        return item.price.toLocaleString("cs-CZ") + " Kč";
-    }
-
-    function getNumericItemPrice(item) {
-        if (!item) return 0;
-        if (item.price === 1) {
-            if (typeof item.old_price === "number") return item.old_price;
-            return 0;
-        }
-        if (typeof item.price === "number") return item.price;
-        if (typeof item.old_price === "number") return item.old_price;
-        return 0;
-    }
-
-    function renderBuild() {
-        const tbody = document.getElementById("build-tbody");
-        const table = document.getElementById("build-table");
-        const empty = document.getElementById("empty");
-        const totalCell = document.getElementById("build-total");
-
-        const items = loadBuildItems();
-        tbody.innerHTML = "";
-
-        if (items.length === 0) {
-            table.style.display = "none";
-            empty.style.display = "block";
-            totalCell.textContent = "0 Kč";
-            if (downloadBtn) downloadBtn.style.display = "none";
-            return;
-        }
-
-        empty.style.display = "none";
-        table.style.display = "table";
-        if (downloadBtn) downloadBtn.style.display = "block";
-
-        const sorted = items.slice().sort((a, b) => {
-            const ak = String(a.category || "other").toLowerCase();
-            const bk = String(b.category || "other").toLowerCase();
-            const ai = CATEGORY_ORDER.indexOf(ak);
-            const bi = CATEGORY_ORDER.indexOf(bk);
-
-            if (ai !== -1 && bi !== -1 && ai !== bi) return ai - bi;
-            if (ai !== -1 && bi === -1) return -1;
-            if (ai === -1 && bi !== -1) return 1;
-
-            const labelA = getCategoryLabel(ak);
-            const labelB = getCategoryLabel(bk);
-            if (labelA !== labelB) {
-                return labelA.localeCompare(labelB, "cs");
-            }
-
-            const nameA = (a.name || "").toLowerCase();
-            const nameB = (b.name || "").toLowerCase();
-            return nameA.localeCompare(nameB, "cs");
-        });
-
-        let total = 0;
-
-        sorted.forEach(item => {
-            const tr = document.createElement("tr");
-
-            const catTd = document.createElement("td");
-            catTd.textContent = getCategoryLabel(item.category);
-
-            const nameTd = document.createElement("td");
-            nameTd.textContent = item.name || "Neznámý produkt";
-
-            const linkTd = document.createElement("td");
-            const link = document.createElement("a");
-            link.href = "product-detail.html?id=" + item.id;
-            link.textContent = "Detail";
-            linkTd.appendChild(link);
-
-            const priceTd = document.createElement("td");
-            priceTd.className = "price-cell";
-            priceTd.textContent = formatItemPriceText(item);
-
-            const removeTd = document.createElement("td");
-            const removeBtn = document.createElement("button");
-            removeBtn.className = "remove-btn";
-            removeBtn.textContent = "×";
-            removeBtn.addEventListener("click", () => {
-                const now = loadBuildItems();
-                const filtered = now.filter(it => it.id !== item.id);
-                saveBuildItems(filtered);
-                renderBuild();
-            });
-            removeTd.appendChild(removeBtn);
-
-            tr.appendChild(catTd);
-            tr.appendChild(nameTd);
-            tr.appendChild(linkTd);
-            tr.appendChild(priceTd);
-            tr.appendChild(removeTd);
-
-            tbody.appendChild(tr);
-
-            total += getNumericItemPrice(item);
-        });
-
-        totalCell.textContent = total.toLocaleString("cs-CZ") + " Kč";
-    }
-
-    function downloadBuildAsWord() {
-        const items = loadBuildItems();
-        if (!items.length) {
-            alert("Sestava je prázdná, není co uložit.");
-            return;
-        }
-
-        const lines = items.map(item => {
-            let line = item.name || "Neznámý produkt";
-            if (item.url) {
-                line += " - " + item.url;
-            } else {
-                line += " - bez odkazu";
-            }
-            return line;
-        });
-
-        const content = "Sestava PC\n\n" + lines.join("\n");
-        const blob = new Blob([content], { type: "application/msword" });
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "sestava.doc";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
-
-    if (downloadBtn) {
-        downloadBtn.addEventListener("click", downloadBuildAsWord);
-    }
-
-    renderBuild();
+renderBuild();
 </script>
 
 </body>
