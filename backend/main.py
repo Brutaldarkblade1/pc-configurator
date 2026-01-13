@@ -46,6 +46,7 @@ def health():
 @app.get("/products", response_model=ProductListResponse)
 def list_products(
     category: Optional[str] = None,
+    include_spec: bool = False,
     limit: int = 15,
     offset: int = 0,
     db: Session = Depends(get_db),
@@ -71,6 +72,10 @@ def list_products(
         .limit(limit)
         .all()
     )
+
+    if include_spec:
+        for item in items:
+            item.spec = get_spec_for_product(item, db)
 
     return {
         "items": items,

@@ -22,7 +22,8 @@
 
         .dark {
             --bg: #0e1219;
-            --page-bg: radial-gradient(circle at 20% 18%, rgba(46, 58, 89, 0.35) 0, transparent 32%), linear-gradient(180deg, #0d1117 0%, #0b1016 100%);
+            --page-bg: radial-gradient(circle at 20% 18%, rgba(46, 58, 89, 0.35) 0, transparent 32%),
+                        linear-gradient(180deg, #0d1117 0%, #0b1016 100%);
             --card: #111827;
             --muted: #1a2231;
             --border: #1f2a3a;
@@ -41,13 +42,13 @@
             font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
             margin: 0;
             min-height: 100vh;
-            padding: 32px 24px 48px;
+            padding: 24px 16px 40px;
             background: var(--page-bg);
             color: var(--text);
         }
 
         .page-shell {
-            max-width: 1280px;
+            max-width: 1480px;
             margin: 0 auto;
         }
 
@@ -55,9 +56,14 @@
             margin: 0 0 18px 0;
             font-size: 32px;
             letter-spacing: -0.02em;
+            text-align: center;
         }
 
-        .page-header { margin-bottom: 0; }
+        .page-header {
+            margin-bottom: 0;
+            flex: 1;
+            text-align: center;
+        }
 
         .eyebrow {
             display: inline-flex;
@@ -88,12 +94,14 @@
             gap: 12px;
             margin-bottom: 12px;
         }
+
         .intro-row {
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
             gap: 16px;
             margin-bottom: 0;
+            position: relative;
         }
 
         .theme-toggle {
@@ -155,7 +163,13 @@
             transform: translateY(0);
         }
 
-        .theme-toggle-top { display: flex; justify-content: flex-end; }
+        .theme-toggle-top {
+            display: flex;
+            justify-content: flex-end;
+            position: absolute;
+            right: 0;
+            top: -10px;
+        }
 
         .filter-card { color: var(--text); }
 
@@ -256,6 +270,7 @@
             transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
             outline: none;
         }
+        #searchBox { padding-left: 40px; }
 
         #searchBox:focus,
         #sortSelect:focus {
@@ -294,14 +309,14 @@
         .avail-filter:hover {
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.06);
-            background: #fff;
+            background: var(--card);
         }
 
         .input-wrap, .select-wrap { position: relative; }
 
         .field-icon {
             position: absolute;
-            left: 12px;
+            left: 11px;
             top: 50%;
             transform: translateY(-50%);
             width: 16px;
@@ -311,7 +326,7 @@
             pointer-events: none;
         }
 
-        .input-wrap input { padding-left: 36px; }
+        .input-wrap input { padding-left: 40px; }
         .input-wrap.has-text .field-icon { display: none; }
 
         .select-chevron {
@@ -327,37 +342,55 @@
 
         .layout {
             display: grid;
-            grid-template-columns: 1fr 320px;
+            grid-template-columns: 240px 1fr 320px;
             grid-template-areas:
-                "intro intro"
-                "content sidebar";
+                "intro intro intro"
+                "categories content sidebar";
             column-gap: 20px;
             row-gap: 8px;
             align-items: flex-start;
+            margin-top: 10px;
         }
         aside { width: 100%; }
 
         .main-intro { grid-area: intro; }
+        .categories-panel {
+            grid-area: categories;
+            position: sticky;
+            top: 16px;
+        }
         .main-content { grid-area: content; }
         #build-sidebar { grid-area: sidebar; }
 
+        .categories-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 14px;
+            box-shadow: var(--shadow-soft);
+        }
+
         #categoryBar {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 8px;
-            margin-bottom: 16px;
-            align-items: center;
         }
 
         .cat-btn {
-            padding: 9px 14px;
-            border-radius: 999px;
+            padding: 9px 12px;
+            border-radius: 12px;
             border: 1px solid var(--border);
             background: var(--card);
             cursor: pointer;
             font-size: 13px;
             color: var(--text);
             transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+            text-align: left;
         }
 
         .cat-btn:hover {
@@ -372,9 +405,57 @@
             box-shadow: 0 12px 30px rgba(37, 99, 235, 0.25);
         }
 
+        .cat-check {
+            color: #22c55e;
+            font-weight: 800;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .cat-btn.selected .cat-check { opacity: 1; }
+
+        .spec-filters {
+            margin-top: 14px;
+            display: none;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .filter-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted-text);
+            margin-bottom: 6px;
+        }
+
+        .spec-filters select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            font-size: 14px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .spec-filters select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
         #products {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 16px;
             margin-bottom: 20px;
             align-items: stretch;
@@ -625,108 +706,318 @@
                 grid-template-columns: 1fr;
                 grid-template-areas:
                     "intro"
+                    "categories"
                     "content"
                     "sidebar";
             }
+            .categories-panel { position: relative; top: 0; }
             #build-sidebar { position: relative; top: 0; }
         }
 
         @media (max-width: 768px) {
             body { padding: 22px 16px 36px; }
-            aside { order: 2; }
+            #build-sidebar { order: 2; }
         }
     </style>
 </head>
 <body>
 <div class="page-shell">
 
-
-
-
-
 <div class="layout">
 <div class="main-intro">
-        <div class="intro-row">
-            <div class="page-header">
-            <span class="eyebrow">PC konfigurátor</span>
+    <div class="intro-row">
+        <div class="page-header">
             <h1>Produkty</h1>
-            <p class="lead">Vyhledejte, filtrujte a proklikejte se do detailu.</p>
         </div>
-            <div class="theme-toggle-top">
-                <div class="theme-toggle">
-                    <button id="themeToggle" type="button" aria-label="Tmavy rezim" title="Tmavy rezim">
-                        <svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21 14.5A8 8 0 1 1 11.5 4a6 6 0 1 0 9.5 10.5z"/></svg>
-                    </button>
-                    <span class="theme-tooltip" id="themeTooltip">Prepnout na tmavy rezim</span>
+        <div class="theme-toggle-top">
+            <div class="theme-toggle">
+                <button id="themeToggle" type="button" aria-label="Tmavý režim" title="Tmavý režim">
+                    <svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                        <path d="M21 14.5A8 8 0 1 1 11.5 4a6 6 0 1 0 9.5 10.5z"/>
+                    </svg>
+                </button>
+                <span class="theme-tooltip" id="themeTooltip">Přepnout na tmavý režim</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<aside class="categories-panel">
+    <div class="categories-card">
+        <div class="section-heading">
+            <span>Kategorie</span>
+        </div>
+        <div id="categoryBar"></div>
+    </div>
+</aside>
+
+<main class="main-content">
+
+    <div class="filter-card">
+        <div class="filter-head">
+            <div>
+                <span class="eyebrow">Filtry &amp; řazení</span>
+                <p class="filter-note">Vyhledejte, filtrujte a proklikejte se do detailu.</p>
+            </div>
+        </div>
+
+        <div class="top-bar">
+            <div class="input-wrap">
+                <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
+                </svg>
+                <input id="searchBox" type="text" placeholder="Hledat produkt" />
+            </div>
+
+            <div class="select-wrap">
+                <select id="sortSelect">
+                    <option value="none">Řazení: výchozí</option>
+                    <option value="price_asc">Cena od nejlevnějších</option>
+                    <option value="price_desc">Cena od nejdražších</option>
+                </select>
+                <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+
+            <label class="avail-filter">
+                <input type="checkbox" id="availableOnlyCheckbox">
+                Pouze dostupné
+            </label>
+        </div>
+
+        <div class="spec-filters" id="specFilters">
+            <div class="spec-grid" id="cpuFilters">
+                <div>
+                    <label class="filter-label" for="cpuBrandSelect">Značka CPU</label>
+                    <div class="select-wrap">
+                        <select id="cpuBrandSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="cpuSocketSelect">Socket</label>
+                    <div class="select-wrap">
+                        <select id="cpuSocketSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-grid" id="ramFilters">
+                <div>
+                    <label class="filter-label" for="ramCapacitySelect">Kapacita (GB)</label>
+                    <div class="select-wrap">
+                        <select id="ramCapacitySelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="ramSpeedSelect">Rychlost (MHz)</label>
+                    <div class="select-wrap">
+                        <select id="ramSpeedSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="ramSticksSelect">Počet modulů</label>
+                    <div class="select-wrap">
+                        <select id="ramSticksSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-grid" id="gpuFilters">
+                <div>
+                    <label class="filter-label" for="gpuBrandSelect">Značka GPU</label>
+                    <div class="select-wrap">
+                        <select id="gpuBrandSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="gpuVramSelect">Paměť (GB)</label>
+                    <div class="select-wrap">
+                        <select id="gpuVramSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-grid" id="storageFilters">
+                <div>
+                    <label class="filter-label" for="storageTypeSelect">Typ úložiště</label>
+                    <div class="select-wrap">
+                        <select id="storageTypeSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="storageCapacitySelect">Kapacita (GB)</label>
+                    <div class="select-wrap">
+                        <select id="storageCapacitySelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-grid" id="psuFilters">
+                <div>
+                    <label class="filter-label" for="psuWattSelect">Výkon (W)</label>
+                    <div class="select-wrap">
+                        <select id="psuWattSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="psuEfficiencySelect">Účinnost</label>
+                    <div class="select-wrap">
+                        <select id="psuEfficiencySelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-grid" id="caseFilters">
+                <div>
+                    <label class="filter-label" for="caseFormFactorSelect">Formát desky</label>
+                    <div class="select-wrap">
+                        <select id="caseFormFactorSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="caseGpuLengthSelect">Max. délka GPU (mm)</label>
+                    <div class="select-wrap">
+                        <select id="caseGpuLengthSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="casePsuFormSelect">Formát zdroje</label>
+                    <div class="select-wrap">
+                        <select id="casePsuFormSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-grid" id="coolerFilters">
+                <div>
+                    <label class="filter-label" for="coolerTypeSelect">Typ chlazení</label>
+                    <div class="select-wrap">
+                        <select id="coolerTypeSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="coolerTdpSelect">TDP (W)</label>
+                    <div class="select-wrap">
+                        <select id="coolerTdpSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="coolerSocketSelect">Sockety</label>
+                    <div class="select-wrap">
+                        <select id="coolerSocketSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-grid" id="mbFilters">
+                <div>
+                    <label class="filter-label" for="mbSocketSelect">Socket</label>
+                    <div class="select-wrap">
+                        <select id="mbSocketSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="mbRamTypeSelect">Typ paměti</label>
+                    <div class="select-wrap">
+                        <select id="mbRamTypeSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <label class="filter-label" for="mbFormFactorSelect">Formát</label>
+                    <div class="select-wrap">
+                        <select id="mbFormFactorSelect"></select>
+                        <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-        <main class="main-content">
+    <div id="error"></div>
+    <div id="products">Načítám produkty...</div>
 
-        <div class="filter-card">
-            <div class="filter-head">
-                <div>
-                    <span class="eyebrow">Filtry &amp; řazení</span>
-                    <p class="filter-note"></p>
-                </div>
-            </div>
+    <div id="pagination">
+        <button id="prevBtn">Předchozí</button>
+        <span id="pageInfo"></span>
+        <button id="nextBtn">Další</button>
+    </div>
+</main>
 
-            <div class="top-bar">
-                <div class="input-wrap">
-                    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="7"></circle>
-                        <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
-                    </svg>
-                    <input id="searchBox" type="text" placeholder="     Hledat produkt" />
-                </div>
-                <div class="select-wrap">
-                    <select id="sortSelect">
-                        <option value="none">Řazení: výchozí</option>
-                        <option value="price_asc">Cena od nejlevnějších</option>
-                        <option value="price_desc">Cena od nejdražších</option>
-                    </select>
-                    <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </div>
-                <label class="avail-filter">
-                    <input type="checkbox" id="availableOnlyCheckbox">
-                    Pouze dostupné
-                </label>
-            </div>
+<aside id="build-sidebar">
+    <div class="build-header">
+        <h2>Vaše sestava</h2>
+    </div>
+    <p id="build-empty">Zatím není nic vybráno.</p>
+    <ul id="build-list"></ul>
 
-            <div class="section-heading category-note">
-                <span>Kategorie</span>
-            </div>
-            <div id="categoryBar"></div>
-        </div>
+    <div id="build-total">
+        <span>Celková cena:</span>
+        <span id="build-total-value">0 Kč</span>
+    </div>
 
-        <div id="error"></div>
-        <div id="products">Načítám produkty...</div>
-
-        <div id="pagination">
-            <button id="prevBtn">Předchozí</button>
-            <span id="pageInfo"></span>
-            <button id="nextBtn">Další</button>
-        </div>
-    </main>
-
-    <aside id="build-sidebar">
-        <div class="build-header">
-            <h2>Vaše sestava</h2>
-        </div>
-        <p id="build-empty">Zatím není nic vybráno.</p>
-        <ul id="build-list"></ul>
-
-        <div id="build-total">
-            <span>Celková cena:</span>
-            <span id="build-total-value">0 Kč</span>
-        </div>
-
-        <a id="build-open" href="build.html">Otevřít konfiguraci</a>
-    </aside>
+    <a id="build-open" href="build.html">Otevřít konfiguraci</a>
+</aside>
 </div>
 
 </div>
@@ -741,13 +1032,15 @@
         const btn = document.getElementById("themeToggle");
         if (btn) {
             const isDark = next === "dark";
-            btn.title = isDark ? "Svetly rezim" : "Tmavy rezim";
+            btn.title = isDark ? "Světlý režim" : "Tmavý režim";
             btn.setAttribute("aria-label", btn.title);
             btn.innerHTML = `<svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 4.5a1 1 0 0 1 1 1V7a1 1 0 1 1-2 0V5.5a1 1 0 0 1 1-1zm0 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zm7.5-3.5a1 1 0 0 1 1 1v0a1 1 0 1 1-2 0 1 1 0 0 1 1-1zM4.5 12a1 1 0 0 1 1-1h0a1 1 0 1 1 0 2 1 1 0 0 1-1-1zm12.02-6.02a1 1 0 0 1 1.41 0l.49.49a1 1 0 0 1-1.41 1.41l-.49-.49a1 1 0 0 1 0-1.41zM5.58 17.42a1 1 0 0 1 1.41 0l.49.49a1 1 0 1 1-1.41 1.41l-.49-.49a1 1 0 0 1 0-1.41zm12.35 1.41a1 1 0 0 1-1.41 0l-.49-.49a1 1 0 0 1 1.41-1.41l.49.49a1 1 0 0 1 0 1.41zM7.48 5.98a1 1 0 0 1-1.41 0l-.49-.49A1 1 0 0 1 7 4.08l.49.49a1 1 0 0 1 0 1.41z"/></svg>`;
-            if (!isDark) { btn.innerHTML = `<svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21 14.5A8 8 0 1 1 11.5 4a6 6 0 1 0 9.5 10.5z"/></svg>`; }
+            if (!isDark) {
+                btn.innerHTML = `<svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21 14.5A8 8 0 1 1 11.5 4a6 6 0 1 0 9.5 10.5z"/></svg>`;
+            }
             const tooltip = document.getElementById("themeTooltip");
             if (tooltip) {
-                tooltip.textContent = isDark ? "Prepnout na svetly rezim" : "Prepnout na tmavy rezim";
+                tooltip.textContent = isDark ? "Přepnout na světlý režim" : "Přepnout na tmavý režim";
             }
         }
     }
@@ -777,13 +1070,14 @@
     const CATEGORY_LABELS = {
         cpu: "Procesory",
         mb: "Základní desky",
+        motherboard: "Základní deska",
         gpu: "Grafické karty",
         ram: "Operační paměť",
         psu: "Zdroj",
         case: "Skříně",
         ssd: "SSD disky",
         hdd: "HDD disky",
-        storage: "Storage",
+        storage: "Úložiště",
         cooler: "Chlazení",
         monitor: "Monitory"
     };
@@ -808,6 +1102,26 @@
             sortMode,
             currentPage,
             availableOnly,
+            cpuBrandFilter,
+            cpuSocketFilter,
+            ramCapacityFilter,
+            ramSpeedFilter,
+            ramSticksFilter,
+            gpuBrandFilter,
+            gpuVramFilter,
+            storageTypeFilter,
+            storageCapacityFilter,
+            psuWattFilter,
+            psuEfficiencyFilter,
+            caseFormFactorFilter,
+            caseGpuLengthFilter,
+            casePsuFormFilter,
+            coolerTypeFilter,
+            coolerTdpFilter,
+            coolerSocketFilter,
+            mbSocketFilter,
+            mbRamTypeFilter,
+            mbFormFactorFilter,
             scrollY: window.scrollY || 0
         };
         localStorage.setItem(VIEW_STATE_KEY, JSON.stringify(state));
@@ -925,30 +1239,11 @@
         const qty = item.qty && item.qty > 0 ? item.qty : 1;
         const base = getBasePrice(item);
 
-        if (item.price === 1 && base == null) {
-            return "nedostupný";
-        }
+        if (item.price === 1 && base == null) return "Nedostupný";
+        if (item.price === 1 && base != null) return qty > 1 ? `${qty}× poslední ${formatKc(base)}` : `Poslední ${formatKc(base)}`;
 
-        if (item.price === 1 && base != null) {
-            if (qty > 1) {
-                return qty + "× poslední " + formatKc(base);
-            }
-            return "poslední " + formatKc(base);
-        }
-
-        if (item.price == null && base != null) {
-            if (qty > 1) {
-                return qty + "× " + formatKc(base);
-            }
-            return formatKc(base);
-        }
-
-        if (base != null) {
-            if (qty > 1) {
-                return qty + "× " + formatKc(base);
-            }
-            return formatKc(base);
-        }
+        if (item.price == null && base != null) return qty > 1 ? `${qty}× ${formatKc(base)}` : formatKc(base);
+        if (base != null) return qty > 1 ? `${qty}× ${formatKc(base)}` : formatKc(base);
 
         return "";
     }
@@ -975,6 +1270,7 @@
             empty.style.display = "block";
             if (totalBox) totalBox.style.display = "none";
             if (openLink) openLink.style.display = "none";
+            updateCategorySelections();
             return;
         }
         empty.style.display = "none";
@@ -991,9 +1287,7 @@
 
             const labelA = getCategoryLabel(ak);
             const labelB = getCategoryLabel(bk);
-            if (labelA !== labelB) {
-                return labelA.localeCompare(labelB, "cs");
-            }
+            if (labelA !== labelB) return labelA.localeCompare(labelB, "cs");
 
             const nameA = (a.name || "").toLowerCase();
             const nameB = (b.name || "").toLowerCase();
@@ -1008,7 +1302,7 @@
             const span = document.createElement("span");
             const label = getCategoryLabel(item.category);
             const priceTxt = formatItemPriceText(item);
-            span.textContent = label + " – " + item.name + (priceTxt ? " (" + priceTxt + ")" : "");
+            span.textContent = label + " – " + (item.name || "Neznámý produkt") + (priceTxt ? " (" + priceTxt + ")" : "");
 
             const remove = document.createElement("button");
             remove.className = "build-remove-btn";
@@ -1034,9 +1328,8 @@
             totalBox.style.display = "flex";
             totalVal.textContent = total.toLocaleString("cs-CZ") + " Kč";
         }
-        if (openLink) {
-            openLink.style.display = "block";
-        }
+        if (openLink) openLink.style.display = "block";
+        updateCategorySelections();
     }
 
     function addProductToBuild(product) {
@@ -1065,9 +1358,7 @@
                 }
                 return it;
             });
-            if (!found) {
-                updated.push(newItem);
-            }
+            if (!found) updated.push(newItem);
         } else {
             const existing = items.find(it => String(it.category || "other").toLowerCase() === catKey);
             if (existing && existing.id !== newItem.id) {
@@ -1078,10 +1369,7 @@
                 if (!ok) return;
             }
 
-            updated = items.filter(it => {
-                const itsCat = String(it.category || "other").toLowerCase();
-                return itsCat !== catKey;
-            });
+            updated = items.filter(it => String(it.category || "other").toLowerCase() !== catKey);
             updated.push(newItem);
         }
 
@@ -1093,9 +1381,7 @@
     function renderProductCard(product, container) {
         const card = document.createElement("div");
         card.className = "product-card";
-        if (product.price === 1) {
-            card.classList.add("unavailable");
-        }
+        if (product.price === 1) card.classList.add("unavailable");
 
         const media = document.createElement("div");
         media.className = "product-media";
@@ -1105,16 +1391,8 @@
 
         img.src = API_BASE + "/img/" + product.id + ".jpg";
         img.onerror = function () {
-            if (!triedPng) {
-                triedPng = true;
-                this.src = API_BASE + "/img/" + product.id + ".png";
-                return;
-            }
-            if (!triedJpeg) {
-                triedJpeg = true;
-                this.src = API_BASE + "/img/" + product.id + ".jpeg";
-                return;
-            }
+            if (!triedPng) { triedPng = true; this.src = API_BASE + "/img/" + product.id + ".png"; return; }
+            if (!triedJpeg) { triedJpeg = true; this.src = API_BASE + "/img/" + product.id + ".jpeg"; return; }
             this.remove();
         };
 
@@ -1133,6 +1411,7 @@
 
         const price = document.createElement("div");
         price.className = "product-price";
+
         if (product.price === 1) {
             price.classList.add("unavailable");
             price.textContent = product.old_price != null
@@ -1170,7 +1449,6 @@
         if (sortMode === "none") return arr;
 
         const copy = arr.slice();
-
         copy.sort((a, b) => {
             const pa = getSortablePrice(a);
             const pb = getSortablePrice(b);
@@ -1179,15 +1457,411 @@
             if (pa === null) return 1;
             if (pb === null) return -1;
 
-            if (sortMode === "price_asc") {
-                return pa - pb;
-            } else if (sortMode === "price_desc") {
-                return pb - pa;
-            }
+            if (sortMode === "price_asc") return pa - pb;
+            if (sortMode === "price_desc") return pb - pa;
             return 0;
         });
 
         return copy;
+    }
+
+    function normalizeFilterValue(value) {
+        return String(value || "").trim().toLowerCase();
+    }
+
+    function getCategoryKey() {
+        return String(selectedCategory || "").toLowerCase();
+    }
+
+    function isSpecFilterActive() {
+        const catKey = getCategoryKey();
+        if (catKey === "cpu") return !!(cpuBrandFilter || cpuSocketFilter);
+        if (catKey === "ram") return !!(ramCapacityFilter || ramSpeedFilter || ramSticksFilter);
+        if (catKey === "gpu") return !!(gpuBrandFilter || gpuVramFilter);
+        if (["ssd", "hdd", "storage"].includes(catKey)) return !!(storageTypeFilter || storageCapacityFilter);
+        if (["psu", "zdroj"].includes(catKey)) return !!(psuWattFilter || psuEfficiencyFilter);
+        if (["case", "skrine", "pc_case"].includes(catKey)) return !!(caseFormFactorFilter || caseGpuLengthFilter || casePsuFormFilter);
+        if (["cooler", "chlazeni"].includes(catKey)) return !!(coolerTypeFilter || coolerTdpFilter || coolerSocketFilter);
+        if (["mb", "motherboard"].includes(catKey)) return !!(mbSocketFilter || mbRamTypeFilter || mbFormFactorFilter);
+        return false;
+    }
+
+    function updateSpecFilterVisibility() {
+        const specWrap = document.getElementById("specFilters");
+        const cpuWrap = document.getElementById("cpuFilters");
+        const ramWrap = document.getElementById("ramFilters");
+        const gpuWrap = document.getElementById("gpuFilters");
+        const storageWrap = document.getElementById("storageFilters");
+        const psuWrap = document.getElementById("psuFilters");
+        const caseWrap = document.getElementById("caseFilters");
+        const coolerWrap = document.getElementById("coolerFilters");
+        const mbWrap = document.getElementById("mbFilters");
+
+        const catKey = getCategoryKey();
+        const showCpu = catKey === "cpu";
+        const showRam = catKey === "ram";
+        const showGpu = catKey === "gpu";
+        const showStorage = ["ssd", "hdd", "storage"].includes(catKey);
+        const showPsu = ["psu", "zdroj"].includes(catKey);
+        const showCase = ["case", "skrine", "pc_case"].includes(catKey);
+        const showCooler = ["cooler", "chlazeni"].includes(catKey);
+        const showMb = ["mb", "motherboard"].includes(catKey);
+
+        if (specWrap) specWrap.style.display = (showCpu || showRam || showGpu || showStorage || showPsu || showCase || showCooler || showMb) ? "block" : "none";
+        if (cpuWrap) cpuWrap.style.display = showCpu ? "grid" : "none";
+        if (ramWrap) ramWrap.style.display = showRam ? "grid" : "none";
+        if (gpuWrap) gpuWrap.style.display = showGpu ? "grid" : "none";
+        if (storageWrap) storageWrap.style.display = showStorage ? "grid" : "none";
+        if (psuWrap) psuWrap.style.display = showPsu ? "grid" : "none";
+        if (caseWrap) caseWrap.style.display = showCase ? "grid" : "none";
+        if (coolerWrap) coolerWrap.style.display = showCooler ? "grid" : "none";
+        if (mbWrap) mbWrap.style.display = showMb ? "grid" : "none";
+    }
+
+    function setSelectOptionsFromMap(select, map) {
+        if (!select) return;
+        const current = select.value;
+        select.innerHTML = "";
+
+        const allOpt = document.createElement("option");
+        allOpt.value = "";
+        allOpt.textContent = "Vše";
+        select.appendChild(allOpt);
+
+        const entries = Array.from(map.entries()).sort((a, b) => a[1].localeCompare(b[1], "cs"));
+
+        entries.forEach(([value, label]) => {
+            const opt = document.createElement("option");
+            opt.value = value;
+            opt.textContent = label;
+            select.appendChild(opt);
+        });
+
+        select.value = (current && map.has(current)) ? current : "";
+    }
+
+    function setSelectOptionsFromList(select, values, labelFn) {
+        if (!select) return;
+        const current = select.value;
+        select.innerHTML = "";
+
+        const allOpt = document.createElement("option");
+        allOpt.value = "";
+        allOpt.textContent = "Vše";
+        select.appendChild(allOpt);
+
+        values.forEach((value) => {
+            const opt = document.createElement("option");
+            opt.value = String(value);
+            opt.textContent = labelFn ? labelFn(value) : String(value);
+            select.appendChild(opt);
+        });
+
+        select.value = (current && values.map(String).includes(current)) ? current : "";
+    }
+
+    function populateCpuFilters(items) {
+        const brandMap = new Map();
+        const socketMap = new Map();
+
+        items.forEach((item) => {
+            if (item.brand) {
+                const label = String(item.brand).trim();
+                const key = normalizeFilterValue(label);
+                if (key && !brandMap.has(key)) brandMap.set(key, label);
+            }
+            if (item.spec && item.spec.socket) {
+                const label = String(item.spec.socket).trim();
+                const key = normalizeFilterValue(label);
+                if (key && !socketMap.has(key)) socketMap.set(key, label);
+            }
+        });
+
+        setSelectOptionsFromMap(cpuBrandSelect, brandMap);
+        setSelectOptionsFromMap(cpuSocketSelect, socketMap);
+        cpuBrandFilter = cpuBrandSelect ? (cpuBrandSelect.value || "") : cpuBrandFilter;
+        cpuSocketFilter = cpuSocketSelect ? (cpuSocketSelect.value || "") : cpuSocketFilter;
+    }
+
+    function populateRamFilters(items) {
+        const capacitySet = new Set();
+        const speedSet = new Set();
+        const sticksSet = new Set();
+
+        items.forEach((item) => {
+            const spec = item.spec || {};
+            if (Number.isFinite(Number(spec.capacity_gb))) capacitySet.add(Number(spec.capacity_gb));
+            if (Number.isFinite(Number(spec.speed_mhz))) speedSet.add(Number(spec.speed_mhz));
+            if (Number.isFinite(Number(spec.sticks))) sticksSet.add(Number(spec.sticks));
+        });
+
+        const capacities = Array.from(capacitySet).sort((a, b) => a - b);
+        const speeds = Array.from(speedSet).sort((a, b) => a - b);
+        const sticks = Array.from(sticksSet).sort((a, b) => a - b);
+
+        setSelectOptionsFromList(ramCapacitySelect, capacities, (v) => v + " GB");
+        setSelectOptionsFromList(ramSpeedSelect, speeds, (v) => v + " MHz");
+        setSelectOptionsFromList(ramSticksSelect, sticks, (v) => v + " ks");
+
+        ramCapacityFilter = ramCapacitySelect ? (ramCapacitySelect.value || "") : ramCapacityFilter;
+        ramSpeedFilter = ramSpeedSelect ? (ramSpeedSelect.value || "") : ramSpeedFilter;
+        ramSticksFilter = ramSticksSelect ? (ramSticksSelect.value || "") : ramSticksFilter;
+    }
+
+    function populateGpuFilters(items) {
+        const brandMap = new Map();
+        const vramSet = new Set();
+
+        items.forEach((item) => {
+            if (item.brand) {
+                const label = String(item.brand).trim();
+                const key = normalizeFilterValue(label);
+                if (key && !brandMap.has(key)) brandMap.set(key, label);
+            }
+            const spec = item.spec || {};
+            if (Number.isFinite(Number(spec.vram_gb))) vramSet.add(Number(spec.vram_gb));
+        });
+
+        const vrams = Array.from(vramSet).sort((a, b) => a - b);
+        setSelectOptionsFromMap(gpuBrandSelect, brandMap);
+        setSelectOptionsFromList(gpuVramSelect, vrams, (v) => v + " GB");
+
+        gpuBrandFilter = gpuBrandSelect ? (gpuBrandSelect.value || "") : gpuBrandFilter;
+        gpuVramFilter = gpuVramSelect ? (gpuVramSelect.value || "") : gpuVramFilter;
+    }
+
+    function populateStorageFilters(items) {
+        const typeMap = new Map();
+        const capacitySet = new Set();
+
+        items.forEach((item) => {
+            const spec = item.spec || {};
+            if (spec.type) {
+                const label = String(spec.type).trim();
+                const key = normalizeFilterValue(label);
+                if (key && !typeMap.has(key)) typeMap.set(key, label);
+            }
+            if (Number.isFinite(Number(spec.capacity_gb))) capacitySet.add(Number(spec.capacity_gb));
+        });
+
+        const capacities = Array.from(capacitySet).sort((a, b) => a - b);
+
+        setSelectOptionsFromMap(storageTypeSelect, typeMap);
+        setSelectOptionsFromList(storageCapacitySelect, capacities, (v) => v + " GB");
+
+        storageTypeFilter = storageTypeSelect ? (storageTypeSelect.value || "") : storageTypeFilter;
+        storageCapacityFilter = storageCapacitySelect ? (storageCapacitySelect.value || "") : storageCapacityFilter;
+    }
+
+    function populatePsuFilters(items) {
+        const wattSet = new Set();
+        const efficiencyMap = new Map();
+
+        items.forEach((item) => {
+            const spec = item.spec || {};
+            if (Number.isFinite(Number(spec.wattage))) wattSet.add(Number(spec.wattage));
+            if (spec.efficiency) {
+                const label = String(spec.efficiency).trim();
+                const key = normalizeFilterValue(label);
+                if (key && !efficiencyMap.has(key)) efficiencyMap.set(key, label);
+            }
+        });
+
+        const watts = Array.from(wattSet).sort((a, b) => a - b);
+
+        setSelectOptionsFromList(psuWattSelect, watts, (v) => v + " W");
+        setSelectOptionsFromMap(psuEfficiencySelect, efficiencyMap);
+
+        psuWattFilter = psuWattSelect ? (psuWattSelect.value || "") : psuWattFilter;
+        psuEfficiencyFilter = psuEfficiencySelect ? (psuEfficiencySelect.value || "") : psuEfficiencyFilter;
+    }
+
+    function populateCaseFilters(items) {
+        const formFactorMap = new Map();
+        const gpuLengthSet = new Set();
+        const psuFormMap = new Map();
+
+        items.forEach((item) => {
+            const spec = item.spec || {};
+
+            if (spec.form_factor_support) {
+                String(spec.form_factor_support)
+                    .split(/[,/]/)
+                    .map(v => v.trim())
+                    .filter(Boolean)
+                    .forEach((label) => {
+                        const key = normalizeFilterValue(label);
+                        if (key && !formFactorMap.has(key)) formFactorMap.set(key, label);
+                    });
+            }
+
+            if (Number.isFinite(Number(spec.gpu_max_length_mm))) gpuLengthSet.add(Number(spec.gpu_max_length_mm));
+
+            if (spec.psu_form_factor) {
+                const label = String(spec.psu_form_factor).trim();
+                const key = normalizeFilterValue(label);
+                if (key && !psuFormMap.has(key)) psuFormMap.set(key, label);
+            }
+        });
+
+        const gpuLengths = Array.from(gpuLengthSet).sort((a, b) => a - b);
+
+        setSelectOptionsFromMap(caseFormFactorSelect, formFactorMap);
+        setSelectOptionsFromList(caseGpuLengthSelect, gpuLengths, (v) => v + " mm");
+        setSelectOptionsFromMap(casePsuFormSelect, psuFormMap);
+
+        caseFormFactorFilter = caseFormFactorSelect ? (caseFormFactorSelect.value || "") : caseFormFactorFilter;
+        caseGpuLengthFilter = caseGpuLengthSelect ? (caseGpuLengthSelect.value || "") : caseGpuLengthFilter;
+        casePsuFormFilter = casePsuFormSelect ? (casePsuFormSelect.value || "") : casePsuFormFilter;
+    }
+
+    function populateCoolerFilters(items) {
+        const typeMap = new Map();
+        const tdpSet = new Set();
+        const socketMap = new Map();
+
+        items.forEach((item) => {
+            const spec = item.spec || {};
+
+            if (spec.type) {
+                const label = String(spec.type).trim();
+                const key = normalizeFilterValue(label);
+                if (key && !typeMap.has(key)) typeMap.set(key, label);
+            }
+
+            if (Number.isFinite(Number(spec.tdp_support))) tdpSet.add(Number(spec.tdp_support));
+
+            if (spec.socket_support) {
+                String(spec.socket_support)
+                    .split(/[,/]/)
+                    .map(v => v.trim())
+                    .filter(Boolean)
+                    .forEach((label) => {
+                        const key = normalizeFilterValue(label);
+                        if (key && !socketMap.has(key)) socketMap.set(key, label);
+                    });
+            }
+        });
+
+        const tdps = Array.from(tdpSet).sort((a, b) => a - b);
+
+        setSelectOptionsFromMap(coolerTypeSelect, typeMap);
+        setSelectOptionsFromList(coolerTdpSelect, tdps, (v) => v + " W");
+        setSelectOptionsFromMap(coolerSocketSelect, socketMap);
+
+        coolerTypeFilter = coolerTypeSelect ? (coolerTypeSelect.value || "") : coolerTypeFilter;
+        coolerTdpFilter = coolerTdpSelect ? (coolerTdpSelect.value || "") : coolerTdpFilter;
+        coolerSocketFilter = coolerSocketSelect ? (coolerSocketSelect.value || "") : coolerSocketFilter;
+    }
+
+    function populateMbFilters(items) {
+        const socketMap = new Map();
+        const ramTypeMap = new Map();
+        const formFactorMap = new Map();
+
+        items.forEach((item) => {
+            const spec = item.spec || {};
+
+            if (spec.socket) {
+                const label = String(spec.socket).trim();
+                const key = normalizeFilterValue(label);
+                if (key && !socketMap.has(key)) socketMap.set(key, label);
+            }
+
+            if (spec.ram_type) {
+                const label = String(spec.ram_type).trim();
+                const key = normalizeFilterValue(label);
+                if (key && !ramTypeMap.has(key)) ramTypeMap.set(key, label);
+            }
+
+            if (spec.form_factor) {
+                const label = String(spec.form_factor).trim();
+                const key = normalizeFilterValue(label);
+                if (key && !formFactorMap.has(key)) formFactorMap.set(key, label);
+            }
+        });
+
+        setSelectOptionsFromMap(mbSocketSelect, socketMap);
+        setSelectOptionsFromMap(mbRamTypeSelect, ramTypeMap);
+        setSelectOptionsFromMap(mbFormFactorSelect, formFactorMap);
+
+        mbSocketFilter = mbSocketSelect ? (mbSocketSelect.value || "") : mbSocketFilter;
+        mbRamTypeFilter = mbRamTypeSelect ? (mbRamTypeSelect.value || "") : mbRamTypeFilter;
+        mbFormFactorFilter = mbFormFactorSelect ? (mbFormFactorSelect.value || "") : mbFormFactorFilter;
+    }
+
+    async function fetchAllProducts(category, includeSpec) {
+        const limit = 200;
+        let offset = 0;
+        let allItems = [];
+        let total = 0;
+
+        while (true) {
+            const params = new URLSearchParams();
+            params.set("limit", limit);
+            params.set("offset", offset);
+            if (category) params.set("category", category);
+            if (includeSpec) params.set("include_spec", "1");
+
+            const res = await fetch(API_BASE + "/products?" + params.toString());
+            if (!res.ok) throw new Error("Chyba API: " + res.status + " " + res.statusText);
+
+            const data = await res.json();
+            const items = data.items || [];
+            total = data.total || items.length;
+
+            allItems = allItems.concat(items);
+
+            offset += limit;
+            if (offset >= total) break;
+            if (offset > 2000) break;
+        }
+
+        return allItems;
+    }
+
+    async function refreshSpecFilters() {
+        updateSpecFilterVisibility();
+
+        const catKey = getCategoryKey();
+        if (
+            catKey !== "cpu" &&
+            catKey !== "ram" &&
+            catKey !== "gpu" &&
+            !["ssd", "hdd", "storage"].includes(catKey) &&
+            !["psu", "zdroj"].includes(catKey) &&
+            !["case", "skrine", "pc_case"].includes(catKey) &&
+            !["cooler", "chlazeni"].includes(catKey) &&
+            !["mb", "motherboard"].includes(catKey)
+        ) return;
+
+        if (SPEC_CACHE[catKey]) {
+            if (catKey === "cpu") populateCpuFilters(SPEC_CACHE[catKey]);
+            if (catKey === "ram") populateRamFilters(SPEC_CACHE[catKey]);
+            if (catKey === "gpu") populateGpuFilters(SPEC_CACHE[catKey]);
+            if (["ssd", "hdd", "storage"].includes(catKey)) populateStorageFilters(SPEC_CACHE[catKey]);
+            if (["psu", "zdroj"].includes(catKey)) populatePsuFilters(SPEC_CACHE[catKey]);
+            if (["case", "skrine", "pc_case"].includes(catKey)) populateCaseFilters(SPEC_CACHE[catKey]);
+            if (["cooler", "chlazeni"].includes(catKey)) populateCoolerFilters(SPEC_CACHE[catKey]);
+            if (["mb", "motherboard"].includes(catKey)) populateMbFilters(SPEC_CACHE[catKey]);
+            return;
+        }
+
+        try {
+            const items = await fetchAllProducts(catKey, true);
+            SPEC_CACHE[catKey] = items;
+
+            if (catKey === "cpu") populateCpuFilters(items);
+            if (catKey === "ram") populateRamFilters(items);
+            if (catKey === "gpu") populateGpuFilters(items);
+            if (["ssd", "hdd", "storage"].includes(catKey)) populateStorageFilters(items);
+            if (["psu", "zdroj"].includes(catKey)) populatePsuFilters(items);
+            if (["case", "skrine", "pc_case"].includes(catKey)) populateCaseFilters(items);
+            if (["cooler", "chlazeni"].includes(catKey)) populateCoolerFilters(items);
+            if (["mb", "motherboard"].includes(catKey)) populateMbFilters(items);
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     let currentPage = 1;
@@ -1197,6 +1871,29 @@
     let sortMode = "none";
     let availableOnly = false;
 
+    let cpuBrandFilter = "";
+    let cpuSocketFilter = "";
+    let ramCapacityFilter = "";
+    let ramSpeedFilter = "";
+    let ramSticksFilter = "";
+    let gpuBrandFilter = "";
+    let gpuVramFilter = "";
+    let storageTypeFilter = "";
+    let storageCapacityFilter = "";
+    let psuWattFilter = "";
+    let psuEfficiencyFilter = "";
+    let caseFormFactorFilter = "";
+    let caseGpuLengthFilter = "";
+    let casePsuFormFilter = "";
+    let coolerTypeFilter = "";
+    let coolerTdpFilter = "";
+    let coolerSocketFilter = "";
+    let mbSocketFilter = "";
+    let mbRamTypeFilter = "";
+    let mbFormFactorFilter = "";
+
+    const SPEC_CACHE = { cpu: null, ram: null };
+
     const savedState = loadViewState();
     if (savedState) {
         currentPage = savedState.currentPage || 1;
@@ -1204,26 +1901,85 @@
         searchQuery = savedState.searchQuery || "";
         sortMode = savedState.sortMode || "none";
         availableOnly = !!savedState.availableOnly;
+
+        cpuBrandFilter = savedState.cpuBrandFilter || "";
+        cpuSocketFilter = savedState.cpuSocketFilter || "";
+        ramCapacityFilter = savedState.ramCapacityFilter || "";
+        ramSpeedFilter = savedState.ramSpeedFilter || "";
+        ramSticksFilter = savedState.ramSticksFilter || "";
+        gpuBrandFilter = savedState.gpuBrandFilter || "";
+        gpuVramFilter = savedState.gpuVramFilter || "";
+        storageTypeFilter = savedState.storageTypeFilter || "";
+        storageCapacityFilter = savedState.storageCapacityFilter || "";
+        psuWattFilter = savedState.psuWattFilter || "";
+        psuEfficiencyFilter = savedState.psuEfficiencyFilter || "";
+        caseFormFactorFilter = savedState.caseFormFactorFilter || "";
+        caseGpuLengthFilter = savedState.caseGpuLengthFilter || "";
+        casePsuFormFilter = savedState.casePsuFormFilter || "";
+        coolerTypeFilter = savedState.coolerTypeFilter || "";
+        coolerTdpFilter = savedState.coolerTdpFilter || "";
+        coolerSocketFilter = savedState.coolerSocketFilter || "";
+        mbSocketFilter = savedState.mbSocketFilter || "";
+        mbRamTypeFilter = savedState.mbRamTypeFilter || "";
+        mbFormFactorFilter = savedState.mbFormFactorFilter || "";
     }
 
     const searchBox = document.getElementById("searchBox");
     const sortSelect = document.getElementById("sortSelect");
     const availCheckbox = document.getElementById("availableOnlyCheckbox");
 
+    const cpuBrandSelect = document.getElementById("cpuBrandSelect");
+    const cpuSocketSelect = document.getElementById("cpuSocketSelect");
+    const ramCapacitySelect = document.getElementById("ramCapacitySelect");
+    const ramSpeedSelect = document.getElementById("ramSpeedSelect");
+    const ramSticksSelect = document.getElementById("ramSticksSelect");
+    const gpuBrandSelect = document.getElementById("gpuBrandSelect");
+    const gpuVramSelect = document.getElementById("gpuVramSelect");
+    const storageTypeSelect = document.getElementById("storageTypeSelect");
+    const storageCapacitySelect = document.getElementById("storageCapacitySelect");
+    const psuWattSelect = document.getElementById("psuWattSelect");
+    const psuEfficiencySelect = document.getElementById("psuEfficiencySelect");
+    const caseFormFactorSelect = document.getElementById("caseFormFactorSelect");
+    const caseGpuLengthSelect = document.getElementById("caseGpuLengthSelect");
+    const casePsuFormSelect = document.getElementById("casePsuFormSelect");
+    const coolerTypeSelect = document.getElementById("coolerTypeSelect");
+    const coolerTdpSelect = document.getElementById("coolerTdpSelect");
+    const coolerSocketSelect = document.getElementById("coolerSocketSelect");
+    const mbSocketSelect = document.getElementById("mbSocketSelect");
+    const mbRamTypeSelect = document.getElementById("mbRamTypeSelect");
+    const mbFormFactorSelect = document.getElementById("mbFormFactorSelect");
+
     function updateSearchIconVisibility() {
         const wrap = searchBox.closest(".input-wrap");
         if (!wrap) return;
-        if (searchBox.value.trim()) {
-            wrap.classList.add("has-text");
-        } else {
-            wrap.classList.remove("has-text");
-        }
+        wrap.classList.toggle("has-text", !!searchBox.value.trim());
     }
 
     searchBox.value = searchQuery;
     sortSelect.value = sortMode;
     availCheckbox.checked = availableOnly;
     updateSearchIconVisibility();
+
+    if (cpuBrandSelect) cpuBrandSelect.value = cpuBrandFilter;
+    if (cpuSocketSelect) cpuSocketSelect.value = cpuSocketFilter;
+    if (ramCapacitySelect) ramCapacitySelect.value = ramCapacityFilter;
+    if (ramSpeedSelect) ramSpeedSelect.value = ramSpeedFilter;
+    if (ramSticksSelect) ramSticksSelect.value = ramSticksFilter;
+    if (gpuBrandSelect) gpuBrandSelect.value = gpuBrandFilter;
+    if (gpuVramSelect) gpuVramSelect.value = gpuVramFilter;
+    if (storageTypeSelect) storageTypeSelect.value = storageTypeFilter;
+    if (storageCapacitySelect) storageCapacitySelect.value = storageCapacityFilter;
+    if (psuWattSelect) psuWattSelect.value = psuWattFilter;
+    if (psuEfficiencySelect) psuEfficiencySelect.value = psuEfficiencyFilter;
+    if (caseFormFactorSelect) caseFormFactorSelect.value = caseFormFactorFilter;
+    if (caseGpuLengthSelect) caseGpuLengthSelect.value = caseGpuLengthFilter;
+    if (casePsuFormSelect) casePsuFormSelect.value = casePsuFormFilter;
+    if (coolerTypeSelect) coolerTypeSelect.value = coolerTypeFilter;
+    if (coolerTdpSelect) coolerTdpSelect.value = coolerTdpFilter;
+    if (coolerSocketSelect) coolerSocketSelect.value = coolerSocketFilter;
+    if (mbSocketSelect) mbSocketSelect.value = mbSocketFilter;
+    if (mbRamTypeSelect) mbRamTypeSelect.value = mbRamTypeFilter;
+    if (mbFormFactorSelect) mbFormFactorSelect.value = mbFormFactorFilter;
 
     async function loadProducts(page = 1) {
         const error = document.getElementById("error");
@@ -1232,8 +1988,15 @@
         error.textContent = "";
         container.textContent = "Načítám produkty...";
 
-        if (searchQuery || sortMode !== "none" || availableOnly) {
+        if (searchQuery || sortMode !== "none" || availableOnly || isSpecFilterActive()) {
             try {
+                const catKey = getCategoryKey();
+                const includeSpec =
+                    catKey === "cpu" ||
+                    catKey === "ram" ||
+                    catKey === "gpu" ||
+                    ["ssd","hdd","storage","psu","zdroj","case","skrine","pc_case","cooler","chlazeni","mb","motherboard"].includes(catKey);
+
                 const limit = 200;
                 let offset = 0;
                 let allItems = [];
@@ -1244,32 +2007,87 @@
                     params.set("limit", limit);
                     params.set("offset", offset);
                     if (selectedCategory) params.set("category", selectedCategory);
+                    if (includeSpec) params.set("include_spec", "1");
 
                     const res = await fetch(API_BASE + "/products?" + params.toString());
-                    if (!res.ok) {
-                        throw new Error("Chyba API: " + res.status + " " + res.statusText);
-                    }
+                    if (!res.ok) throw new Error("Chyba API: " + res.status + " " + res.statusText);
+
                     const data = await res.json();
                     const items = data.items || [];
                     total = data.total || items.length;
 
                     allItems = allItems.concat(items);
-
                     offset += limit;
+
                     if (offset >= total) break;
                     if (offset > 2000) break;
                 }
 
                 const q = searchQuery.toLowerCase();
                 let filtered = allItems;
+
                 if (q) {
-                    filtered = filtered.filter(p =>
-                        (p.name || "").toLowerCase().includes(q)
-                    );
+                    filtered = filtered.filter(p => (p.name || "").toLowerCase().includes(q));
                 }
 
                 if (availableOnly) {
                     filtered = filtered.filter(p => p.price !== 1);
+                }
+
+                if (catKey === "cpu") {
+                    if (cpuBrandFilter) filtered = filtered.filter(p => normalizeFilterValue(p.brand) === cpuBrandFilter);
+                    if (cpuSocketFilter) filtered = filtered.filter(p => normalizeFilterValue(p.spec && p.spec.socket) === cpuSocketFilter);
+                }
+
+                if (catKey === "ram") {
+                    if (ramCapacityFilter) filtered = filtered.filter(p => String(p.spec && p.spec.capacity_gb) === ramCapacityFilter);
+                    if (ramSpeedFilter) filtered = filtered.filter(p => String(p.spec && p.spec.speed_mhz) === ramSpeedFilter);
+                    if (ramSticksFilter) filtered = filtered.filter(p => String(p.spec && p.spec.sticks) === ramSticksFilter);
+                }
+
+                if (catKey === "gpu") {
+                    if (gpuBrandFilter) filtered = filtered.filter(p => normalizeFilterValue(p.brand) === gpuBrandFilter);
+                    if (gpuVramFilter) filtered = filtered.filter(p => String(p.spec && p.spec.vram_gb) === gpuVramFilter);
+                }
+
+                if (["ssd","hdd","storage"].includes(catKey)) {
+                    if (storageTypeFilter) filtered = filtered.filter(p => normalizeFilterValue(p.spec && p.spec.type) === storageTypeFilter);
+                    if (storageCapacityFilter) filtered = filtered.filter(p => String(p.spec && p.spec.capacity_gb) === storageCapacityFilter);
+                }
+
+                if (["psu","zdroj"].includes(catKey)) {
+                    if (psuWattFilter) filtered = filtered.filter(p => String(p.spec && p.spec.wattage) === psuWattFilter);
+                    if (psuEfficiencyFilter) filtered = filtered.filter(p => normalizeFilterValue(p.spec && p.spec.efficiency) === psuEfficiencyFilter);
+                }
+
+                if (["case","skrine","pc_case"].includes(catKey)) {
+                    if (caseFormFactorFilter) {
+                        filtered = filtered.filter(p => {
+                            const raw = p.spec && p.spec.form_factor_support;
+                            if (!raw) return false;
+                            return String(raw).split(/[,/]/).map(v => normalizeFilterValue(v)).includes(caseFormFactorFilter);
+                        });
+                    }
+                    if (caseGpuLengthFilter) filtered = filtered.filter(p => String(p.spec && p.spec.gpu_max_length_mm) === caseGpuLengthFilter);
+                    if (casePsuFormFilter) filtered = filtered.filter(p => normalizeFilterValue(p.spec && p.spec.psu_form_factor) === casePsuFormFilter);
+                }
+
+                if (["cooler","chlazeni"].includes(catKey)) {
+                    if (coolerTypeFilter) filtered = filtered.filter(p => normalizeFilterValue(p.spec && p.spec.type) === coolerTypeFilter);
+                    if (coolerTdpFilter) filtered = filtered.filter(p => String(p.spec && p.spec.tdp_support) === coolerTdpFilter);
+                    if (coolerSocketFilter) {
+                        filtered = filtered.filter(p => {
+                            const raw = p.spec && p.spec.socket_support;
+                            if (!raw) return false;
+                            return String(raw).split(/[,/]/).map(v => normalizeFilterValue(v)).includes(coolerSocketFilter);
+                        });
+                    }
+                }
+
+                if (["mb","motherboard"].includes(catKey)) {
+                    if (mbSocketFilter) filtered = filtered.filter(p => normalizeFilterValue(p.spec && p.spec.socket) === mbSocketFilter);
+                    if (mbRamTypeFilter) filtered = filtered.filter(p => normalizeFilterValue(p.spec && p.spec.ram_type) === mbRamTypeFilter);
+                    if (mbFormFactorFilter) filtered = filtered.filter(p => normalizeFilterValue(p.spec && p.spec.form_factor) === mbFormFactorFilter);
                 }
 
                 filtered = sortProductsArray(filtered);
@@ -1304,9 +2122,7 @@
 
         try {
             const res = await fetch(API_BASE + "/products?" + params.toString());
-            if (!res.ok) {
-                throw new Error("Chyba API: " + res.status + " " + res.statusText);
-            }
+            if (!res.ok) throw new Error("Chyba API: " + res.status + " " + res.statusText);
 
             const data = await res.json();
             const products = data.items || [];
@@ -1338,7 +2154,7 @@
         currentPage = page;
         const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
 
-        if (searchQuery || sortMode !== "none" || availableOnly) {
+        if (searchQuery || sortMode !== "none" || availableOnly || isSpecFilterActive()) {
             prev.disabled = true;
             next.disabled = true;
             info.textContent = "Výsledky: " + totalItems;
@@ -1348,6 +2164,33 @@
         prev.disabled = currentPage <= 1;
         next.disabled = currentPage >= totalPages;
         info.textContent = "Stránka " + currentPage + " / " + totalPages;
+    }
+
+    function createCategoryButton(label, value) {
+        const btn = document.createElement("button");
+        btn.className = "cat-btn";
+        btn.dataset.category = value;
+
+        const text = document.createElement("span");
+        text.className = "cat-label";
+        text.textContent = label;
+
+        const check = document.createElement("span");
+        check.className = "cat-check";
+        check.innerHTML = "&#10003;";
+
+        btn.append(text, check);
+        return btn;
+    }
+
+    function updateCategorySelections() {
+        const items = loadBuildItems();
+        const selected = new Set(items.map(it => String(it.category || "").toLowerCase()).filter(Boolean));
+
+        document.querySelectorAll("#categoryBar .cat-btn").forEach(btn => {
+            const key = String(btn.dataset.category || "").toLowerCase();
+            btn.classList.toggle("selected", key && selected.has(key));
+        });
     }
 
     async function initCategories() {
@@ -1367,17 +2210,14 @@
 
                 const res = await fetch(API_BASE + "/products?" + params.toString());
                 if (!res.ok) {
-                    throw new Error("Chyba API při načítání kategorií: " +
-                        res.status + " " + res.statusText);
+                    throw new Error("Chyba API při načítání kategorií: " + res.status + " " + res.statusText);
                 }
 
                 const data = await res.json();
                 const items = data.items || [];
                 total = data.total || items.length;
 
-                items.forEach(p => {
-                    if (p.category) catsSet.add(String(p.category).toLowerCase());
-                });
+                items.forEach(p => { if (p.category) catsSet.add(String(p.category).toLowerCase()); });
 
                 offset += limit;
                 if (offset >= total) break;
@@ -1385,40 +2225,32 @@
             }
 
             const cats = sortCategories(Array.from(catsSet));
-
             bar.innerHTML = "";
 
-            const all = document.createElement("button");
-            all.className = "cat-btn";
-            all.dataset.category = "";
-            all.textContent = "Vše";
-            bar.appendChild(all);
-
             cats.forEach(cat => {
-                const btn = document.createElement("button");
-                btn.className = "cat-btn";
-                btn.dataset.category = cat;
-                btn.textContent = getCategoryLabel(cat);
+                const btn = createCategoryButton(getCategoryLabel(cat), cat);
                 bar.appendChild(btn);
             });
 
             bar.querySelectorAll(".cat-btn").forEach(btn => {
-                btn.addEventListener("click", () => {
+                btn.addEventListener("click", async () => {
                     bar.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
                     btn.classList.add("active");
 
                     selectedCategory = btn.dataset.category || "";
                     currentPage = 1;
                     saveViewState();
+                    await refreshSpecFilters();
                     loadProducts(1);
                 });
             });
 
             const target = [...bar.querySelectorAll(".cat-btn")].find(
                 b => (b.dataset.category || "") === (selectedCategory || "")
-            ) || all;
+            );
 
             if (target) target.classList.add("active");
+            updateCategorySelections();
 
         } catch (e) {
             console.error(e);
@@ -1448,14 +2280,42 @@
         loadProducts(1);
     });
 
+    if (cpuBrandSelect) cpuBrandSelect.addEventListener("change", (e) => { cpuBrandFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (cpuSocketSelect) cpuSocketSelect.addEventListener("change", (e) => { cpuSocketFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+
+    if (ramCapacitySelect) ramCapacitySelect.addEventListener("change", (e) => { ramCapacityFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (ramSpeedSelect) ramSpeedSelect.addEventListener("change", (e) => { ramSpeedFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (ramSticksSelect) ramSticksSelect.addEventListener("change", (e) => { ramSticksFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+
+    if (gpuBrandSelect) gpuBrandSelect.addEventListener("change", (e) => { gpuBrandFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (gpuVramSelect) gpuVramSelect.addEventListener("change", (e) => { gpuVramFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+
+    if (storageTypeSelect) storageTypeSelect.addEventListener("change", (e) => { storageTypeFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (storageCapacitySelect) storageCapacitySelect.addEventListener("change", (e) => { storageCapacityFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+
+    if (psuWattSelect) psuWattSelect.addEventListener("change", (e) => { psuWattFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (psuEfficiencySelect) psuEfficiencySelect.addEventListener("change", (e) => { psuEfficiencyFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+
+    if (caseFormFactorSelect) caseFormFactorSelect.addEventListener("change", (e) => { caseFormFactorFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (caseGpuLengthSelect) caseGpuLengthSelect.addEventListener("change", (e) => { caseGpuLengthFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (casePsuFormSelect) casePsuFormSelect.addEventListener("change", (e) => { casePsuFormFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+
+    if (coolerTypeSelect) coolerTypeSelect.addEventListener("change", (e) => { coolerTypeFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (coolerTdpSelect) coolerTdpSelect.addEventListener("change", (e) => { coolerTdpFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (coolerSocketSelect) coolerSocketSelect.addEventListener("change", (e) => { coolerSocketFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+
+    if (mbSocketSelect) mbSocketSelect.addEventListener("change", (e) => { mbSocketFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (mbRamTypeSelect) mbRamTypeSelect.addEventListener("change", (e) => { mbRamTypeFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+    if (mbFormFactorSelect) mbFormFactorSelect.addEventListener("change", (e) => { mbFormFactorFilter = e.target.value || ""; currentPage = 1; saveViewState(); loadProducts(1); });
+
     document.getElementById("prevBtn").addEventListener("click", () => {
-        if (currentPage > 1 && !searchQuery && sortMode === "none" && !availableOnly) {
+        if (currentPage > 1 && !searchQuery && sortMode === "none" && !availableOnly && !isSpecFilterActive()) {
             loadProducts(currentPage - 1);
         }
     });
 
     document.getElementById("nextBtn").addEventListener("click", () => {
-        if (!searchQuery && sortMode === "none" && !availableOnly) {
+        if (!searchQuery && sortMode === "none" && !availableOnly && !isSpecFilterActive()) {
             loadProducts(currentPage + 1);
         }
     });
@@ -1463,7 +2323,8 @@
     window.addEventListener("scroll", () => { saveViewState(); });
 
     renderBuildSidebar();
-    initCategories().then(() => {
+    initCategories().then(async () => {
+        await refreshSpecFilters();
         loadProducts(currentPage || 1);
 
         if (savedState && typeof savedState.scrollY === "number") {
@@ -1474,7 +2335,3 @@
 
 </body>
 </html>
-
-
-
-

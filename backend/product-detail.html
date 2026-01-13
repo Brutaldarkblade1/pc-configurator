@@ -119,7 +119,6 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            position: fixed;
         }
 
         .theme-toggle button {
@@ -635,11 +634,11 @@
     const CATEGORY_LABELS = {
         cpu: "Procesory",
         mb: "Základní desky",
-        motherboard: "Základní desky",
+        motherboard: "Základní deska",
         gpu: "Grafické karty",
         ram: "Operační paměť",
         psu: "Zdroj",
-        case: "Skříň",
+        case: "Skříně",
         ssd: "SSD disky",
         hdd: "HDD disky",
         storage: "Úložiště",
@@ -675,10 +674,10 @@
         if (key.includes("ssd")) return true;
         if (key.includes("hdd")) return true;
         if (key.includes("disk")) return true;
-        if (key.includes("ulo") || key.includes("uloz")) return true;
+        if (key.includes("ulož") || key.includes("uloz")) return true;
         if (key.includes("storage")) return true;
         if (key.includes("ram")) return true;
-        if (key.includes("pam") || key.includes("pamet")) return true;
+        if (key.includes("paměť") || key.includes("pamet")) return true;
 
         return false;
     }
@@ -1156,7 +1155,7 @@ Chcete ji vyměnit za ${product.name}?`);
         } catch (err) {
             console.error(err);
             errorDiv.textContent =
-                "Chyba při načtení detailu produktu. Zkontrolujte, jestli běží backend.";
+                "Chyba při načítání detailu produktu. Zkontrolujte, jestli běží backend.";
         }
     }
 
