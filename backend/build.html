@@ -65,6 +65,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            gap: 10px;
             margin-bottom: 12px;
         }
 
@@ -160,24 +161,66 @@
             cursor: pointer;
         }
 
-        /* Theme toggle button styling */
-        #themeToggle {
+        /* === THEME TOGGLE (stejné jako Produkty/Detail) === */
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .theme-toggle button {
             border: 1px solid var(--border);
             background: var(--card);
             color: var(--text);
             border-radius: 12px;
-            padding: 10px 14px;
+            width: 38px;
+            height: 38px;
+            padding: 0;
             font-weight: 700;
             cursor: pointer;
             box-shadow: var(--shadow-soft);
             transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
         }
 
-        #themeToggle:hover {
+        .theme-toggle button:hover {
             transform: translateY(-1px);
             border-color: var(--primary);
             box-shadow: var(--shadow);
         }
+
+        .theme-icon { width: 18px; height: 18px; display: block; }
+
+        .theme-tooltip {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: var(--shadow-soft);
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-4px);
+            pointer-events: none;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .theme-toggle:hover .theme-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        /* === /THEME TOGGLE === */
     </style>
 </head>
 
@@ -186,7 +229,16 @@
 
     <div class="top-row">
         <a class="top-link" href="products.html">← Zpět na produkty</a>
-        <button id="themeToggle">Tmavý režim</button>
+
+        <!-- THEME TOGGLE (ikonka + tooltip) -->
+        <div class="theme-toggle">
+            <button id="themeToggle" type="button" aria-label="Tmavý režim" title="Tmavý režim">
+                <svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                    <path d="M21 14.5A8 8 0 1 1 11.5 4a6 6 0 1 0 9.5 10.5z"/>
+                </svg>
+            </button>
+            <span class="theme-tooltip" id="themeTooltip">Přepnout na tmavý režim</span>
+        </div>
     </div>
 
     <h1>Tvoje sestava</h1>
@@ -226,18 +278,48 @@
 const THEME_KEY = "pc_theme_mode_v1";
 const BUILD_KEY = "pc_build_v2";
 
+/* ====== THEME (stejné jako Produkty/Detail) ====== */
 function applyTheme(mode) {
-    document.body.classList.toggle("dark", mode === "dark");
-    localStorage.setItem(THEME_KEY, mode);
-    document.getElementById("themeToggle").textContent =
-        mode === "dark" ? "Světlý režim" : "Tmavý režim";
+    const next = mode === "dark" ? "dark" : "light";
+    document.body.classList.toggle("dark", next === "dark");
+    try { localStorage.setItem(THEME_KEY, next); } catch {}
+
+    const btn = document.getElementById("themeToggle");
+    if (btn) {
+        const isDark = next === "dark";
+        btn.title = isDark ? "Světlý režim" : "Tmavý režim";
+        btn.setAttribute("aria-label", btn.title);
+
+        // ikony (stejné jako Produkty)
+        btn.innerHTML = `<svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 4.5a1 1 0 0 1 1 1V7a1 1 0 1 1-2 0V5.5a1 1 0 0 1 1-1zm0 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zm7.5-3.5a1 1 0 0 1 1 1v0a1 1 0 1 1-2 0 1 1 0 0 1 1-1zM4.5 12a1 1 0 0 1 1-1h0a1 1 0 1 1 0 2 1 1 0 0 1-1-1zm12.02-6.02a1 1 0 0 1 1.41 0l.49.49a1 1 0 0 1-1.41 1.41l-.49-.49a1 1 0 0 1 0-1.41zM5.58 17.42a1 1 0 0 1 1.41 0l.49.49a1 1 0 1 1-1.41 1.41l-.49-.49a1 1 0 0 1 0-1.41zm12.35 1.41a1 1 0 0 1-1.41 0l-.49-.49a1 1 0 0 1 1.41-1.41l.49.49a1 1 0 0 1 0 1.41zM7.48 5.98a1 1 0 0 1-1.41 0l-.49-.49A1 1 0 0 1 7 4.08l.49.49a1 1 0 0 1 0 1.41z"/></svg>`;
+        if (!isDark) {
+            btn.innerHTML = `<svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21 14.5A8 8 0 1 1 11.5 4a6 6 0 1 0 9.5 10.5z"/></svg>`;
+        }
+
+        const tooltip = document.getElementById("themeTooltip");
+        if (tooltip) {
+            tooltip.textContent = isDark ? "Přepnout na světlý režim" : "Přepnout na tmavý režim";
+        }
+    }
 }
 
-document.getElementById("themeToggle").onclick = () => {
-    applyTheme(document.body.classList.contains("dark") ? "light" : "dark");
-};
+(function initTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch {}
+    if (!saved) {
+        saved = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    applyTheme(saved);
 
-applyTheme(localStorage.getItem(THEME_KEY) || "light");
+    const btn = document.getElementById("themeToggle");
+    if (btn) {
+        btn.addEventListener("click", () => {
+            const next = document.body.classList.contains("dark") ? "light" : "dark";
+            applyTheme(next);
+        });
+    }
+})();
+/* ====== /THEME ====== */
 
 function loadBuildItems() {
     return JSON.parse(localStorage.getItem(BUILD_KEY) || "[]");

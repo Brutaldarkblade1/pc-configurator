@@ -57,7 +57,7 @@
             letter-spacing: -0.02em;
         }
 
-        .page-header { margin-bottom: 18px; }
+        .page-header { margin-bottom: 0; }
 
         .eyebrow {
             display: inline-flex;
@@ -81,11 +81,26 @@
             font-size: 15px;
         }
 
+        .build-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .intro-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 0;
+        }
+
         .theme-toggle {
-            position: fixed;
-            top: 16px;
-            right: 18px;
-            z-index: 50;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
         .theme-toggle button {
@@ -93,11 +108,17 @@
             background: var(--card);
             color: var(--text);
             border-radius: 12px;
-            padding: 10px 14px;
+            width: 38px;
+            height: 38px;
+            padding: 0;
             font-weight: 700;
             cursor: pointer;
             box-shadow: var(--shadow-soft);
             transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
         }
 
         .theme-toggle button:hover {
@@ -105,6 +126,36 @@
             border-color: var(--primary);
             box-shadow: var(--shadow);
         }
+
+        .theme-icon { width: 18px; height: 18px; display: block; }
+
+        .theme-tooltip {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: var(--shadow-soft);
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-4px);
+            pointer-events: none;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .theme-toggle:hover .theme-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .theme-toggle-top { display: flex; justify-content: flex-end; }
 
         .filter-card { color: var(--text); }
 
@@ -277,12 +328,18 @@
         .layout {
             display: grid;
             grid-template-columns: 1fr 320px;
-            gap: 20px;
+            grid-template-areas:
+                "intro intro"
+                "content sidebar";
+            column-gap: 20px;
+            row-gap: 8px;
             align-items: flex-start;
         }
-
-        main { flex: 1 1 auto; }
         aside { width: 100%; }
+
+        .main-intro { grid-area: intro; }
+        .main-content { grid-area: content; }
+        #build-sidebar { grid-area: sidebar; }
 
         #categoryBar {
             display: flex;
@@ -463,13 +520,13 @@
             box-shadow: var(--shadow-soft);
             border: 1px solid var(--border);
             position: sticky;
-            top: 22px;
+            top: 16px;
         }
 
         #build-sidebar h2 {
             font-size: 17px;
-            margin: 0 0 12px 0;
-            text-align: center;
+            margin: 0;
+            text-align: left;
             letter-spacing: -0.01em;
         }
 
@@ -564,13 +621,18 @@
         .category-note { margin: 2px 0 10px 0; }
 
         @media (max-width: 1100px) {
-            .layout { grid-template-columns: 1fr; }
+            .layout {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "intro"
+                    "content"
+                    "sidebar";
+            }
             #build-sidebar { position: relative; top: 0; }
         }
 
         @media (max-width: 768px) {
             body { padding: 22px 16px 36px; }
-            .layout { grid-template-columns: 1fr; }
             aside { order: 2; }
         }
     </style>
@@ -578,18 +640,30 @@
 <body>
 <div class="page-shell">
 
-<div class="theme-toggle">
-    <button id="themeToggle" type="button">Tmavý režim</button>
-</div>
 
-<div class="page-header">
-    <span class="eyebrow">PC konfigurátor</span>
-    <h1>Produkty</h1>
-    <p class="lead">Vyhledejte, filtrujte a proklikejte se do detailu.</p>
-</div>
+
+
 
 <div class="layout">
-    <main>
+<div class="main-intro">
+        <div class="intro-row">
+            <div class="page-header">
+            <span class="eyebrow">PC konfigurátor</span>
+            <h1>Produkty</h1>
+            <p class="lead">Vyhledejte, filtrujte a proklikejte se do detailu.</p>
+        </div>
+            <div class="theme-toggle-top">
+                <div class="theme-toggle">
+                    <button id="themeToggle" type="button" aria-label="Tmavy rezim" title="Tmavy rezim">
+                        <svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21 14.5A8 8 0 1 1 11.5 4a6 6 0 1 0 9.5 10.5z"/></svg>
+                    </button>
+                    <span class="theme-tooltip" id="themeTooltip">Prepnout na tmavy rezim</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <main class="main-content">
 
         <div class="filter-card">
             <div class="filter-head">
@@ -637,11 +711,12 @@
             <span id="pageInfo"></span>
             <button id="nextBtn">Další</button>
         </div>
-
     </main>
 
     <aside id="build-sidebar">
-        <h2>Vaše sestava</h2>
+        <div class="build-header">
+            <h2>Vaše sestava</h2>
+        </div>
         <p id="build-empty">Zatím není nic vybráno.</p>
         <ul id="build-list"></ul>
 
@@ -665,7 +740,15 @@
         try { localStorage.setItem(THEME_KEY, next); } catch {}
         const btn = document.getElementById("themeToggle");
         if (btn) {
-            btn.textContent = next === "dark" ? "Světlý režim" : "Tmavý režim";
+            const isDark = next === "dark";
+            btn.title = isDark ? "Svetly rezim" : "Tmavy rezim";
+            btn.setAttribute("aria-label", btn.title);
+            btn.innerHTML = `<svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 4.5a1 1 0 0 1 1 1V7a1 1 0 1 1-2 0V5.5a1 1 0 0 1 1-1zm0 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zm7.5-3.5a1 1 0 0 1 1 1v0a1 1 0 1 1-2 0 1 1 0 0 1 1-1zM4.5 12a1 1 0 0 1 1-1h0a1 1 0 1 1 0 2 1 1 0 0 1-1-1zm12.02-6.02a1 1 0 0 1 1.41 0l.49.49a1 1 0 0 1-1.41 1.41l-.49-.49a1 1 0 0 1 0-1.41zM5.58 17.42a1 1 0 0 1 1.41 0l.49.49a1 1 0 1 1-1.41 1.41l-.49-.49a1 1 0 0 1 0-1.41zm12.35 1.41a1 1 0 0 1-1.41 0l-.49-.49a1 1 0 0 1 1.41-1.41l.49.49a1 1 0 0 1 0 1.41zM7.48 5.98a1 1 0 0 1-1.41 0l-.49-.49A1 1 0 0 1 7 4.08l.49.49a1 1 0 0 1 0 1.41z"/></svg>`;
+            if (!isDark) { btn.innerHTML = `<svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21 14.5A8 8 0 1 1 11.5 4a6 6 0 1 0 9.5 10.5z"/></svg>`; }
+            const tooltip = document.getElementById("themeTooltip");
+            if (tooltip) {
+                tooltip.textContent = isDark ? "Prepnout na svetly rezim" : "Prepnout na tmavy rezim";
+            }
         }
     }
 
@@ -1391,3 +1474,7 @@
 
 </body>
 </html>
+
+
+
+
