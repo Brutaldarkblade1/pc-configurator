@@ -10,13 +10,12 @@ from database import get_db
 from models import Product, CPU, GPU, Motherboard, PCCase, PSU, RAM, Storage, Cooler
 from schemas import ProductOut, ProductListResponse
 
-# ⬇️ tady importujeme tvůj scraper jako modul
+
 import update_all_prices as up
 
 
 app = FastAPI(title="PC Configurator API")
 
-# CORS pro frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -30,7 +29,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Obrázky (backend/img)
 app.mount("/img", StaticFiles(directory="img"), name="img")
 
 
@@ -173,16 +171,13 @@ def get_spec_for_product(product: Product, db: Session):
                     "height_mm": row.height_mm,
                 }
     except Exception as exc:
-        # Nechceme spadnout na chybě tabulky/specifikací – jen logneme a vrátíme None
         print(f"[SPEC LOOKUP WARN] product_id={pid} category={cat} -> {exc}")
 
     return None
 
 
 
-# ======================
-#   PRODUCTS – DETAIL
-# ======================
+
 
 @app.get("/products/{product_id}", response_model=ProductOut)
 def get_product_detail(
@@ -215,24 +210,19 @@ def compute_new_price_for_product(product: Product) -> Optional[int]:
     dom = up.domain_of(url)
     selector = up.DOMAIN_SELECTORS.get(dom)
 
-    # referer použijeme jen když známe doménu
     referer = f"https://{dom}/" if dom else None
 
     html, status = up.get_html(url, referer=referer, pause=1.5)
 
-    # 404 => skončil
     if status == 404:
         return 1
 
-    # máme HTML a je tam "Prodej skončil" => 1
     if html and up.is_discontinued(html):
         return 1
 
-    # nemáme HTML => fail, nebudeme nic měnit
     if not html:
         return None
 
-    # pokus si vytáhnout cenu
     dec = up.extract_price(html, selector)
     if dec is None:
         return None
@@ -249,38 +239,26 @@ def refresh_product_price(
     product_id: int,
     db: Session = Depends(get_db),
 ):
-    """
-    Když otevřeš detail produktu na frontendu:
-      - frontend zavolá POST /products/{id}/refresh-price
-      - tady se stáhne stránka (Alza/CZC/…)
-      - najde se nová cena
-      - uloží se do DB (price + případně old_price + updated_at)
-      - vrátí se aktuální produkt
-    """
+    
     product = db.query(Product).filter(Product.id == product_id).first()
     if not product:
         raise HTTPException(status_code=404, detail="Produkt nenalezen")
 
     product.spec = get_spec_for_product(product, db)
 
-    # Bez URL nemáme co refreshovat => jen vrátíme produkt
     if not product.url or not product.url.strip():
         return product
 
     try:
         new_price = compute_new_price_for_product(product)
     except Exception as e:
-        # Když se scraper rozsype, nechceme 502, jen zalogovat a vrátit stará data
         print(f"[REFRESH ERROR] id={product.id} url={product.url} -> {e}")
         return product
 
-    # Nepodařilo se cenu zjistit -> necháme starou cenu, vrátíme 200
     if new_price is None:
         return product
 
-    # Když se cena změnila, přepíšeme old_price
     if product.price is not None and product.price != new_price:
-        # necháme si starou cenu jako last known
         product.old_price = product.price
 
     product.price = new_price

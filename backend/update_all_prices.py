@@ -19,16 +19,13 @@ import psycopg2
 from bs4 import BeautifulSoup
 from curl_cffi import requests as crequests
 
-# DSN podle tvojí DB
 DSN_DEFAULT = "postgresql://postgres:autodoprava@localhost:5432/pc_configurator"
 
-# Doména -> CSS selektor ceny
 DOMAIN_SELECTORS = {
     "www.alza.cz": ".price-box__primary-price__value",
     "www.czc.cz": ".price-vatin, .price__price",
 }
 
-# ---------- pomocné: parsování ceny (CZ formáty) -----------------------------
 def normalize_spaces(s: str) -> str:
     if not s:
         return ""
@@ -74,7 +71,7 @@ def best_price_from_text(text: str) -> Optional[decimal.Decimal]:
             vals.append(v)
     if not vals:
         return None
-    big = [v for v in vals if v >= 100]  # odfiltruj splátky typu "139/měs."
+    big = [v for v in vals if v >= 100] 
     return max(big) if big else max(vals)
 
 def as_kc_int(dec: decimal.Decimal) -> int:
