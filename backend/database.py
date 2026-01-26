@@ -7,16 +7,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
-
 if not DATABASE_URL:
     raise RuntimeError("DATABASE_URL není nastavené v .env souboru")
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(
+    DATABASE_URL,
+    pool_pre_ping=True,
+    future=True,
+)
 
 SessionLocal = sessionmaker(
+    bind=engine,
     autocommit=False,
     autoflush=False,
-    bind=engine,
+    future=True,
 )
 
 Base = declarative_base()

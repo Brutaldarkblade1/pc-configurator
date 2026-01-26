@@ -15,7 +15,7 @@ class ProductOut(BaseModel):
     spec: Optional[Dict[str, Any]] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class ProductListResponse(BaseModel):

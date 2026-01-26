@@ -9,12 +9,13 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models import Product, CPU, GPU, Motherboard, PCCase, PSU, RAM, Storage, Cooler
 from schemas import ProductOut, ProductListResponse
-
+from routers.auth import auth_router
 
 import update_all_prices as up
 
 
 app = FastAPI(title="PC Configurator API")
+app.include_router(auth_router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -49,12 +50,8 @@ def list_products(
     offset: int = 0,
     db: Session = Depends(get_db),
 ):
-    if limit < 1:
-        limit = 1
-    if limit > 200:
-        limit = 200
-    if offset < 0:
-        offset = 0
+    limit = max(1, min(limit, 200))
+    offset = max(0, offset)
 
     query = db.query(Product)
 
@@ -62,25 +59,13 @@ def list_products(
         query = query.filter(Product.category == category)
 
     total = query.count()
-
-    items = (
-        query
-        .order_by(Product.id)
-        .offset(offset)
-        .limit(limit)
-        .all()
-    )
+    items = query.order_by(Product.id).offset(offset).limit(limit).all()
 
     if include_spec:
         for item in items:
             item.spec = get_spec_for_product(item, db)
 
-    return {
-        "items": items,
-        "total": total,
-        "limit": limit,
-        "offset": offset,
-    }
+    return {"items": items, "total": total, "limit": limit, "offset": offset}
 
 
 # ======================
@@ -99,29 +84,17 @@ def get_spec_for_product(product: Product, db: Session):
         if cat == "cpu":
             row = db.query(CPU).filter(CPU.product_id == pid).first()
             if row:
-                return {
-                    "socket": row.socket,
-                    "tdp": row.tdp,
-                    "igpu": row.igpu,
-                }
+                return {"socket": row.socket, "tdp": row.tdp, "igpu": row.igpu}
 
         elif cat == "gpu":
             row = db.query(GPU).filter(GPU.product_id == pid).first()
             if row:
-                return {
-                    "vram_gb": row.vram_gb,
-                    "tdp": row.tdp,
-                    "length_mm": row.length_mm,
-                }
+                return {"vram_gb": row.vram_gb, "tdp": row.tdp, "length_mm": row.length_mm}
 
         elif cat in ("motherboard", "mb"):
             row = db.query(Motherboard).filter(Motherboard.product_id == pid).first()
             if row:
-                return {
-                    "socket": row.socket,
-                    "ram_type": row.ram_type,
-                    "form_factor": row.form_factor,
-                }
+                return {"socket": row.socket, "ram_type": row.ram_type, "form_factor": row.form_factor}
 
         elif cat in ("case", "skrine", "pc_case"):
             row = db.query(PCCase).filter(PCCase.product_id == pid).first()
@@ -136,11 +109,7 @@ def get_spec_for_product(product: Product, db: Session):
         elif cat in ("psu", "zdroj"):
             row = db.query(PSU).filter(PSU.product_id == pid).first()
             if row:
-                return {
-                    "wattage": row.wattage,
-                    "efficiency": row.efficiency,
-                    "modular": row.modular,
-                }
+                return {"wattage": row.wattage, "efficiency": row.efficiency, "modular": row.modular}
 
         elif cat == "ram":
             row = db.query(RAM).filter(RAM.product_id == pid).first()
@@ -155,11 +124,7 @@ def get_spec_for_product(product: Product, db: Session):
         elif cat in ("ssd", "hdd", "storage"):
             row = db.query(Storage).filter(Storage.product_id == pid).first()
             if row:
-                return {
-                    "type": row.type,
-                    "capacity_gb": row.capacity_gb,
-                    "interface": row.interface,
-                }
+                return {"type": row.type, "capacity_gb": row.capacity_gb, "interface": row.interface}
 
         elif cat in ("cooler", "chlazeni"):
             row = db.query(Cooler).filter(Cooler.product_id == pid).first()
@@ -170,26 +135,20 @@ def get_spec_for_product(product: Product, db: Session):
                     "socket_support": row.socket_support,
                     "height_mm": row.height_mm,
                 }
+
     except Exception as exc:
         print(f"[SPEC LOOKUP WARN] product_id={pid} category={cat} -> {exc}")
 
     return None
 
 
-
-
-
 @app.get("/products/{product_id}", response_model=ProductOut)
-def get_product_detail(
-    product_id: int,
-    db: Session = Depends(get_db),
-):
+def get_product_detail(product_id: int, db: Session = Depends(get_db)):
     product = db.query(Product).filter(Product.id == product_id).first()
     if not product:
         raise HTTPException(status_code=404, detail="Produkt nenalezen")
 
     product.spec = get_spec_for_product(product, db)
-
     return product
 
 
@@ -209,17 +168,14 @@ def compute_new_price_for_product(product: Product) -> Optional[int]:
     url = product.url.strip()
     dom = up.domain_of(url)
     selector = up.DOMAIN_SELECTORS.get(dom)
-
     referer = f"https://{dom}/" if dom else None
 
-    html, status = up.get_html(url, referer=referer, pause=1.5)
+    html, status_code = up.get_html(url, referer=referer, pause=1.5)
 
-    if status == 404:
+    if status_code == 404:
         return 1
-
     if html and up.is_discontinued(html):
         return 1
-
     if not html:
         return None
 
@@ -230,16 +186,8 @@ def compute_new_price_for_product(product: Product) -> Optional[int]:
     return up.as_kc_int(dec)
 
 
-# ===============================
-#   ENDPOINT: REFRESH PRICE JEDNOHO PRODUKTU
-# ===============================
-
 @app.post("/products/{product_id}/refresh-price", response_model=ProductOut)
-def refresh_product_price(
-    product_id: int,
-    db: Session = Depends(get_db),
-):
-    
+def refresh_product_price(product_id: int, db: Session = Depends(get_db)):
     product = db.query(Product).filter(Product.id == product_id).first()
     if not product:
         raise HTTPException(status_code=404, detail="Produkt nenalezen")
@@ -269,5 +217,4 @@ def refresh_product_price(
     db.refresh(product)
 
     product.spec = get_spec_for_product(product, db)
-
     return product
