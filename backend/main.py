@@ -1,4 +1,5 @@
 from typing import Optional
+from pathlib import Path
 from datetime import datetime, timezone
 
 from fastapi import FastAPI, Depends, HTTPException
@@ -30,7 +31,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/img", StaticFiles(directory="img"), name="img")
+BASE_DIR = Path(__file__).resolve().parent
+IMG_DIR = BASE_DIR / "img"
+IMG_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/img", StaticFiles(directory=str(IMG_DIR)), name="img")
 
 
 @app.get("/health")

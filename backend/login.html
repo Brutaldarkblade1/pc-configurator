@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Přihlášení</title>
+    <style>
+        :root {
+            --bg: #eef1f7;
+            --page-bg: linear-gradient(180deg, #f7f9ff 0%, #eef1f7 100%);
+            --card: #ffffff;
+            --muted: #e5e9f1;
+            --border: #dfe3ea;
+            --text: #0e1424;
+            --muted-text: #606778;
+            --primary: #2563eb;
+            --primary-dark: #1f4fbf;
+            --danger: #ef4444;
+            --shadow: 0 22px 60px rgba(15, 23, 42, 0.06);
+            --shadow-soft: 0 12px 28px rgba(15, 23, 42, 0.05);
+            --radius: 14px;
+        }
+
+        .dark {
+            --bg: #0e1219;
+            --page-bg: radial-gradient(circle at 20% 18%, rgba(46, 58, 89, 0.35) 0, transparent 32%),
+                        linear-gradient(180deg, #0d1117 0%, #0b1016 100%);
+            --card: #111827;
+            --muted: #1a2231;
+            --border: #1f2a3a;
+            --text: #e5e7eb;
+            --muted-text: #9ca3af;
+            --primary: #3b82f6;
+            --primary-dark: #2f6fde;
+            --danger: #f87171;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+            --shadow-soft: 0 12px 26px rgba(0, 0, 0, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            padding: 32px 16px;
+            background: var(--page-bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            display: grid;
+            gap: 12px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .tab {
+            padding: 10px;
+            background: var(--card);
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--muted-text);
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .form {
+            display: grid;
+            gap: 10px;
+        }
+
+        .field {
+            display: grid;
+            gap: 6px;
+        }
+
+        .field label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted-text);
+        }
+
+        .field input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+        }
+
+        .password-wrap {
+            position: relative;
+            display: grid;
+        }
+
+        .password-wrap input {
+            padding-right: 46px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--muted-text);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .toggle-password:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .toggle-password svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+        }
+
+        .toggle-password .eye-closed { display: none; }
+        .toggle-password.is-visible .eye-open { display: none; }
+        .toggle-password.is-visible .eye-closed { display: block; }
+
+        .field input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+            background: var(--card);
+        }
+
+        .field input:-webkit-autofill,
+        .field input:-webkit-autofill:hover,
+        .field input:-webkit-autofill:focus,
+        .field input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 1000px var(--card) inset;
+            box-shadow: 0 0 0 1000px var(--card) inset;
+            -webkit-text-fill-color: var(--text);
+            caret-color: var(--text);
+            transition: background-color 9999s ease-in-out 0s;
+        }
+
+        .field input:autofill {
+            box-shadow: 0 0 0 1000px var(--card) inset;
+            -webkit-text-fill-color: var(--text);
+            caret-color: var(--text);
+        }
+
+        .error {
+            color: var(--danger);
+            font-size: 12px;
+            min-height: 14px;
+        }
+
+        .primary-btn {
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .link-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .link-row a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Účet</h1>
+        <div class="tabs">
+            <button class="tab active" type="button" data-tab="login">Přihlášení</button>
+            <button class="tab" type="button" data-tab="register">Registrace</button>
+        </div>
+
+        <form id="loginForm" class="form">
+            <div class="field">
+                <label for="loginEmail">E-mail</label>
+                <input id="loginEmail" type="email" required autocomplete="email">
+            </div>
+            <div class="field">
+                <label for="loginPassword">Heslo</label>
+                <div class="password-wrap">
+                    <input id="loginPassword" type="password" required autocomplete="current-password" minlength="8">
+                    <button class="toggle-password" type="button" aria-label="Zobrazit heslo" aria-pressed="false" data-target="loginPassword">
+                        <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-6 0-10-8-10-8a21.84 21.84 0 0 1 5.08-6.31"></path>
+                            <path d="M1 1l22 22"></path>
+                            <path d="M9.9 4.24A10.94 10.94 0 0 1 12 4c6 0 10 8 10 8a21.82 21.82 0 0 1-4.32 5.48"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="error" id="loginError"></div>
+            <button class="primary-btn" type="submit">Přihlásit se</button>
+        </form>
+
+        <form id="registerForm" class="form" style="display:none;">
+            <div class="field">
+                <label for="registerEmail">E-mail</label>
+                <input id="registerEmail" type="email" required autocomplete="email">
+            </div>
+            <div class="field">
+                <label for="registerUsername">Uživatelské jméno (max. 20)</label>
+                <input id="registerUsername" type="text" autocomplete="username" maxlength="20">
+            </div>
+            <div class="field">
+                <label for="registerPassword">Heslo (alespoň 1 číslo a 1 velké písmeno)</label>
+                <div class="password-wrap">
+                    <input id="registerPassword" type="password" required autocomplete="new-password" minlength="8">
+                    <button class="toggle-password" type="button" aria-label="Zobrazit heslo" aria-pressed="false" data-target="registerPassword">
+                        <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-6 0-10-8-10-8a21.84 21.84 0 0 1 5.08-6.31"></path>
+                            <path d="M1 1l22 22"></path>
+                            <path d="M9.9 4.24A10.94 10.94 0 0 1 12 4c6 0 10 8 10 8a21.82 21.82 0 0 1-4.32 5.48"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="error" id="registerError"></div>
+            <button class="primary-btn" type="submit">Registrovat se</button>
+        </form>
+
+        <div class="link-row">
+            <a href="products.html">Zpět na produkty</a>
+        </div>
+    </div>
+
+<script>
+    const THEME_KEY = "pc_theme_mode_v1";
+    const API_BASE = (window.location && window.location.port === "8000")
+        ? window.location.origin
+        : "http://127.0.0.1:8000";
+
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+
+    (function initTheme() {
+        let saved = null;
+        try { saved = localStorage.getItem(THEME_KEY); } catch {}
+        if (!saved) {
+            saved = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.body.classList.toggle("dark", saved === "dark");
+    })();
+
+    function showTab(tab) {
+        document.querySelectorAll("[data-tab]").forEach(btn => {
+            btn.classList.toggle("active", btn.dataset.tab === tab);
+        });
+        loginForm.style.display = tab === "login" ? "grid" : "none";
+        registerForm.style.display = tab === "register" ? "grid" : "none";
+    }
+
+    function extractErrorMessage(data) {
+        if (!data) return null;
+        if (typeof data.detail === "string") return data.detail;
+        if (Array.isArray(data.detail) && data.detail.length) {
+            const first = data.detail[0];
+            if (first && typeof first.msg === "string") return first.msg;
+        }
+        return null;
+    }
+
+    document.querySelectorAll("[data-tab]").forEach(btn => {
+        btn.addEventListener("click", () => showTab(btn.dataset.tab));
+    });
+
+    document.querySelectorAll(".toggle-password").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const targetId = btn.dataset.target;
+            const input = targetId ? document.getElementById(targetId) : null;
+            if (!input) return;
+            const isVisible = input.type === "text";
+            input.type = isVisible ? "password" : "text";
+            btn.classList.toggle("is-visible", !isVisible);
+            btn.setAttribute("aria-pressed", String(!isVisible));
+            btn.setAttribute("aria-label", isVisible ? "Zobrazit heslo" : "Skrýt heslo");
+            if (typeof input.focus === "function") {
+                input.focus({ preventScroll: true });
+            }
+        });
+    });
+
+    loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value;
+        const errorEl = document.getElementById("loginError");
+        errorEl.textContent = "";
+        try {
+            const res = await fetch(API_BASE + "/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ email, password }),
+            });
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                errorEl.textContent = extractErrorMessage(data) || "Přihlášení se nepodařilo.";
+                return;
+            }
+            window.location.href = "products.html";
+        } catch {
+            errorEl.textContent = "Přihlášení se nepodařilo.";
+        }
+    });
+
+    registerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("registerEmail").value.trim();
+        const username = document.getElementById("registerUsername").value.trim();
+        const password = document.getElementById("registerPassword").value;
+        const errorEl = document.getElementById("registerError");
+        errorEl.textContent = "";
+        if (!/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+            errorEl.textContent = "Heslo musí obsahovat alespoň 1 číslo a 1 velké písmeno.";
+            return;
+        }
+        try {
+            const res = await fetch(API_BASE + "/auth/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ email, username: username || null, password }),
+            });
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                errorEl.textContent = extractErrorMessage(data) || "Registrace se nepodařila.";
+                return;
+            }
+            window.location.href = "products.html";
+        } catch {
+            errorEl.textContent = "Registrace se nepodařila.";
+        }
+    });
+</script>
+</body>
+</html>
