@@ -149,9 +149,25 @@
             color: var(--muted-text);
         }
 
-        #download-build {
-            display: none;
-            margin-bottom: 12px;
+        .layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 260px;
+            gap: 14px;
+            align-items: start;
+        }
+
+        .main-card {
+            min-width: 0;
+        }
+
+        .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .action-btn {
             padding: 12px 16px;
             border-radius: 12px;
             border: none;
@@ -161,7 +177,224 @@
             cursor: pointer;
         }
 
-        /* === THEME TOGGLE (stejné jako Produkty/Detail) === */
+        .action-btn.secondary {
+            background: #1f2937;
+        }
+
+        .action-btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        #build-status {
+            min-height: 18px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: var(--muted-text);
+        }
+
+        #build-status.error {
+            color: var(--danger);
+        }
+
+        #build-status.success {
+            color: #16a34a;
+        }
+
+        .slots-card {
+            position: sticky;
+            top: 16px;
+        }
+
+        .slots-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .slots-head h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .slots-meta {
+            font-size: 12px;
+            color: var(--muted-text);
+            font-weight: 700;
+        }
+
+        .slots-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .slot-row {
+            display: grid;
+            grid-template-columns: 1fr 32px;
+            gap: 6px;
+            align-items: stretch;
+        }
+
+        .slot-btn {
+            width: 100%;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .slot-btn.empty {
+            color: var(--muted-text);
+            font-weight: 600;
+        }
+
+        .slot-btn.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.18);
+        }
+
+        .slot-sub {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--muted-text);
+            font-weight: 500;
+        }
+
+        .slot-delete-btn {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--danger);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .slot-delete-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            color: var(--muted-text);
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            z-index: 100;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 430px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            padding: 16px;
+        }
+
+        .modal h3 {
+            margin: 0 0 6px 0;
+            font-size: 20px;
+        }
+
+        .modal p {
+            margin: 0 0 10px 0;
+            color: var(--muted-text);
+            font-size: 13px;
+        }
+
+        .modal label {
+            display: block;
+            margin: 8px 0 5px 0;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--muted-text);
+        }
+
+        .modal input,
+        .modal textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            background: var(--card);
+            color: var(--text);
+            font: inherit;
+        }
+
+        .modal textarea {
+            min-height: 88px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .modal-btn {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 9px 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .modal-btn.primary {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .modal-btn.danger {
+            background: #dc2626;
+            border-color: #dc2626;
+            color: #fff;
+        }
+
+        #save-modal-error {
+            min-height: 16px;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--danger);
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .slots-card {
+                position: static;
+            }
+        }
+
+        /* === THEME TOGGLE === */
         .theme-toggle {
             display: inline-flex;
             align-items: center;
@@ -228,72 +461,128 @@
 <div class="page-shell">
 
     <div class="top-row">
-        <a class="top-link" href="products.html">← Zpět na produkty</a>
+        <a class="top-link" href="products.html">&larr; Zpet na produkty</a>
 
         <!-- THEME TOGGLE (ikonka + tooltip) -->
         <div class="theme-toggle">
-            <button id="themeToggle" type="button" aria-label="Tmavý režim" title="Tmavý režim">
+            <button id="themeToggle" type="button" aria-label="Tmavy rezim" title="Tmavy rezim">
                 <svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
                     <path d="M21 14.5A8 8 0 1 1 11.5 4a6 6 0 1 0 9.5 10.5z"/>
                 </svg>
             </button>
-            <span class="theme-tooltip" id="themeTooltip">Přepnout na tmavý režim</span>
+            <span class="theme-tooltip" id="themeTooltip">Prepnout na tmavy rezim</span>
         </div>
     </div>
 
     <h1>Tvoje sestava</h1>
     <p class="lead">
-        Přehled všeho, co máš vybráno. Můžeš upravovat položky, stáhnout seznam nebo se vrátit do detailu produktu.
+        Prehled vseho, co mas vybrano. Muzes upravovat polozky, stahnout seznam nebo se vratit do detailu produktu.
     </p>
+    <div class="layout">
+        <div class="card main-card">
+            <div class="card-actions">
+                <button id="download-build" class="action-btn" type="button">Stahnout sestavu (Word)</button>
+                <button id="open-save-modal" class="action-btn secondary" type="button">Ulozit sestavu</button>
+            </div>
 
-    <div class="card">
-        <button id="download-build">Stáhnout sestavu (Word)</button>
+            <div id="build-status"></div>
 
-        <div id="empty">Zatím nemáš v sestavě žádné produkty.</div>
+            <div id="empty">Zatim nemas v sestave zadne produkty.</div>
 
-        <table id="build-table" style="display:none;">
-            <thead>
-                <tr>
-                    <th>Kategorie</th>
-                    <th>Produkt</th>
-                    <th>Detail</th>
-                    <th class="price-cell">Cena</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="build-tbody"></tbody>
-            <tfoot>
-                <tr class="total-row">
-                    <td colspan="3">Celková cena</td>
-                    <td class="price-cell" id="build-total">0 Kč</td>
-                    <td></td>
-                </tr>
-            </tfoot>
-        </table>
+            <table id="build-table" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>Kategorie</th>
+                        <th>Produkt</th>
+                        <th>Detail</th>
+                        <th class="price-cell">Cena</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="build-tbody"></tbody>
+                <tfoot>
+                    <tr class="total-row">
+                        <td colspan="3">Celkova cena</td>
+                        <td class="price-cell" id="build-total">0 Kc</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <aside class="card slots-card">
+            <div class="slots-head">
+                <h3>Ulozene sestavy</h3>
+                <span id="slots-meta" class="slots-meta">0/5</span>
+            </div>
+            <div id="slots-list" class="slots-list"></div>
+        </aside>
     </div>
 
 </div>
 
+<div id="save-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="save-modal-title">
+        <h3 id="save-modal-title">Ulozit sestavu</h3>
+        <p id="save-modal-subtitle">Vypln nazev sestavy.</p>
+
+        <label for="save-build-name">Nazev sestavy *</label>
+        <input id="save-build-name" type="text" maxlength="120" placeholder="napr. Herni PC 1440p">
+
+        <label for="save-build-description">Popis</label>
+        <textarea id="save-build-description" placeholder="Volitelne poznamky"></textarea>
+
+        <div class="modal-actions">
+            <button id="save-modal-cancel" class="modal-btn" type="button">Zrusit</button>
+            <button id="save-modal-submit" class="modal-btn primary" type="button">Ulozit</button>
+        </div>
+
+        <div id="save-modal-error"></div>
+    </div>
+</div>
+
+<div id="confirm-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title">
+        <h3 id="confirm-modal-title">Potvrzeni</h3>
+        <p id="confirm-modal-message">Opravdu chcete pokracovat?</p>
+
+        <div class="modal-actions">
+            <button id="confirm-modal-cancel" class="modal-btn" type="button">Ne</button>
+            <button id="confirm-modal-accept" class="modal-btn primary" type="button">Ano</button>
+        </div>
+    </div>
+</div>
 <script>
 const THEME_KEY = "pc_theme_mode_v1";
 const BUILD_KEY = "pc_build_v2";
+const API_BASE = (window.location && window.location.port === "8000")
+    ? window.location.origin
+    : "http://127.0.0.1:8000";
+const MAX_BUILDS_PER_USER = 5;
+const SLOT_COUNT = 5;
+
+const remoteBuildState = {
+    user: null,
+    items: [],
+    selectedSlot: 0
+};
 
 const CATEGORY_LABELS = {
     cpu: "Procesory",
-    mb: "Základní desky",
-    motherboard: "Základní deska",
-    gpu: "Grafické karty",
-    ram: "Operační paměť",
+    mb: "Zakladni desky",
+    motherboard: "Zakladni deska",
+    gpu: "Graficke karty",
+    ram: "Operacni pamet",
     psu: "Zdroj",
-    case: "Skříně",
+    case: "Skrine",
     ssd: "SSD disky",
     hdd: "HDD disky",
-    storage: "Úložiště",
-    cooler: "Chlazení",
+    storage: "Uloziste",
+    cooler: "Chlazeni",
     monitor: "Monitory"
 };
 
-/* ====== THEME (stejné jako Produkty/Detail) ====== */
+/* ====== THEME ====== */
 function applyTheme(mode) {
     const next = mode === "dark" ? "dark" : "light";
     document.body.classList.toggle("dark", next === "dark");
@@ -302,10 +591,10 @@ function applyTheme(mode) {
     const btn = document.getElementById("themeToggle");
     if (btn) {
         const isDark = next === "dark";
-        btn.title = isDark ? "Světlý režim" : "Tmavý režim";
+        btn.title = isDark ? "Svetly rezim" : "Tmavy rezim";
         btn.setAttribute("aria-label", btn.title);
 
-        // ikony (stejné jako Produkty)
+        // ikony
         btn.innerHTML = `<svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 4.5a1 1 0 0 1 1 1V7a1 1 0 1 1-2 0V5.5a1 1 0 0 1 1-1zm0 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zm7.5-3.5a1 1 0 0 1 1 1v0a1 1 0 1 1-2 0 1 1 0 0 1 1-1zM4.5 12a1 1 0 0 1 1-1h0a1 1 0 1 1 0 2 1 1 0 0 1-1-1zm12.02-6.02a1 1 0 0 1 1.41 0l.49.49a1 1 0 0 1-1.41 1.41l-.49-.49a1 1 0 0 1 0-1.41zM5.58 17.42a1 1 0 0 1 1.41 0l.49.49a1 1 0 1 1-1.41 1.41l-.49-.49a1 1 0 0 1 0-1.41zm12.35 1.41a1 1 0 0 1-1.41 0l-.49-.49a1 1 0 0 1 1.41-1.41l.49.49a1 1 0 0 1 0 1.41zM7.48 5.98a1 1 0 0 1-1.41 0l-.49-.49A1 1 0 0 1 7 4.08l.49.49a1 1 0 0 1 0 1.41z"/></svg>`;
         if (!isDark) {
             btn.innerHTML = `<svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21 14.5A8 8 0 1 1 11.5 4a6 6 0 1 0 9.5 10.5z"/></svg>`;
@@ -313,7 +602,7 @@ function applyTheme(mode) {
 
         const tooltip = document.getElementById("themeTooltip");
         if (tooltip) {
-            tooltip.textContent = isDark ? "Přepnout na světlý režim" : "Přepnout na tmavý režim";
+            tooltip.textContent = isDark ? "Prepnout na svetly rezim" : "Prepnout na tmavy rezim";
         }
     }
 }
@@ -417,14 +706,14 @@ function saveBuildItems(items) {
 }
 
 function getCategoryLabel(cat) {
-    if (!cat) return "Neznámá kategorie";
+    if (!cat) return "Neznama kategorie";
     const key = String(cat).toLowerCase();
     return CATEGORY_LABELS[key] || key.charAt(0).toUpperCase() + key.slice(1);
 }
 
 function formatKc(value) {
     if (value == null || isNaN(value)) return "";
-    return Number(value).toLocaleString("cs-CZ") + " Kč";
+    return Number(value).toLocaleString("cs-CZ") + " Kc";
 }
 
 function getBasePrice(item) {
@@ -452,10 +741,10 @@ function formatItemPriceText(item) {
     const qty = item.qty && item.qty > 0 ? item.qty : 1;
     const base = getBasePrice(item);
 
-    if (item.price === 1 && base == null) return "Nedostupné";
-    if (item.price === 1 && base != null) return qty > 1 ? `${qty}× poslední ${formatKc(base)}` : `Poslední ${formatKc(base)}`;
-    if (item.price == null && base != null) return qty > 1 ? `${qty}× ${formatKc(base)}` : formatKc(base);
-    if (base != null) return qty > 1 ? `${qty}× ${formatKc(base)}` : formatKc(base);
+    if (item.price === 1 && base == null) return "Nedostupne";
+    if (item.price === 1 && base != null) return qty > 1 ? `${qty}x posledni ${formatKc(base)}` : `Posledni ${formatKc(base)}`;
+    if (item.price == null && base != null) return qty > 1 ? `${qty}x ${formatKc(base)}` : formatKc(base);
+    if (base != null) return qty > 1 ? `${qty}x ${formatKc(base)}` : formatKc(base);
 
     return "";
 }
@@ -498,14 +787,14 @@ function renderBuild() {
     if (!items.length) {
         table.style.display = "none";
         empty.style.display = "block";
-        downloadBtn.style.display = "none";
-        totalCell.textContent = "0 Kč";
+        downloadBtn.disabled = true;
+        totalCell.textContent = "0 Kc";
         return;
     }
 
     empty.style.display = "none";
     table.style.display = "table";
-    downloadBtn.style.display = "block";
+    downloadBtn.disabled = false;
 
     items.forEach((item) => {
         const tr = document.createElement("tr");
@@ -514,7 +803,7 @@ function renderBuild() {
         tdCategory.textContent = getCategoryLabel(item.category);
 
         const tdName = document.createElement("td");
-        tdName.textContent = item.name || "Neznámý produkt";
+        tdName.textContent = item.name || "Neznamy produkt";
 
         const tdDetail = document.createElement("td");
         const detailLink = document.createElement("a");
@@ -530,7 +819,7 @@ function renderBuild() {
         const removeBtn = document.createElement("button");
         removeBtn.className = "remove-btn";
         removeBtn.type = "button";
-        removeBtn.textContent = "×";
+        removeBtn.textContent = "x";
         removeBtn.addEventListener("click", () => {
             const now = loadBuildItems();
             saveBuildItems(removeOneBuildItem(now, item));
@@ -543,7 +832,372 @@ function renderBuild() {
         tbody.appendChild(tr);
     });
 
-    totalCell.textContent = total.toLocaleString("cs-CZ") + " Kč";
+    totalCell.textContent = total.toLocaleString("cs-CZ") + " Kc";
+}
+
+function setBuildStatus(message, tone = "muted") {
+    const box = document.getElementById("build-status");
+    if (!box) return;
+    box.textContent = message || "";
+    box.classList.remove("error", "success");
+    if (tone === "error") box.classList.add("error");
+    if (tone === "success") box.classList.add("success");
+}
+
+function setModalError(message) {
+    const box = document.getElementById("save-modal-error");
+    if (!box) return;
+    box.textContent = message || "";
+}
+
+const confirmState = {
+    resolver: null
+};
+
+function closeConfirmModal(accepted = false) {
+    const modal = document.getElementById("confirm-modal");
+    if (modal) {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+    }
+
+    if (confirmState.resolver) {
+        const resolve = confirmState.resolver;
+        confirmState.resolver = null;
+        resolve(accepted);
+    }
+}
+
+function askConfirm(message, title = "Potvrzeni", tone = "primary") {
+    const modal = document.getElementById("confirm-modal");
+    const titleEl = document.getElementById("confirm-modal-title");
+    const messageEl = document.getElementById("confirm-modal-message");
+    const acceptBtn = document.getElementById("confirm-modal-accept");
+
+    if (!modal || !titleEl || !messageEl || !acceptBtn) {
+        return Promise.resolve(false);
+    }
+
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+    acceptBtn.classList.remove("primary", "danger");
+    acceptBtn.classList.add(tone === "danger" ? "danger" : "primary");
+
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+
+    return new Promise((resolve) => {
+        confirmState.resolver = resolve;
+    });
+}
+
+function getSlotBuild(slotIndex) {
+    if (slotIndex < 0 || slotIndex >= SLOT_COUNT) return null;
+    return remoteBuildState.items[slotIndex] || null;
+}
+
+function formatUpdatedAt(value) {
+    if (!value) return "";
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("cs-CZ");
+}
+
+function renderSlots() {
+    const list = document.getElementById("slots-list");
+    const meta = document.getElementById("slots-meta");
+    if (!list || !meta) return;
+
+    list.innerHTML = "";
+
+    if (!remoteBuildState.user) {
+        meta.textContent = "Neprihlasen";
+    } else {
+        meta.textContent = `${remoteBuildState.items.length}/${SLOT_COUNT}`;
+    }
+
+    for (let i = 0; i < SLOT_COUNT; i += 1) {
+        const build = getSlotBuild(i);
+        const row = document.createElement("div");
+        row.className = "slot-row";
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "slot-btn" + (build ? "" : " empty") + (remoteBuildState.selectedSlot === i ? " active" : "");
+        btn.disabled = !remoteBuildState.user;
+
+        const title = document.createElement("span");
+        title.textContent = build ? (build.name || `Sestava ${i + 1}`) : "Prazdne";
+
+        const sub = document.createElement("span");
+        sub.className = "slot-sub";
+        if (build) {
+            const price = build.total_price != null ? `${Number(build.total_price).toLocaleString("cs-CZ")} Kc` : "Cena nezadana";
+            const updated = formatUpdatedAt(build.updated_at);
+            sub.textContent = updated ? `${price} - ${updated}` : price;
+        } else {
+            sub.textContent = `Slot ${i + 1}`;
+        }
+
+        btn.appendChild(title);
+        btn.appendChild(sub);
+
+        btn.addEventListener("click", () => {
+            remoteBuildState.selectedSlot = i;
+            renderSlots();
+
+            if (build) {
+                setBuildStatus(`Vybrana sestava \"${build.name}\". Dvojklikem ji nactes.`);
+            } else {
+                setBuildStatus(`Slot ${i + 1} je prazdny. Muzes do nej ulozit aktualni sestavu.`);
+            }
+        });
+
+        btn.addEventListener("dblclick", async () => {
+            if (!build) return;
+
+            const ok = await askConfirm(
+                `Chcete nacist (${build.name})?`,
+                "Nacist sestavu"
+            );
+            if (!ok) return;
+
+            const items = normalizeBuildItems(Array.isArray(build.build_data) ? build.build_data : []);
+            saveBuildItems(items);
+            renderBuild();
+            setBuildStatus(`Nactena sestava \"${build.name}\".`, "success");
+        });
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.type = "button";
+        deleteBtn.className = "slot-delete-btn";
+        deleteBtn.textContent = "x";
+        deleteBtn.title = build ? `Smazat ${build.name}` : "Prazdny slot";
+        deleteBtn.disabled = !build || !remoteBuildState.user;
+        deleteBtn.addEventListener("click", async (e) => {
+            e.stopPropagation();
+            if (!build) return;
+            await deleteBuildAtSlot(i);
+        });
+
+        row.appendChild(btn);
+        row.appendChild(deleteBtn);
+        list.appendChild(row);
+    }
+}
+
+async function deleteBuildAtSlot(slotIndex) {
+    const build = getSlotBuild(slotIndex);
+    if (!build) return;
+
+    const ok = await askConfirm(
+        `Opravdu chcete smazat (${build.name})?`,
+        "Smazat sestavu",
+        "danger"
+    );
+    if (!ok) return;
+
+    try {
+        await fetchJson(`/builds/${build.id}`, { method: "DELETE" });
+
+        if (remoteBuildState.selectedSlot === slotIndex) {
+            setBuildStatus(`Sestava \"${build.name}\" byla smazana.`, "success");
+        } else {
+            setBuildStatus(`Sestava \"${build.name}\" byla smazana.`);
+        }
+
+        await refreshSlots();
+    } catch (error) {
+        setBuildStatus(error.message || "Sestavu se nepodarilo smazat.", "error");
+    }
+}
+
+function openSaveModal() {
+    if (!remoteBuildState.user) {
+        setBuildStatus("Pro ukladani sestav se nejdriv prihlas.", "error");
+        return;
+    }
+
+    const items = loadBuildItems();
+    if (!items.length) {
+        setBuildStatus("Aktualni sestava je prazdna.", "error");
+        return;
+    }
+
+    const modal = document.getElementById("save-modal");
+    const nameInput = document.getElementById("save-build-name");
+    const descInput = document.getElementById("save-build-description");
+    const subtitle = document.getElementById("save-modal-subtitle");
+
+    const slotBuild = getSlotBuild(remoteBuildState.selectedSlot);
+    if (subtitle) {
+        subtitle.textContent = slotBuild
+            ? `Prepise se slot ${remoteBuildState.selectedSlot + 1} (${slotBuild.name}).`
+            : `Ulozi se do slotu ${remoteBuildState.selectedSlot + 1}.`;
+    }
+
+    if (nameInput) nameInput.value = slotBuild?.name || "";
+    if (descInput) descInput.value = slotBuild?.description || "";
+    setModalError("");
+
+    if (modal) {
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+    }
+
+    if (nameInput) nameInput.focus();
+}
+
+function closeSaveModal() {
+    const modal = document.getElementById("save-modal");
+    if (!modal) return;
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    setModalError("");
+}
+
+function getSavePayload() {
+    const nameInput = document.getElementById("save-build-name");
+    const descInput = document.getElementById("save-build-description");
+
+    const name = String(nameInput?.value || "").trim();
+    if (!name) throw new Error("Nazev sestavy je povinny.");
+
+    const build_data = loadBuildItems();
+    if (!build_data.length) throw new Error("Aktualni sestava je prazdna.");
+
+    const description = String(descInput?.value || "").trim();
+
+    return {
+        name,
+        description: description || null,
+        build_data
+    };
+}
+
+async function fetchJson(path, options = {}) {
+    const config = { ...options };
+    config.credentials = "include";
+    config.headers = config.headers ? { ...config.headers } : {};
+
+    const response = await fetch(API_BASE + path, config);
+    const contentType = response.headers.get("content-type") || "";
+    let payload = null;
+
+    if (contentType.includes("application/json")) {
+        try {
+            payload = await response.json();
+        } catch {
+            payload = null;
+        }
+    }
+
+    if (!response.ok) {
+        const detail = payload && payload.detail ? payload.detail : `HTTP ${response.status}`;
+        throw new Error(detail);
+    }
+
+    return payload;
+}
+
+async function loadCurrentUser() {
+    try {
+        const user = await fetchJson("/auth/me");
+        remoteBuildState.user = user || null;
+    } catch {
+        remoteBuildState.user = null;
+    }
+}
+
+async function refreshSlots() {
+    if (!remoteBuildState.user) {
+        remoteBuildState.items = [];
+        renderSlots();
+        return;
+    }
+
+    const response = await fetchJson("/builds");
+    const items = Array.isArray(response?.items) ? response.items : [];
+    remoteBuildState.items = items.slice(0, SLOT_COUNT);
+
+    if (remoteBuildState.selectedSlot < 0 || remoteBuildState.selectedSlot >= SLOT_COUNT) {
+        remoteBuildState.selectedSlot = 0;
+    }
+
+    renderSlots();
+}
+
+async function saveCurrentBuildToSlot() {
+    try {
+        const payload = getSavePayload();
+        const slotBuild = getSlotBuild(remoteBuildState.selectedSlot);
+
+        if (slotBuild) {
+            await fetchJson(`/builds/${slotBuild.id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+        } else {
+            if (remoteBuildState.items.length >= SLOT_COUNT) {
+                throw new Error("Vsech 5 slotu je plnych. Vyber slot s existujici sestavou pro prepsani.");
+            }
+
+            await fetchJson("/builds", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+        }
+
+        closeSaveModal();
+        await refreshSlots();
+        setBuildStatus("Sestava byla ulozena.", "success");
+    } catch (error) {
+        setModalError(error.message || "Sestavu se nepodarilo ulozit.");
+    }
+}
+
+function bindSlotEvents() {
+    const openSaveBtn = document.getElementById("open-save-modal");
+    const saveModal = document.getElementById("save-modal");
+    const saveModalCancel = document.getElementById("save-modal-cancel");
+    const saveModalSubmit = document.getElementById("save-modal-submit");
+    const confirmModal = document.getElementById("confirm-modal");
+    const confirmCancel = document.getElementById("confirm-modal-cancel");
+    const confirmAccept = document.getElementById("confirm-modal-accept");
+
+    if (openSaveBtn) openSaveBtn.addEventListener("click", openSaveModal);
+
+    if (saveModalCancel) saveModalCancel.addEventListener("click", closeSaveModal);
+    if (saveModalSubmit) saveModalSubmit.addEventListener("click", saveCurrentBuildToSlot);
+    if (confirmCancel) confirmCancel.addEventListener("click", () => closeConfirmModal(false));
+    if (confirmAccept) confirmAccept.addEventListener("click", () => closeConfirmModal(true));
+
+    if (saveModal) {
+        saveModal.addEventListener("click", (e) => {
+            if (e.target === saveModal) closeSaveModal();
+        });
+    }
+
+    if (confirmModal) {
+        confirmModal.addEventListener("click", (e) => {
+            if (e.target === confirmModal) closeConfirmModal(false);
+        });
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape") return;
+
+        if (confirmModal && confirmModal.classList.contains("open")) {
+            closeConfirmModal(false);
+            return;
+        }
+
+        if (saveModal && saveModal.classList.contains("open")) {
+            closeSaveModal();
+        }
+    });
 }
 
 document.getElementById("download-build").onclick = () => {
@@ -551,9 +1205,9 @@ document.getElementById("download-build").onclick = () => {
     const lines = [
         "Sestava PC",
         "",
-        ...items.map((i) => `${getCategoryLabel(i.category)} – ${i.name || "Neznámý produkt"} (${formatItemPriceText(i) || "Cena na dotaz"})`),
+        ...items.map((i) => `${getCategoryLabel(i.category)} - ${i.name || "Neznamy produkt"} (${formatItemPriceText(i) || "Cena na dotaz"})`),
         "",
-        "Celková cena: " + document.getElementById("build-total").textContent
+        "Celkova cena: " + document.getElementById("build-total").textContent
     ];
 
     const text = lines.join("\n");
@@ -565,8 +1219,25 @@ document.getElementById("download-build").onclick = () => {
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 };
 
-renderBuild();
+async function initPage() {
+    renderBuild();
+    bindSlotEvents();
+    await loadCurrentUser();
+    try {
+        await refreshSlots();
+        if (!remoteBuildState.user) {
+            setBuildStatus("Pro ukladani sestav se prihlas.", "error");
+        }
+    } catch (error) {
+        setBuildStatus(error.message || "Spravu ulozenych sestav se nepodarilo nacist.", "error");
+    }
+}
+
+initPage();
 </script>
 
 </body>
 </html>
+
+
+

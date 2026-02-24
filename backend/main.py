@@ -11,12 +11,14 @@ from database import get_db
 from models import Product, CPU, GPU, Motherboard, PCCase, PSU, RAM, Storage, Cooler
 from schemas import ProductOut, ProductListResponse
 from routers.auth import auth_router
+from routers.builds import builds_router
 
 import update_all_prices as up
 
 
 app = FastAPI(title="PC Configurator API")
 app.include_router(auth_router)
+app.include_router(builds_router)
 
 app.add_middleware(
     CORSMiddleware,

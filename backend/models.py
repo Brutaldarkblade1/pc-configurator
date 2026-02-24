@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, ForeignKey, Index, func
+from sqlalchemy.dialects.postgresql import JSONB
 from datetime import datetime
 
 from database import Base
@@ -107,3 +108,22 @@ class User(Base):
     verification_expires_at = Column(DateTime, nullable=True)
 
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+
+class UserBuild(Base):
+    __tablename__ = "user_builds"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    name = Column(String(120), nullable=False)
+    description = Column(Text, nullable=True)
+    build_data = Column(JSONB, nullable=False, default=list)
+    total_price = Column(Integer, nullable=True)
+    is_favorite = Column(Boolean, nullable=False, default=False)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index("user_builds_user_name_uk", "user_id", func.lower(name), unique=True),
+        Index("user_builds_updated_at_idx", "updated_at"),
+    )
